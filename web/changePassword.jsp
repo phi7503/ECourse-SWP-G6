@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Vegetable Website Template</title>
+        <title>Fruitables - Change Password</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -23,7 +23,6 @@
         <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -31,15 +30,14 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-          <!-- Spinner Start -->
+        <!-- Spinner Start -->
         <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" role="status"></div>
         </div>
         <!-- Spinner End -->
 
-
-        <!-- Navbar start -->
-        <div class="container-fluid fixed-top">
+        <!-- Navbar Start -->
+        <div >
             <div class="container topbar bg-primary d-none d-lg-block">
                 <div class="d-flex justify-content-between">
                     <div class="top-info ps-2">
@@ -55,7 +53,7 @@
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
+                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Ecourse</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
@@ -68,7 +66,7 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                     <a href="cart.html" class="dropdown-item">Cart</a>
-                                    <a href="chackout.html" class="dropdown-item">Chackout</a>
+                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
                                     <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                                     <a href="404.html" class="dropdown-item">404 Page</a>
                                 </div>
@@ -76,7 +74,7 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="d-flex m-3 me-0">
-                            <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                           
                             <a href="#" class="position-relative me-4 my-auto">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
@@ -89,22 +87,91 @@
                 </nav>
             </div>
         </div>
+        <!-- Navbar End -->
         
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Enter your email</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+        <!-- Change Password Form Start -->
+        <div class="container mt-5">
+            <h2>Change Password</h2>
+            <button type="submit" class="btn btn-primary">Back</button>
+            <form action="ChangePassServlet" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="user" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="opass" class="form-label">Old Password</label>
+                    <input type="password" class="form-control" id="opass" name="opass" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pass" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="pass" name="pass" required>
+                </div>
+                <div class="mb-3">
+                    <label for="re_pass" class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" id="re_pass" name="re_pass" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+            <c:if test="${not empty mess}">
+                <div class="alert alert-info mt-3">${mess}</div>
+            </c:if>
+        </div>
+        <!-- Change Password Form End -->
+
+        <!-- Footer Start -->
+        <footer class="bg-dark text-light py-5 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-5">
+                        <h4 class="text-primary">Ecourse</h4>
+                        <p>123 Street, New York, USA</p>
+                        <p>Email@Example.com</p>
+                        <p>+012 345 67890</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
                         </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-5">
+                        <h4 class="text-light">Quick Links</h4>
+                        <a class="btn btn-link" href="index.html">Home</a>
+                        <a class="btn btn-link" href="shop.html">Shop</a>
+                        <a class="btn btn-link" href="shop-detail.html">Shop Detail</a>
+                        <a class="btn btn-link" href="contact.html">Contact</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-5">
+                        <h4 class="text-light">Pages</h4>
+                        <a class="btn btn-link" href="cart.html">Cart</a>
+                        <a class="btn btn-link" href="checkout.html">Checkout</a>
+                        <a class="btn btn-link" href="testimonial.html">Testimonial</a>
+                        <a class="btn btn-link" href="404.html">404 Page</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-5">
+                        <h4 class="text-light">Newsletter</h4>
+                        <form action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Your Email">
+                                <button class="btn btn-primary" type="submit">Sign Up</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
+        <!-- Footer End -->
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
     </body>
 </html>

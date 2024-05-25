@@ -4,8 +4,16 @@
         <servlet-name>ChangePassServlet</servlet-name>
         <servlet-class>Repositories.ChangePassServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserProfileServlet</servlet-name>
+        <servlet-class>Repositories.UserProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChangePassServlet</servlet-name>
         <url-pattern>/changepass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileServlet</servlet-name>
+        <url-pattern>/userprofile</url-pattern>
     </servlet-mapping>
 </web-app>

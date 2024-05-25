@@ -31,7 +31,7 @@ public class ChangePassServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("change_pass.jsp").forward(request, response);
+        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
     }
 
     @Override
@@ -42,15 +42,15 @@ public class ChangePassServlet extends HttpServlet {
         String pass = request.getParameter("pass");
         String re_pass = request.getParameter("re_pass");
 
-        UserDAO userDAO = new UserDAO(); // Tạo một đối tượng UserDAO
+        UserDAO userDAO = new UserDAO(); 
 
-        User u = userDAO.check(username, oPass); // Giả sử bạn có phương thức check trong UserDAO
+        User u = userDAO.check(username, oPass); 
 
         if (u != null) {
             if (pass.length() >= 8) {
                 if (pass.equals(re_pass)) {
                     u.setPassword(pass);
-                    userDAO.change(u); // Giả sử bạn có phương thức change trong UserDAO
+                    userDAO.change(u); 
                     request.setAttribute("mess", "Password changed successfully!");
                     HttpSession session = request.getSession();
                     session.setAttribute("account", u);

@@ -12,6 +12,10 @@ import java.util.logging.Logger;
 
 public class UserDAO extends DBContext{
     
+    public static final UserDAO INSTANCE = new UserDAO();
+
+    public UserDAO() {}
+    
     public User getUserById(int id){
         try{
             String sql = """
