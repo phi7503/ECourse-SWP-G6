@@ -1,6 +1,6 @@
-package Repositories;
+package Controller;
 
-import DAL.UserDAO;
+import DAO.UserDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +16,6 @@ public class UserProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("account");
-        
         if (currentUser != null) {
             int userId = currentUser.getUserID();
             User user = UserDAO.INSTANCE.getUserById(userId);

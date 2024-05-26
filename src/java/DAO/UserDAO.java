@@ -1,10 +1,11 @@
 
-package DAL;
+package DAO;
 
 import Models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,7 +13,19 @@ import java.util.logging.Logger;
 
 public class UserDAO extends DBContext{
     
+    private List<User> ul;
+    private Connection con;
+    private String status = "OK";
     public static final UserDAO INSTANCE = new UserDAO();
+    
+    public List<User> getUl() {
+        return ul;
+    }
+
+    
+    public void setUl(List<User> ul) {
+        this.ul = ul;
+    }
 
     public UserDAO() {}
     
@@ -57,7 +70,7 @@ public class UserDAO extends DBContext{
     
     public User check(String username, String password) {
         try {
-            String sql = """
+            String sql = """    
                          SELECT [UserID]
                                  ,[UserName]
                                  ,[Password]

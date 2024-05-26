@@ -1,6 +1,6 @@
-package Repositories;
+package Controller;
 
-import DAL.UserDAO;
+import DAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -41,7 +41,8 @@ public class ChangePassServlet extends HttpServlet {
         String oPass = request.getParameter("opass");
         String pass = request.getParameter("pass");
         String re_pass = request.getParameter("re_pass");
-
+        
+        
         UserDAO userDAO = new UserDAO(); 
 
         User u = userDAO.check(username, oPass); 
