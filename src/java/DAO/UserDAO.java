@@ -1,123 +1,156 @@
 
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package DAO;
 
-import Models.User;
 import java.sql.Connection;
+import java.util.*;
+import Models.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-
-
-public class UserDAO extends DBContext{
+/**
+ *
+ * @author hi2ot
+ */
+public class UserDAO {
     
     private List<User> ul;
     private Connection con;
     private String status = "OK";
-    public static final UserDAO INSTANCE = new UserDAO();
-    
+    public static UserDAO INS = new UserDAO();
+
     public List<User> getUl() {
         return ul;
     }
 
-    
     public void setUl(List<User> ul) {
         this.ul = ul;
     }
 
-    public UserDAO() {}
-    
-    public User getUserById(int id){
-        try{
-            String sql = """
-                         SELECT [UserID]
-                                 ,[UserName]
-                                 ,[Password]
-                                 ,[Mail]
-                                 ,[FullName]
-                                 ,[DoB]
-                                 ,s.[Question]
-                                 ,[Answer]
-                                 ,[Role]
-                                 ,[Status]
-                             FROM [ECourse].[dbo].[User] le left join SEQuestion s on le.SecurityQuestionID = s.SecurityQuestionID 
-                             where UserID = ?""";
-            Connection connection = getConnection();
-            PreparedStatement ptm = connection.prepareStatement(sql);
-            ptm.setInt(1, id);
-            ResultSet rs = ptm.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setUserID(rs.getInt(1));
-                user.setUserName(rs.getString(2));
-                user.setPassword(rs.getString(3));
-                user.setMail(rs.getString(4));
-                user.setFullName(rs.getString(5));
-                user.setDoB(rs.getDate(6));
-                user.setQuestion(rs.getString(7));
-                user.setAnswer(rs.getString(8));
-                user.setRole(rs.getInt(9));
-                user.setStatus(rs.getInt(10));
-                return user;
+    private UserDAO() {
+        if (INS == null) {
+            try {
+                con = new DBContext().getConnection();
+            } catch (Exception e) {
+                status = "Error at Connection" + e.getMessage();
             }
-        }catch(Exception ex){
-             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            INS = this;
+        }
+    }
+    
+    public void load() {
+        String sql = "Select * From [User]";
+        ul = new Vector<User>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int UserID = rs.getInt("UserID");
+                String UserName = rs.getString("UserName");
+                String Password = rs.getString("Password");
+                String Mail = rs.getString("Mail");
+                String FullName = rs.getString("FullName");
+                java.sql.Date DoB = rs.getDate("DoB");
+                int SecurityQuestionID = rs.getInt("SecurityQuestionID");
+                String Answer = rs.getString("Answer");
+                int Role = rs.getInt("Role");
+                ul.add(new User(UserID, UserName, Password, Mail, FullName, DoB, SecurityQuestionID, Answer, Role));
+            }
+        } catch (Exception e) {
+            status = "Error at load User" + e.getMessage();
+            System.out.println(status);
+        }        
+    }
+    
+    public User getUserByName(String UserName) {
+        for (User x : ul) {
+            if (x.getUserName().equals(UserName)) {
+                return x;
+            }
         }
         return null;
     }
     
-    public User check(String username, String password) {
+     public User check(String username, String password) {
+        String sql = "SELECT * FROM [User] WHERE UserName = ? AND Password = ?";
         try {
-            String sql = """    
-                         SELECT [UserID]
-                                 ,[UserName]
-                                 ,[Password]
-                                 ,[Mail]
-                                 ,[FullName]
-                                 ,[DoB]
-                                 ,s.[Question]
-                                 ,[Answer]
-                                 ,[Role]
-                                 ,[Status]
-                             FROM [ECourse].[dbo].[User] le left join SEQuestion s on le.SecurityQuestionID = s.SecurityQuestionID 
-                             where UserName = ? and Password = ?""";
-            Connection connection = getConnection();
-            PreparedStatement ptm = connection.prepareStatement(sql);
-            ptm.setString(1, username);
-            ptm.setString(2, password);
-            ResultSet rs = ptm.executeQuery();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                User user = new User();
-                user.setUserID(rs.getInt("UserID"));
-                user.setUserName(rs.getString("UserName"));
-                user.setPassword(rs.getString("Password"));
-                user.setMail(rs.getString("Mail"));
-                user.setFullName(rs.getString("FullName"));
-                user.setDoB(rs.getDate("DoB"));
-                user.setQuestion(rs.getString("Question"));
-                user.setAnswer(rs.getString("Answer"));
-                user.setRole(rs.getInt("Role"));
-                user.setStatus(rs.getInt("Status"));
-                return user;
+                int UserID = rs.getInt("UserID");
+                String UserName = rs.getString("UserName");
+                String Password = rs.getString("Password");
+                String Mail = rs.getString("Mail");
+                String FullName = rs.getString("FullName");
+                java.sql.Date DoB = rs.getDate("DoB");
+                int SecurityQuestionID = rs.getInt("SecurityQuestionID");
+                String Answer = rs.getString("Answer");
+                int Role = rs.getInt("Role");
+                return new User(UserID, UserName, Password, Mail, FullName, DoB, SecurityQuestionID, Answer, Role);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            status = "Error at check User" + e.getMessage();
+            System.out.println(status);
         }
         return null;
     }
 
+    
     public void change(User user) {
+        String sql = "UPDATE [User] SET Password = ? WHERE UserID = ?";
         try {
-            String sql = "UPDATE [ECourse].[dbo].[User] SET [Password] = ? WHERE [UserID] = ?";
-            Connection connection = getConnection();
-            PreparedStatement ptm = connection.prepareStatement(sql);
-            ptm.setString(1, user.getPassword());
-            ptm.setInt(2, user.getUserID());
-            ptm.executeUpdate();
-        } catch (Exception ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, user.getPassword());
+            ps.setInt(2, user.getUserID());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            status = "Error at change Password" + e.getMessage();
+            System.out.println(status);
+        }
+    }
+    
+    public User getUserByID(int userID) {
+        String sql = "SELECT * FROM [User] WHERE UserID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String UserName = rs.getString("UserName");
+                String Password = rs.getString("Password");
+                String Mail = rs.getString("Mail");
+                String FullName = rs.getString("FullName");
+                java.sql.Date DoB = rs.getDate("DoB");
+                int SecurityQuestionID = rs.getInt("SecurityQuestionID");
+                String Answer = rs.getString("Answer");
+                int Role = rs.getInt("Role");
+                return new User(userID, UserName, Password, Mail, FullName, DoB, SecurityQuestionID, Answer, Role);
+            }
+        } catch (Exception e) {
+            status = "Error at getUserByID: " + e.getMessage();
+            System.out.println(status);
+        }
+        return null;
+    }
+    
+     public boolean changePassword(int userID, String newPassword) {
+        String sql = "UPDATE [User] SET Password = ? WHERE UserID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setInt(2, userID);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            status = "Error at changePassword: " + e.getMessage();
+            System.out.println(status);
+            return false;
         }
     }
 }

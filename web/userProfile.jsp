@@ -5,11 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Change Password</title>
+        <title>Fruitables - User Profile</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -35,13 +36,13 @@
     </head>
     <body>
         <!-- Spinner Start -->
-        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" role="status"></div>
         </div>
         <!-- Spinner End -->
 
         <!-- Navbar Start -->
-        <div >
+        <div>
             <div class="container topbar bg-primary d-none d-lg-block">
                 <div class="d-flex justify-content-between">
                     <div class="top-info ps-2">
@@ -78,7 +79,6 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="d-flex m-3 me-0">
-                           
                             <a href="#" class="position-relative me-4 my-auto">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
@@ -92,5 +92,62 @@
             </div>
         </div>
         <!-- Navbar End -->
+
+        <!-- Profile Start -->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3>User Profile</h3>
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.User}">
+                            <ul class="list-group">
+                                <li class="list-group-item">Username: ${sessionScope.User.userName}</li>
+                                <li class="list-group-item">Email: ${sessionScope.User.mail}</li>
+                                <li class="list-group-item">Full Name: ${sessionScope.User.fullName}</li>
+                                <li class="list-group-item">Date of Birth: ${sessionScope.User.dob}</li>
+                            </ul>
+                        </c:when>
+                        <c:otherwise>
+                            <c:redirect url="Web/Login.jsp" />
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="col-lg-8">
+                    <h3>Change Password</h3>
+                    <form action="ChangePassServlet" method="post">
+                        <div class="form-group">
+                            <label for="opass">Current Password</label>
+                            <input type="password" class="form-control" id="opass" name="opass" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass">New Password</label>
+                            <input type="password" class="form-control" id="pass" name="pass" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="re_pass">Re-enter New Password</label>
+                            <input type="password" class="form-control" id="re_pass" name="re_pass" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Change Password</button>
+                    </form>
+                    <c:if test="${not empty requestScope.mess}">
+                        <div class="alert alert-info mt-3">
+                            ${requestScope.mess}
+                        </div>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+        <!-- Profile End -->
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
     </body>
 </html>

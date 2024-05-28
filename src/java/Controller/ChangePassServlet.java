@@ -37,32 +37,37 @@ public class ChangePassServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("user");
-        String oPass = request.getParameter("opass");
-        String pass = request.getParameter("pass");
-        String re_pass = request.getParameter("re_pass");
-        
-        
-        UserDAO userDAO = new UserDAO(); 
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("User");
+        if (currentUser != null) {
+            String oPass = request.getParameter("opass");
+            String pass = request.getParameter("pass");
+            String re_pass = request.getParameter("re_pass");
 
-        User u = userDAO.check(username, oPass); 
+            UserDAO userDAO = UserDAO.INS;
 
-        if (u != null) {
-            if (pass.length() >= 8) {
-                if (pass.equals(re_pass)) {
-                    u.setPassword(pass);
-                    userDAO.change(u); 
-                    request.setAttribute("mess", "Password changed successfully!");
-                    HttpSession session = request.getSession();
-                    session.setAttribute("account", u);
+            if (currentUser.getPassword().equals(oPass)) {
+                if (pass.length() >= 8) {
+                    if (pass.equals(re_pass)) {
+                        boolean isChanged = userDAO.changePassword(currentUser.getUserID(), pass);
+                        if (isChanged) {
+                            currentUser.setPassword(pass);
+                            request.setAttribute("mess", "Password changed successfully!");
+                            session.setAttribute("account", currentUser);
+                        } else {
+                            request.setAttribute("mess", "Failed to change password!");
+                        }
+                    } else {
+                        request.setAttribute("mess", "Re-entered password is incorrect");
+                    }
                 } else {
-                    request.setAttribute("mess", "Re-entered password is incorrect");
+                    request.setAttribute("mess", "Password too short!");
                 }
             } else {
-                request.setAttribute("mess", "Password too short!");
+                request.setAttribute("mess", "Incorrect current password");
             }
         } else {
-            request.setAttribute("mess", "Incorrect password");
+            response.sendRedirect("login.jsp");
         }
         doGet(request, response);
     }

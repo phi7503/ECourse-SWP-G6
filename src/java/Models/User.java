@@ -1,27 +1,47 @@
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Models;
 
-import java.util.Date;
+import java.sql.Date;
 
+/**
+ *
+ * @author hi2ot
+ */
 public class User {
-
-    private String UserName, Password, Mail, FullName,Question, Answer;
-    private int UserID, Role, Status;
+    private int UserID;
+    private String UserName;
+    private String Password;
+    private String Mail;
+    private String FullName;
     private Date DoB;
+    private int SecurityQuestionID;
+    private String Answer;
+    private int Role;
+    private int Status;
 
-    public User() {
-    }
-
-    public User(String UserName, String Password, String Mail, String FullName, String Question, String Answer, int UserID, int Role, int Status, Date DoB) {
+    public User(int UserID, String UserName, String Password, String Mail, String FullName, Date DoB, int SecurityQuestionID, String Answer, int Role) {
+        this.UserID = UserID;
         this.UserName = UserName;
         this.Password = Password;
         this.Mail = Mail;
         this.FullName = FullName;
-        this.Question = Question;
-        this.Answer = Answer;
-        this.UserID = UserID;
-        this.Role = Role;
-        this.Status = Status;
         this.DoB = DoB;
+        this.SecurityQuestionID = SecurityQuestionID;
+        this.Answer = Answer;
+        this.Role = Role;
+        this.Status = 0;
+    }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
     }
 
     public String getUserName() {
@@ -56,12 +76,20 @@ public class User {
         this.FullName = FullName;
     }
 
-    public String getQuestion() {
-        return Question;
+    public Date getDoB() {
+        return DoB;
     }
 
-    public void setQuestion(String Question) {
-        this.Question = Question;
+    public void setDoB(Date DoB) {
+        this.DoB = DoB;
+    }
+
+    public int getSecurityQuestionID() {
+        return SecurityQuestionID;
+    }
+
+    public void setSecurityQuestionID(int SecurityQuestionID) {
+        this.SecurityQuestionID = SecurityQuestionID;
     }
 
     public String getAnswer() {
@@ -70,14 +98,6 @@ public class User {
 
     public void setAnswer(String Answer) {
         this.Answer = Answer;
-    }
-
-    public int getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(int UserID) {
-        this.UserID = UserID;
     }
 
     public int getRole() {
@@ -96,14 +116,9 @@ public class User {
         this.Status = Status;
     }
 
-    public Date getDoB() {
-        return DoB;
-    }
-
-    public void setDoB(Date DoB) {
-        this.DoB = DoB;
-    }
-    
-    
+    @Override
+    public String toString() {
+        return "User{" + "UserID=" + UserID + ", UserName=" + UserName + ", Password=" + Password + ", Mail=" + Mail + ", FullName=" + FullName + ", DoB=" + DoB + ", SecurityQuestionID=" + SecurityQuestionID + ", Answer=" + Answer + ", Role=" + Role + ", Status=" + Status + '}';
+    }        
     
 }

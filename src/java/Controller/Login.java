@@ -37,7 +37,7 @@ public class Login extends HttpServlet {
                 String Username = request.getParameter("Username");
                 String Password = request.getParameter("Password");
                 if (LoginCheck(Username, Password) == null) {                    
-                    ses.setAttribute("User", UserDAO.INSTANCE.getUserByName(Username)); 
+                    ses.setAttribute("User", UserDAO.INS.getUserByName(Username));
                     response.sendRedirect(request.getContextPath());
                 } else {
                     request.setAttribute("err", LoginCheck(Username, Password));
@@ -52,8 +52,8 @@ public class Login extends HttpServlet {
     }
     
     public String LoginCheck(String Username, String Password) {
-        UserDAO.INSTANCE.load();
-        for (User x : UserDAO.INSTANCE.getUl()) {
+        UserDAO.INS.load();
+        for (User x : UserDAO.INS.getUl()) {
             if (Username.equals(x.getUserName()) & Password.equals(x.getPassword())) {
                 return null;
             }
