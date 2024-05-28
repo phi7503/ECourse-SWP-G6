@@ -7,7 +7,10 @@ package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-
+/**
+ *
+ * @author Admin
+ */
 public class DBContext {
     
     /*USE BELOW METHOD FOR YOUR DATABASE CONNECTION FOR BOTH SINGLE AND MULTILPE SQL SERVER INSTANCE(s)*/
@@ -24,8 +27,19 @@ public class DBContext {
    
     /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
     private final String serverName = "localhost";
-    private final String dbName = "ECourse";
+    private final String dbName = "Ecourse";
     private final String portNumber = "1433";
     private final String userID = "sa";
-    private final String password = "123";
+    private final String password = "123";    
+}
+
+class using{
+    public static void main(String[] args) {
+        try{
+            new DBContext().getConnection();
+            System.out.println("Ket noi thanh cong");
+        }catch (Exception e){
+            System.out.println("Ket noi that bai"+e.getMessage());
+        }
+    }
 }
