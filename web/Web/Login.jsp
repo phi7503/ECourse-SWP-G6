@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/main
 <%-- 
     Document   : Login
     Created on : May 25, 2024, 5:12:23 PM
@@ -55,32 +52,26 @@
 
         <!-- Fact Start -->
         <div class="container-fluid py-5 col-lg-6">
-<<<<<<< HEAD
-=======
-
             <a href="../../src/java/Controller/Login.java"></a>
-
->>>>>>> origin/main
-            
-                <form action="Login" method="post">
-                    <div class="bg-light p-5">
-                        <div class="col-lg-12 col-md-12 col-xl-12">
-                            <div class="counter bg-white rounded p-4" >
-                                <h1 class="display-6 text-primary px-4">Username</h1>                                
-                                <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
-                                <h1 class="display-6 text-primary px-4">Password</h1>
-                                <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
-                                <br/>
-                                <c:if test='${err != null}'>
-                                    <h4 class="mb-3 text-secondary">${err}</h4>
-                                </c:if>
-                                <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                            </div>                             
-                        </div>
-
+            <form action="Login" method="post">
+                <div class="bg-light p-5">
+                    <div class="col-lg-12 col-md-12 col-xl-12">
+                        <div class="counter bg-white rounded p-4" >
+                            <h1 class="display-6 text-primary px-4">Username</h1>                                
+                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
+                            <h1 class="display-6 text-primary px-4">Password</h1>
+                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
+                            <br/>
+                            <c:if test='${err != null}'>
+                                <h4 class="mb-3 text-secondary">${err}</h4>
+                            </c:if>
+                            <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
+                        </div>                             
                     </div>
-                </form>
-            
+
+                </div>
+            </form>
+
         </div>
         <!-- Fact Start -->
 

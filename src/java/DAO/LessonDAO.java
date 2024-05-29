@@ -9,8 +9,10 @@ import java.util.*;
 import Models.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author hi2ot
@@ -73,6 +75,7 @@ public class LessonDAO {
         INS.load();
         System.out.println(INS.getStatus());
     }
+
     
     
     public Lesson getLessonByID(int id) {
@@ -173,5 +176,6 @@ public class LessonDAO {
         }
         return false;
     }
+
 }
 
