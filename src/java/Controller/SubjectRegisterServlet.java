@@ -4,8 +4,7 @@
  */
 package Controller;
 
-import DAL.LessonDAO;
-import Models.Lesson;
+import DAO.LessonDAO;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;

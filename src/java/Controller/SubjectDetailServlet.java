@@ -5,7 +5,7 @@
 
 package Controller;
 
-import DAL.LessonDAO;
+import DAO.LessonDAO;
 import Models.Lesson;
 import Models.User;
 import java.io.IOException;

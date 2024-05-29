@@ -1,22 +1,80 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAL;
-
-import Models.Lesson;
+package DAO;
 import java.sql.Connection;
+import java.util.*;
+import Models.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
- * @author admin
+ * @author hi2ot
  */
-public class LessonDAO extends DBContext {
+public class LessonDAO {
+    List<Lesson> ll;
+    private Connection con;
+    private String status = "OK";
+    public static LessonDAO INS = new LessonDAO();
 
+    public List<Lesson> getLl() {
+        return ll;
+    }
+
+    public void setLl(List<Lesson> ll) {
+        this.ll = ll;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+            
+    private LessonDAO() {
+        if (INS == null) {
+            try {
+                con = new DBContext().getConnection();
+            } catch (Exception e) {
+                status = "Error at Connection" + e.getMessage();
+            }
+        } else {
+            INS = this;
+        }
+    }
+    
+    public void load() {
+        String sql = "Select * From [Lesson]";
+        ll = new Vector<Lesson>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int LessonID = rs.getInt("LessonID");
+                String LessonName = rs.getString("LessonName");
+                float Price = rs.getFloat("Price");
+                int DiscountID = rs.getInt("DiscountID");
+                String Description = rs.getString("Description");
+                java.sql.Date CreateDate = rs.getDate("CreateDate");
+                ll.add(new Lesson(LessonID, LessonName, Price, DiscountID, Description, CreateDate));
+            }
+        } catch (Exception e) {
+            status = "Error at load Lesson " + e.getMessage();
+        }
+    }
+    
+    public static void main(String[] args){
+        INS.load();
+        System.out.println(INS.getStatus());
+    }
+    
+    
     public Lesson getLessonByID(int id) {
         try {
             String sql = """
@@ -31,7 +89,7 @@ public class LessonDAO extends DBContext {
                                  ,[Image]
                              FROM [ECourse].[dbo].[Lesson] le left join Discount d on le.DiscountID = d.DiscountID 
                              where LessonID = ?""";
-            Connection connection = getConnection();
+            Connection connection = con;
             PreparedStatement ptm = connection.prepareStatement(sql);
             ptm.setInt(1, id);
             ResultSet rs = ptm.executeQuery();
@@ -49,7 +107,7 @@ public class LessonDAO extends DBContext {
                 return lesson;
             }
         } catch (Exception ex) {
-            Logger.getLogger(LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -62,7 +120,7 @@ public class LessonDAO extends DBContext {
                               VALUES
                                     (?)
                          """;
-            Connection connection = getConnection();
+            Connection connection = con;
             PreparedStatement ptm = connection.prepareStatement(sql);
             ptm.setInt(1, userID);
             ptm.executeUpdate();
@@ -75,7 +133,7 @@ public class LessonDAO extends DBContext {
                 return rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
     }
@@ -89,13 +147,13 @@ public class LessonDAO extends DBContext {
                                          VALUES
                                                (?,?)
                          """;
-            Connection connection = getConnection();
+            Connection connection = con;
             PreparedStatement ptm = connection.prepareStatement(sql);
             ptm.setInt(1, session);
             ptm.setInt(2, lessonID);
             ptm.executeUpdate();
         } catch (Exception ex) {
-            Logger.getLogger(LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -103,7 +161,7 @@ public class LessonDAO extends DBContext {
         try {
             String sql = """
                          select * from Cart c join [Session] s on c.SessionID = s.SessionID where s.UserID = ?""";
-            Connection connection = getConnection();
+            Connection connection = con;
             PreparedStatement ptm = connection.prepareStatement(sql);
             ptm.setInt(1, userID);
             ResultSet rs = ptm.executeQuery();
@@ -111,8 +169,9 @@ public class LessonDAO extends DBContext {
                 return true;
             }
         } catch (Exception ex) {
-            Logger.getLogger(LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 }
+
