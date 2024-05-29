@@ -1,5 +1,6 @@
 package Controller;
 
+import static ControllerAdmin.AddUser.checkUserExist;
 import DAO.*;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -21,14 +22,56 @@ import static javax.xml.bind.DatatypeConverter.parseDate;
 
 public class RegisterServlet extends HttpServlet {
 
+    UsersDAO dao = new UsersDAO();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UsersDAO dao = new UsersDAO();
-        Vector <String> listQuestion = dao.getAllQuestion();
-        
+        Vector<String> listQuestion = dao.getAllQuestion();
+
         request.setAttribute("list", listQuestion);
-        request.getRequestDispatcher("register.jsp").forward(request, response);
-        
+        request.getRequestDispatcher("/register.jsp").forward(request, response);
+
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        int userid;
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String cfpass = request.getParameter("cfpassword");
+        String email = request.getParameter("email");
+        String fullname = request.getParameter("fullname");
+        String dob = request.getParameter("dateOfBirth");
+        int seQuestionID = 1;
+        String answer = request.getParameter("answer");
+        String role1 = request.getParameter("role");
+        int status = 1;
+
+        int role = 2;
+        if (role1.equals("expert")) {
+            role = 2;
+        } else if (role1.equals("learner")) {
+            role = 3;
+        }
+
+        Vector<Users> listU = dao.getAllUser();
+        userid = listU.size() + 1;
+
+        if (!isValidFullname(fullname)) {
+            request.setAttribute("mess", "Please enter the correct full name");
+            doGet(request, response);
+        } else if (checkUserExist(username, listU)) {
+            request.setAttribute("mess", "Username already exists");
+            doGet(request, response);
+        } else if (!password.equals(cfpass)) {
+            // kiem tra mat khau va nhap lai mat khau co khop nhau hay khong
+            request.setAttribute("mess", "Password not match!");
+            doGet(request, response);
+        }
+        dao.Register(userid, username, password, email, fullname, dob, seQuestionID, answer, role, status);
+        request.getRequestDispatcher("/index.html").forward(request, response);
+
     }
 
     public static boolean checkUserExist(String username, Vector<Users> listU) {
@@ -39,58 +82,15 @@ public class RegisterServlet extends HttpServlet {
         }
         return false;
     }
+
+//    private boolean isValidEmail(String email) {
+//        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+//        return email.matches(regex);
+//    }
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        int userid ;
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String cfpass = request.getParameter("cfpassword");
-        String mail = request.getParameter("email");
-        String fullname = request.getParameter("fullname");
-        String dob1 = "2002-11-02";//request.getParameter("dateOfBirth");
-        int securityid = 1;
-        String answer = request.getParameter("answer");
-        String role1 = request.getParameter("role");
-        int status = 1;
-
-        
-        int role=1;
-        if(role1.equals("expert")){
-            role=2;
-        }else if(role1.equals("learner")){
-            role=3;
-        }
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dob = null;
-        try {
-            dob = sdf.parse(dob1);
-        } catch (ParseException ex) {
-            Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        // lay ra tat ca nhung tai khoan da ton tai trong he thong
-        UsersDAO ud = new UsersDAO();
-        Vector<Users> listU = ud.getAllUser();
-        userid = listU.size()+1;
-
-        if (checkUserExist(username, listU)) {
-            request.setAttribute("mess", "Username already exists");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-        } else if (!password.equals(cfpass)) {
-            // kiem tra mat khau va nhap lai mat khau co khop nhau hay khong
-            request.setAttribute("mess", "Password not match!");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-        } else {
-            // neu khong co van de gì -> dang ky tai khoan thành công
-            Users u = new Users(userid, username, password, mail, dob, fullname, securityid, answer, role, status);
-            ud.Register(u);
-            request.getRequestDispatcher("index.html").forward(request, response);
-
-        }
-
+    private boolean isValidFullname(String fullname) {
+        String regex = "^[A-Z][a-z]*(\\s[A-Z][a-z]*)*$";
+        return fullname.matches(regex);
     }
 
 }

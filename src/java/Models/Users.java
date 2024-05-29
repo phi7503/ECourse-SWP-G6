@@ -37,6 +37,17 @@ public class Users {
         this.status = status;
     }
 
+    public Users(int ID, String email, Date dateOfBirth, String fullname, int role, int status) {
+        this.ID = ID;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.fullname = fullname;
+        this.role = role;
+        this.status = status;
+    }
+    
+    
+
     public int getID() {
         return ID;
     }

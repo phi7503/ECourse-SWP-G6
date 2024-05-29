@@ -14,13 +14,5 @@ public class MyDAO extends DBContext {
   public MyDAO() {
      con = connection;
   }
-  public void finalize() {
-     try {
-        if(con != null) con.close();
-     }
-     catch(Exception e) {
-        e.printStackTrace();
-     }
-  }
     
 }
