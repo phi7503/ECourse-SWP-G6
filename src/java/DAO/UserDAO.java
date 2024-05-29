@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * @author hi2ot
  */
 public class UserDAO {
-    
+
     private List<User> ul;
     private Connection con;
     private String status = "OK";
@@ -41,7 +41,7 @@ public class UserDAO {
             INS = this;
         }
     }
-    
+
     public void load() {
         String sql = "Select * From [User]";
         ul = new Vector<User>();
@@ -63,9 +63,9 @@ public class UserDAO {
         } catch (Exception e) {
             status = "Error at load User" + e.getMessage();
             System.out.println(status);
-        }        
+        }
     }
-    
+
     public User getUserByName(String UserName) {
         for (User x : ul) {
             if (x.getUserName().equals(UserName)) {
@@ -75,8 +75,7 @@ public class UserDAO {
         return null;
     }
 
-    
-     public User check(String username, String password) {
+    public User check(String username, String password) {
         String sql = "SELECT * FROM [User] WHERE UserName = ? AND Password = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -101,8 +100,36 @@ public class UserDAO {
         }
         return null;
     }
-
     
+    public User checkResetPass(String username, String maill, int Question, String answer) {
+        String sql = "SELECT * FROM [User] WHERE UserName = ? AND Mail = ?"
+                + " AND SecurityQuestionID = ? AND Answer = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, maill);
+            ps.setInt(3, Question);
+            ps.setString(4, answer);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int UserID = rs.getInt("UserID");
+                String UserName = rs.getString("UserName");
+                String Password = rs.getString("Password");
+                String Mail = rs.getString("Mail");
+                String FullName = rs.getString("FullName");
+                java.sql.Date DoB = rs.getDate("DoB");
+                int SecurityQuestionID = rs.getInt("SecurityQuestionID");
+                String Answer = rs.getString("Answer");
+                int Role = rs.getInt("Role");
+                return new User(UserID, UserName, Password, Mail, FullName, DoB, SecurityQuestionID, Answer, Role);
+            }
+        } catch (Exception e) {
+            status = "Error at check User" + e.getMessage();
+            System.out.println(status);
+        }
+        return null;
+    }
+
     public void change(User user) {
         String sql = "UPDATE [User] SET Password = ? WHERE UserID = ?";
         try {
@@ -115,7 +142,7 @@ public class UserDAO {
             System.out.println(status);
         }
     }
-    
+
     public User getUserByID(int userID) {
         String sql = "SELECT * FROM [User] WHERE UserID = ?";
         try {
@@ -139,8 +166,8 @@ public class UserDAO {
         }
         return null;
     }
-    
-     public boolean changePassword(int userID, String newPassword) {
+
+    public boolean changePassword(int userID, String newPassword) {
         String sql = "UPDATE [User] SET Password = ? WHERE UserID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -155,6 +182,3 @@ public class UserDAO {
         }
     }
 }
-
-}
-

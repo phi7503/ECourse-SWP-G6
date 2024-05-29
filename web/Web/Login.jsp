@@ -69,7 +69,8 @@
                                     <h4 class="mb-3 text-secondary">${err}</h4>
                                 </c:if>
                                 <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                            </div>                             
+                            </div>                        
+                            <a href="ForgotPassword">Forgot Password </a>
                         </div>
 
                     </div>
