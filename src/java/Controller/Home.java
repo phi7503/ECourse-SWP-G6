@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import Models.*;
+import DAO.*;
 
 /**
  *
@@ -20,7 +22,9 @@ public class Home extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    throws ServletException, IOException {        
+        QuizDAO.INS.load();
+        request.setAttribute("QuizINS", QuizDAO.INS);
         request.getRequestDispatcher("/Web/Home.jsp").forward(request, response);
     } 
 

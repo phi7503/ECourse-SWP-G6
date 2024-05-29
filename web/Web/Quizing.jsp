@@ -142,18 +142,17 @@
                         <div class="col-lg-8 col-xl-9">
                             <div class="row g-4">                            
                                 <div class="col-lg-12">
-                                    <h4 class="fw-bold mb-3">Question ${Question.getQuizID()}</h4>
+                                    <h4 class="fw-bold mb-3">Question ${qul.indexOf(Question) + 1}</h4>
                                     <p class="mb-3">${Question.getQuestion()}</p>
                                     <table>
                                         <c:set var="AnswerID" value="${AnswerINS.getAnswerbyUserID(User.getUserID(), Question.getQuestionID())}"></c:set>
-                                        
-                                        
+                                                                                
                                         <c:forEach items="${AnswerINS.loadAnswerByQuestionId(Question.getQuestionID())}" var="x"> 
                                             <c:if test="${x.getAnswerID() == AnswerID}">
-                                                <input type="radio" name="Answer" value="${x.getAnswerID()}" checked> ${x.getDescription()}  
+                                                <input type="radio" name="Answer" value="${x.getAnswerID()}" checked disabled> ${x.getDescription()}  
                                             </c:if>
                                             <c:if test="${x.getAnswerID() != AnswerID}">
-                                                <input type="radio" name="Answer" value="${x.getAnswerID()}"> ${x.getDescription()}  
+                                                <input type="radio" name="Answer" value="${x.getAnswerID()}" disabled> ${x.getDescription()}  
                                             </c:if>
                                             <br/>
                                         </c:forEach>                      

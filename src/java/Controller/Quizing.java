@@ -39,10 +39,12 @@ public class Quizing extends HttpServlet {
                 index = Integer.parseInt(request.getAttribute("index") + "");
             } catch (Exception e) {
             }
-            if (request.getParameter("index") == null) {
+            if (request.getParameter("index") == null) {                                
                 HttpSession ses = request.getSession();
                 request.setAttribute("index", index);
-                request.setAttribute("QuizID", QuizID);
+                request.setAttribute("QuizID", QuizID);                
+                User u = (User) ses.getAttribute("User");
+                QuizDAO.INS.addUserQuizStatus(u.getUserID(), QuizID);
             }
             request.setAttribute("Question", qul.get(index));
             request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
