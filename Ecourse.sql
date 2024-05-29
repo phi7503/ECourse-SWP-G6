@@ -26,17 +26,16 @@ Create Table [SEQuestion](
 Create Table [Lesson](
 	LessonID int not null,
 	LessonName nvarchar(100) not null,
-	Price float not null,
-	DiscountID int not null,
+	Price float not null,	
 	[Description] nvarchar(500),
 	CreateDate date not null,
 	Primary Key(LessonID)
 );
 
 Create Table [Discount](
-	DiscountID int not null,
+	LessonID int not null,
 	[Percentage] float not null,
-	Primary Key (DiscountID)
+	Primary Key (LessonID)
 );
 
 Create Table [Feedback](
@@ -126,8 +125,8 @@ Alter Table [QuestionStatus] with nocheck
 	Add Foreign Key (UserID) References [User](UserID)
 Alter Table [QuizStatus] with nocheck
 	Add Foreign Key (UserID) References [User](UserID)
-Alter Table [Lesson] with nocheck
-	Add Foreign Key (DiscountID) References [Discount](DiscountID)
+Alter Table [Discount] with nocheck
+	Add Foreign Key (LessonID) References [Lesson](LessonID)
 Alter Table [User] with nocheck
 	Add Foreign Key (SecurityQuestionID) References [SEQuestion](SecurityQuestionID)
 Alter Table [Feedback] with nocheck
@@ -162,11 +161,11 @@ Insert Into [User] Values
 (1, 'a', 'a', 'reotonaro@gmail.com', 'Huy', '2004-04-04', 1, 'no', 3, 1),
 (2, 'b', 'b', 'hi2otaku@gmail.com', 'Huya', '2004-04-04', 1, 'no', 1, 1);
 
+Insert Into [Lesson] Values
+(1, 'Math', 10, 'Mathematic', '2024-5-28');
+
 Insert Into [Discount] Values
 (1, 20);
-
-Insert Into [Lesson] Values
-(1, 'Math', 10, 1, 'Mathematic', '2024-5-28');
 
 Insert Into [Quiz] Values
 (1, 1, 'Math 1', '2024-5-28'),
