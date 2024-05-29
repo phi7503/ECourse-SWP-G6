@@ -51,7 +51,12 @@
                             Description: <b class="mb-2">${lesson.description}</b><br>
                             Tag Line: <b class="mb-2">${lesson.tagline}</b><br>
                             Price: <b class="mb-4">${lesson.price * (100 - lesson.percentage) / 100}</b><br>
-                            <button type="submit" class="btn btn-primary mt-4 me-3" data-toggle="modal" data-target="#SBSI${lesson.id}">Register ${lesson.name}</button>
+                            <c:if test="${!requestScope.check}">
+                                <button type="submit" class="btn btn-primary mt-4 me-3" data-toggle="modal" data-target="#SBSI${lesson.id}">Register ${lesson.name}</button>
+                            </c:if>
+                            <c:if test="${requestScope.check}">
+                                <button type="button" class="btn btn-primary mt-4 me-3" >Registered ${lesson.name}</button>
+                            </c:if>
                             <div id="SBSI${lesson.id}"  class="modal fade" tabindex="-1" role="dialog">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -61,6 +66,7 @@
                                         </div>
                                         <form action="subject-resgister">
                                             <div class="modal-body">
+                                                <input type="hidden" id="id" name="lessonID" value="${lesson.id}">
                                                 <div class="my-3 col-12">
                                                     <div class="mt-3" id="update_price_async">
                                                         <p>Do you want to register ${lesson.name}</p>
