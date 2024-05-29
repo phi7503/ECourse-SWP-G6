@@ -37,7 +37,7 @@ public class Login extends HttpServlet {
                 String Password = request.getParameter("Password");
                 if (LoginCheck(Username, Password) == null) {                    
                     ses.setAttribute("User", UserDAO.INS.getUserByName(Username));
-                    response.sendRedirect(request.getContextPath());
+                    response.sendRedirect(request.getContextPath()+ "/Web/Home.jsp");
                 } else {
                     request.setAttribute("err", LoginCheck(Username, Password));
                     doGet(request, response);
@@ -46,7 +46,7 @@ public class Login extends HttpServlet {
                 doGet(request, response);
             }
         } else {
-            response.sendRedirect(request.getContextPath());
+            response.sendRedirect(request.getContextPath()+ "/Web/Home.jsp");
         }
     }
     
