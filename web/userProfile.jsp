@@ -101,10 +101,10 @@
                     <c:choose>
                         <c:when test="${not empty sessionScope.User}">
                             <ul class="list-group">
-                                <li class="list-group-item">Username: ${sessionScope.User.userName}</li>
-                                <li class="list-group-item">Email: ${sessionScope.User.mail}</li>
-                                <li class="list-group-item">Full Name: ${sessionScope.User.fullName}</li>
-                                <li class="list-group-item">Date of Birth: ${sessionScope.User.dob}</li>
+                                <li class="list-group-item">Username: ${sessionScope.User.getUserName()}</li>
+                                <li class="list-group-item">Email: ${sessionScope.User.getMail()}</li>
+                                <li class="list-group-item">Full Name: ${sessionScope.User.getFullName()}</li>
+                                <li class="list-group-item">Date of Birth: ${sessionScope.User.getDoB()}</li>
                             </ul>
                         </c:when>
                         <c:otherwise>
