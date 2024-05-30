@@ -94,7 +94,7 @@ public class Quizing extends HttpServlet {
         } else {
             int QuizID = Integer.parseInt(request.getParameter("QuizID"));
             request.setAttribute("QuizID", QuizID);
-            request.getRequestDispatcher("/Web/Summary.jsp").forward(request, response);
+            request.getRequestDispatcher("/Web/Review.jsp").forward(request, response);
         }
     }
 }

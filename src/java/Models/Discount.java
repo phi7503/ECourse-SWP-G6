@@ -9,23 +9,23 @@ package Models;
  * @author hi2ot
  */
 public class Discount {
-    private int DiscountID;
+    private int LessonID;
     private float Percentage;
 
     public Discount() {
     }
 
-    public Discount(int DiscountID, float Percentage) {
-        this.DiscountID = DiscountID;
+    public Discount(int LessonID, float Percentage) {
+        this.LessonID = LessonID;
         this.Percentage = Percentage;
     }
 
-    public int getDiscountID() {
-        return DiscountID;
+    public int getLessonID() {
+        return LessonID;
     }
 
-    public void setDiscountID(int DiscountID) {
-        this.DiscountID = DiscountID;
+    public void setLessonID(int LessonID) {
+        this.LessonID = LessonID;
     }
 
     public float getPercentage() {
@@ -35,5 +35,7 @@ public class Discount {
     public void setPercentage(float Percentage) {
         this.Percentage = Percentage;
     }
+
+    
     
 }

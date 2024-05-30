@@ -125,6 +125,22 @@ public class AnswerDAO {
         return -1;
     }
     
+    public int getCorrectAnswer(int QuestionID) {
+        String sql = "Select * From [Answer] Where QuestionID = ? and Role = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, QuestionID);            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int AnswerID = rs.getInt("AnswerID");
+                return AnswerID;
+            }
+        } catch (Exception e) {
+            status = "Error at getCorrectAnswer " + e.getMessage();
+        }
+        return -1;
+    }
+    
     public static void main(String[] agrs) {
         INS.load();
         System.out.println(INS.loadAnswerByQuestionId(1).size());

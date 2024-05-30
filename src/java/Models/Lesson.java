@@ -13,22 +13,17 @@ import java.util.Date;
 public class Lesson {
     private int id;
     private String name;
-    private double price;
-    private double percentage;
+    private double price;    
     private String description;
-    private String tagline;
-    private String image;
-    private String title;
     private Date createdDate;
 
     public Lesson() {
     }
 
-    public Lesson(int id, String name, double price, double percentage, String description, Date createdDate) {
+    public Lesson(int id, String name, double price, String description, Date createdDate) {
         this.id = id;
         this.name = name;
-        this.price = price;
-        this.percentage = percentage;
+        this.price = price;        
         this.description = description;
         this.createdDate = createdDate;
     }
@@ -57,14 +52,6 @@ public class Lesson {
         this.price = price;
     }
 
-    public double getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(double percentage) {
-        this.percentage = percentage;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -79,31 +66,5 @@ public class Lesson {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public String getTagline() {
-        return tagline;
-    }
-
-    public void setTagline(String tagline) {
-        this.tagline = tagline;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-    
-    
+    } 
 }

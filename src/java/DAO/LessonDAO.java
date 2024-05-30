@@ -55,11 +55,10 @@ public class LessonDAO {
             while (rs.next()) {
                 int LessonID = rs.getInt("LessonID");
                 String LessonName = rs.getString("LessonName");
-                float Price = rs.getFloat("Price");
-                int DiscountID = rs.getInt("DiscountID");
+                float Price = rs.getFloat("Price");                
                 String Description = rs.getString("Description");
                 java.sql.Date CreateDate = rs.getDate("CreateDate");
-                ll.add(new Lesson(LessonID, LessonName, Price, DiscountID, Description, CreateDate));
+                ll.add(new Lesson(LessonID, LessonName, Price, Description, CreateDate));
             }
         } catch (Exception e) {
             status = "Error at load Lesson " + e.getMessage();

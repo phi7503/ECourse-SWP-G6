@@ -107,7 +107,8 @@
                                         <h5>Quiz ${x.getQuizName()}</h5>        
                                         <a href="Quizing?QuizID=1" class="btn border border-secondary rounded-pill px-3 text-primary">Do Quiz</a>
                                         <c:if test="${QuizINS.getUserQuizStatus(User.getUserID(), x.getQuizID()) == 1}">
-                                        <a href="Summary?QuizID=1" class="btn border border-secondary rounded-pill px-3 text-primary">View Summary</a>
+                                        <br/>
+                                        <a href="Review?QuizID=1" class="btn border border-secondary rounded-pill px-3 text-primary">Review</a>
                                         </c:if>
                                     </div>
                                 </div>

@@ -24,6 +24,10 @@
         <servlet-name>Summary</servlet-name>
         <servlet-class>Controller.Summary</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Review</servlet-name>
+        <servlet-class>Controller.Review</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -39,5 +43,9 @@
     <servlet-mapping>
         <servlet-name>Summary</servlet-name>
         <url-pattern>/Summary</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Review</servlet-name>
+        <url-pattern>/Review</url-pattern>
     </servlet-mapping>
 </web-app>
