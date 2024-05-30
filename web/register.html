@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+DateTimeFormatter fm = DateTimeFormatter.ofPattern("yy-mm-dd");
+        String date = u.getDateOfBirth().format(fm);
+         ps = con.prepareStatement(xSql);
+            ps.setInt(1, u.getID());
+            ps.setString(2, u.getUsername());
+            ps.setString(3, u.getPassword());
+            ps.setString(4, u.getEmail());
+            ps.setString(5, u.getFullname());
+            ps.setDate(6, u.getDateOfBirth());
+            ps.setInt(7, securityid);
+            ps.setString(8, answer);
+            ps.setInt(9, role);
+            ps.setInt(10, status);
+            ps.executeUpdate();
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background-image: url('img/ZoomBackground_BlueGreenGradient.png');
+                background-size: cover;
+                background-position: center;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+            }
+            .bg-transparent {
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 10px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container d-flex align-items-center justify-content-center min-vh-100 ">
+            <div class="col-md-8 bg-white p-3 bg-transparent text-white">
+                <h2 class="text-center">Create New Account</h2> <br>
+                <form action="register">
+                    <div class="form-group row">
+                        <label for="fullname" class="col-sm-3 col-form-label">FULL NAME</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="fullname" placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-3 col-form-label">EMAIL</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="username" class="col-sm-3 col-form-label">USER NAME</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="username" placeholder="Enter user name" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label">PASSWORD</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="password" placeholder="Create password" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="cfpassword" class="col-sm-3 col-form-label">CONFIRM PASSWORD</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="cfpassword" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="dateOfBirth" class="col-sm-3 col-form-label">DATE OF BIRTH</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" id="dateOfBirth" placeholder="Date of birth" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">ROLE</label>
+                        <div class="col-sm-9">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="expert" value="expert" checked>
+                                <label class="form-check-label" for="expert">Expert</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="learner" value="learner">
+                                <label class="form-check-label" for="learner">Learner</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="securityQuestion" class="col-sm-3 col-form-label">SECURITY QUESTION</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="securityQuestion" required>
+                                
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="answer" class="col-sm-3 col-form-label">ANSWER</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="answer" placeholder="Enter your answer" required> 
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                            <button class="btn btn-success btn-block" type="submit">Sign Up</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                            <button class="btn btn-success btn-block" type="button">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

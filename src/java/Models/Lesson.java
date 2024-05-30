@@ -11,6 +11,7 @@ import java.util.Date;
  * @author admin
  */
 public class Lesson {
+
     private int id;
     private String name;
     private double price;
@@ -104,6 +105,4 @@ public class Lesson {
     public void setImage(String image) {
         this.image = image;
     }
-    
-    
 }

@@ -85,6 +85,7 @@
         </div>
         <!-- Navbar End -->
 
+
         <!-- User Profile Start -->
         <div class="container-fluid py-5 col-lg-6">
             <div class="bg-light p-5">
@@ -104,6 +105,7 @@
                             </c:choose>
                         </h3>
                     </div>
+
                 </div>
                 <form action="changepass" method="post">
                     <input type="hidden" name="userId" value="${user.userID}" />
