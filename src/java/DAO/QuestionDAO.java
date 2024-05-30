@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -67,9 +66,42 @@ public class QuestionDAO {
         }
     }
     
+    public Vector<Question> loadQuestionByQuizID(int ID) {
+        String sql = "Select * From [Question] Where QuizID = ?";
+        Vector<Question> list = new Vector<Question>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+               int QuizID = rs.getInt("QuizID");
+               int QuestionID = rs.getInt("QuestionID");
+               String Question = rs.getString("Question");
+               String Explaination = rs.getString("Explaination");
+               list.add(new Question(QuizID, QuestionID, Question, Explaination));
+            }
+        } catch (Exception e) {
+            status = "Error at load loadQuestionByQuizID " + e.getMessage();
+        }
+        return list;
+    }
+    
+    public void addUserQuestionStatus(int QuestionID, int UserID){
+        String sql = "Insert Into [QuestionStatus] Values(?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, QuestionID);
+            ps.setInt(2, UserID);
+            ps.setInt(3, 1);
+            ps.execute();
+        } catch (Exception e) {
+            
+        }
+    }
+    
     public static void main(String[] agrs) {
         INS.load();
+        System.out.println(INS.loadQuestionByQuizID(1).size());
         System.out.println(INS.getStatus());
     }
 }
-

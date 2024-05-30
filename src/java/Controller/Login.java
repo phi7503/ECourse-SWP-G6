@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -38,7 +37,7 @@ public class Login extends HttpServlet {
                 String Password = request.getParameter("Password");
                 if (LoginCheck(Username, Password) == null) {                    
                     ses.setAttribute("User", UserDAO.INS.getUserByName(Username));
-                    response.sendRedirect(request.getContextPath());
+                    response.sendRedirect(request.getContextPath()+ "/Home");
                 } else {
                     request.setAttribute("err", LoginCheck(Username, Password));
                     doGet(request, response);
@@ -47,7 +46,7 @@ public class Login extends HttpServlet {
                 doGet(request, response);
             }
         } else {
-            response.sendRedirect(request.getContextPath());
+            response.sendRedirect(request.getContextPath()+ "/Home");
         }
     }
     

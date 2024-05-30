@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -65,6 +64,34 @@ public class QuizDAO {
         } catch (Exception e) {
             status = "Error at load Quiz " + e.getMessage();
         }
+    }
+    
+    public void addUserQuizStatus(int UserID, int QuizID) {
+        String sql = "Insert Into [QuizStatus] Values(?,?,0,0)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ps.setInt(2, QuizID);
+            ps.execute();
+        } catch (Exception e) {
+            status = "Error at addUserQuizStatus " + e.getMessage();
+        }
+    }
+    
+    public int getUserQuizStatus(int UserID, int QuizID) {
+        String sql = "Select * From [QuizStatus] Where UserID = ? And QuizID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ps.setInt(2, QuizID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return 1;
+            }
+        } catch (Exception e) {
+            status = "Error at getUserQuizStatus " + e.getMessage();
+        }
+        return 0;
     }
     
     public static void main(String[] agrs){

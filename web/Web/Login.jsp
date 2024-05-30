@@ -1,4 +1,3 @@
-
 <%-- 
     Document   : Login
     Created on : May 25, 2024, 5:12:23 PM
@@ -52,9 +51,6 @@
 
         <!-- Fact Start -->
         <div class="container-fluid py-5 col-lg-6">
-
-            <a href="../../src/java/Controller/Login.java"></a>
-
             
                 <form action="Login" method="post">
                     <div class="bg-light p-5">
@@ -68,7 +64,7 @@
                                 <c:if test='${err != null}'>
                                     <h4 class="mb-3 text-secondary">${err}</h4>
                                 </c:if>
-                                <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
+                                <input type="submit" name="LoginSubmit" value="Login" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
                             </div>                             
                         </div>
 
