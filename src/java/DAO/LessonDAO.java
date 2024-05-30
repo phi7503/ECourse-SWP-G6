@@ -4,6 +4,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
 import java.sql.Connection;
 import java.util.*;
 import Models.*;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
  * @author hi2ot
  */
 public class LessonDAO {
+
     List<Lesson> ll;
     private Connection con;
     private String status = "OK";
@@ -38,7 +40,7 @@ public class LessonDAO {
     public void setStatus(String status) {
         this.status = status;
     }
-            
+
     private LessonDAO() {
         if (INS == null) {
             try {
@@ -50,7 +52,7 @@ public class LessonDAO {
             INS = this;
         }
     }
-    
+
     public void load() {
         String sql = "Select * From [Lesson]";
         ll = new Vector<Lesson>();
@@ -70,8 +72,41 @@ public class LessonDAO {
             status = "Error at load Lesson " + e.getMessage();
         }
     }
-    
-    public static void main(String[] args){
+
+    public List<Lesson> loadByOrder(int orderId) {
+        String sql = ""
+                + "SELECT \n"
+                + "l.LessonID, l.LessonName, l.Price, l.DiscountID,\n"
+                + "l.Description, l.CreateDate, l.TagLine, l.Title, \n"
+                + "l.Image\n"
+                + "FROM [OrderLesson] ol \n"
+                + "JOIN [Lesson] l ON l.LessonID = ol.LessonID\n"
+                + "WHERE ol.OrderID = " + orderId;
+        ll = new Vector<Lesson>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int LessonID = rs.getInt("LessonID");
+                String LessonName = rs.getString("LessonName");
+                float Price = rs.getFloat("Price");
+                int DiscountID = rs.getInt("DiscountID");
+                String Description = rs.getString("Description");
+                java.sql.Date CreateDate = rs.getDate("CreateDate");
+                Lesson lesson = new Lesson(LessonID, LessonName, Price, DiscountID, Description, CreateDate);
+           
+                lesson.setImage(rs.getString("Image"));
+                
+                ll.add(lesson);
+            }
+        } catch (Exception e) {
+            status = "Error at load Lesson " + e.getMessage();
+        }
+
+        return ll;
+    }
+
+    public static void main(String[] args) {
         INS.load();
         System.out.println(INS.getStatus());
     }
@@ -178,4 +213,3 @@ public class LessonDAO {
     }
 
 }
-

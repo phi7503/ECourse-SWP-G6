@@ -1,8 +1,7 @@
-
 <%-- 
-    Document   : Login
-    Created on : May 25, 2024, 5:12:23 PM
-    Author     : hi2ot
+    Document   : ForgotPassword
+    Created on : May 30, 2024, 2:30:54 AM
+    Author     : DELL
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -44,7 +43,7 @@
         <div class="container-fluid" style="padding-top: 50px">           
             <div class="container">
                 <div class="text-center mx-auto mb-5">
-                    <a href="Home"><h1 class="text-primary display-6">Fruitables</h1></a>              
+                    <a href="Home"><h1 class="text-primary display-6">Forgot Password</h1></a>              
                 </div>
             </div>
         </div>
@@ -52,40 +51,40 @@
 
         <!-- Fact Start -->
         <div class="container-fluid py-5 col-lg-6">
+
             <a href="../../src/java/Controller/Login.java"></a>
-            <form action="Login" method="post">
+            <form action="ForgotPassword" method="post">
                 <div class="bg-light p-5">
                     <div class="col-lg-12 col-md-12 col-xl-12">
                         <div class="counter bg-white rounded p-4" >
-                            <h1 class="display-6 text-primary px-4">Username</h1>                                
-                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
-                            <h1 class="display-6 text-primary px-4">Password</h1>
-                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
+                            <h1 class="display-6 text-primary px-4">User Name</h1>                                
+                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Enter user-name" required>
+                            <h1 class="display-6 text-primary px-4">E-Mail</h1>                                
+                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="mail" placeholder="Enter e-mail" required>
+                            <h1 class="display-6 text-primary px-4">Question</h1>
+                            <select class="form-control border-2 border-secondary px-4 rounded-pill" name="question">
+                                <c:forEach var="item" items="${SEQuestions}">
+                                    <option value="${item.getSecutiryQuestionID()}">${item.getQuestion()}</option>
+                                </c:forEach>
+                            </select>
+                            <h1 class="display-6 text-primary px-4">Answer</h1>
+                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="answer" placeholder="Enter Answer" required>
+                            <h1 class="display-6 text-primary px-4">New Passworld</h1>
+                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="newPass" placeholder="Enter New Password" required>
+                                
                             <br/>
                             <c:if test='${err != null}'>
                                 <h4 class="mb-3 text-secondary">${err}</h4>
                             </c:if>
+                                <c:if test='${suc != null}'>
+                                <h4 class="mb-3 text-primary">${err}</h4>
+                            </c:if>
                             <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                        </div>                             
-                        <form action="Login" method="post">
-                            <div class="bg-light p-5">
-                                <div class="col-lg-12 col-md-12 col-xl-12">
-                                    <div class="counter bg-white rounded p-4" >
-                                        <h1 class="display-6 text-primary px-4">Username</h1>                                
-                                        <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
-                                        <h1 class="display-6 text-primary px-4">Password</h1>
-                                        <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
-                                        <br/>
-                                        <c:if test='${err != null}'>
-                                            <h4 class="mb-3 text-secondary">${err}</h4>
-                                        </c:if>
-                                        <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                                    </div>                        
-                                    <a href="ForgotPassword">Forgot Password </a>
-                                </div>
-                            </div>
-
+                        </div>                        
+                        <a href="Login">Login </a>
                     </div>
+
+                </div>
             </form>
 
         </div>
