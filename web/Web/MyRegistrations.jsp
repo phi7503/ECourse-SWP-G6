@@ -142,6 +142,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <form action="deleteOrder" method="post">
                             <c:forEach var="item" items="${orders}" varStatus="index">
                                 <tr>
                                     <td>${index.index + 1}</td>
@@ -173,7 +174,7 @@
                                     </td>
                                 </tr> 
                             </c:forEach>
-
+                        </form>
                         </tbody>
                     </table>
                 </div>

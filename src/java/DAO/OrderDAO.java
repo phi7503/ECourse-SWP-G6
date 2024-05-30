@@ -41,7 +41,7 @@ public class OrderDAO {
         this.status = status;
     }
 
-    private OrderDAO() {
+    public OrderDAO() {
         if (INS == null) {
             try {
                 con = new DBContext().getConnection();
