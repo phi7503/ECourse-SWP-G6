@@ -78,9 +78,9 @@
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="/Web/userProfile.jsp" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a>
+                            <a href="<c:url value='/userprofile'/>" class="my-auto">
+                            <i class="fas fa-user fa-2x"></i>
+                        </a>
                         </div>
                     </div>
                 </nav>

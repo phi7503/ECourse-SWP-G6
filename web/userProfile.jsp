@@ -1,15 +1,10 @@
-<%-- 
-    Document   : userProfile
-    Created on : May 25, 2024, 9:27:50 PM
-    Author     : admin
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Change Password</title>
+        <title>Fruitables - User Profile</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -24,24 +19,24 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="${pageContext.request.contextPath}/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
         <!-- Spinner Start -->
-        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" role="status"></div>
         </div>
         <!-- Spinner End -->
 
         <!-- Navbar Start -->
-        <div >
+        <div>
             <div class="container topbar bg-primary d-none d-lg-block">
                 <div class="d-flex justify-content-between">
                     <div class="top-info ps-2">
@@ -57,69 +52,77 @@
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="${pageContext.request.contextPath}/index.html" class="navbar-brand"><h1 class="text-primary display-6">Ecourse</h1></a>
+                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Ecourse</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="${pageContext.request.contextPath}/index.html" class="nav-item nav-link active">Home</a>
-                            <a href="${pageContext.request.contextPath}/shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="${pageContext.request.contextPath}/shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="shop.html" class="nav-item nav-link">Shop</a>
+                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="${pageContext.request.contextPath}/cart.html" class="dropdown-item">Cart</a>
-                                    <a href="${pageContext.request.contextPath}/checkout.html" class="dropdown-item">Checkout</a>
-                                    <a href="${pageContext.request.contextPath}/testimonial.html" class="dropdown-item">Testimonial</a>
-                                    <a href="${pageContext.request.contextPath}/404.html" class="dropdown-item">404 Page</a>
+                                    <a href="cart.html" class="dropdown-item">Cart</a>
+                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                                    <a href="404.html" class="dropdown-item">404 Page</a>
                                 </div>
                             </div>
-                            <a href="${pageContext.request.contextPath}/contact.html" class="nav-item nav-link">Contact</a>
+                            <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="d-flex m-3 me-0">
-                           
                             <a href="#" class="position-relative me-4 my-auto">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a>
+
                         </div>
                     </div>
                 </nav>
             </div>
         </div>
         <!-- Navbar End -->
-        
-        <!-- User Profile Content Start -->
-        <div class="container py-5">
-            <h1 class="mb-4">User Profile</h1>
-            <form action="ChangePassServlet" method="post">
-                <div class="mb-3">
-                    <label for="currentPassword" class="form-label">Current Password</label>
-                    <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+
+        <!-- User Profile Start -->
+        <div class="container-fluid py-5 col-lg-6">
+            <div class="bg-light p-5">
+                <h1 class="display-6 text-primary px-4">User Profile</h1>
+                <div class="col-lg-12 col-md-12 col-xl-12">
+                    <div class="counter bg-white rounded p-4">
+                        
+                        <h3 class=" px-4">Email: ${user.mail}</h3>
+                        <h3 class=" px-4">Full Name: ${user.fullName}</h3>
+                        <h3 class=" px-4">Date of Birth: ${user.doB}</h3>
+                        <h3 class=" px-4">
+                            Role: 
+                            <c:choose>
+                                <c:when test="${user.role == 1}">Admin</c:when>
+                                <c:when test="${user.role == 2}">User</c:when>
+                                <c:otherwise>Unknown</c:otherwise>
+                            </c:choose>
+                        </h3>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="newPassword" class="form-label">New Password</label>
-                    <input type="password" class="form-control" id="newPassword" name="newPassword" required>
-                </div>
-                <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Change Password</button>
-            </form>
+                <form action="changepass" method="post">
+                    <input type="hidden" name="userId" value="${user.userID}" />
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </form><br/>
+                <button type="submit" class="btn btn-primary">Change Profile</button>
+            </div>
         </div>
-        <!-- User Profile Content End -->
+        <!-- User Profile End -->
 
         <!-- JavaScript Libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="${pageContext.request.contextPath}/lib/easing/easing.min.js"></script>
-        <script src="${pageContext.request.contextPath}/lib/waypoints/waypoints.min.js"></script>
-        <script src="${pageContext.request.contextPath}/lib/lightbox/js/lightbox.min.js"></script>
-        <script src="${pageContext.request.contextPath}/lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-        <!-- Template Javascript
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+</html>

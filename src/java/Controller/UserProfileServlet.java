@@ -22,7 +22,7 @@ public class UserProfileServlet extends HttpServlet {
         User user = UserDAO.INS.getUserByID(userId);
         if (user != null) {
             request.setAttribute("user", user);
-            request.getRequestDispatcher("/Web/userProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/Web/Login.jsp"); // Redirect to login if user not found
         }

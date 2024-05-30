@@ -93,12 +93,12 @@
         <!-- Change Password Form Start -->
         <div class="container mt-5">
             <h2>Change Password</h2>
-            <button type="submit" class="btn btn-primary">Back</button>
-            <form action="ChangePassServlet" method="post">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="user" readonly>
-                </div>
+            <form action="userprofile" method="post">
+                    <input type="hidden" name="userId" value="${user.userID}" />
+                    <button type="submit" class="btn btn-primary">Back</button>
+                </form><br/>
+            <form action="changepass" method="post">
+                
                 <div class="mb-3">
                     <label for="opass" class="form-label">Old Password</label>
                     <input type="password" class="form-control" id="opass" name="opass" required>
