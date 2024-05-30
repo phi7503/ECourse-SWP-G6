@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Vector;
+import java.sql.SQLException;
 
 /**
  *
@@ -49,6 +50,22 @@ public class OrderDAO {
             }
         } else {
             INS = this;
+        }
+    }
+    
+    public boolean deleteOrder(String orderId) {
+        String sql = "DELETE FROM order WHERE OrderID = ?";
+        try {
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, orderId);
+
+            boolean rowDeleted = statement.executeUpdate() > 0;
+            statement.close();
+            return rowDeleted;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

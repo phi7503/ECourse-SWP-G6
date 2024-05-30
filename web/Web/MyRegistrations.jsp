@@ -137,6 +137,7 @@
                                 <th scope="col">Status</th>
                                 <th scope="col">Lessons</th>
                                 <th scope="col">Total</th>
+                                <th scope="col">Action</th>
                                 <!--<th scope="col">Handle</th>-->
                             </tr>
                         </thead>
@@ -165,6 +166,11 @@
                                         </c:forEach>
                                     </td>
                                     <td>${item.getTotal()}</td>
+                                    <td>
+                                        <c:if test="${item.getStatus() == 1}">
+                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                        </c:if>
+                                    </td>
                                 </tr> 
                             </c:forEach>
 

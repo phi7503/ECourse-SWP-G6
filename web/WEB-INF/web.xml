@@ -25,9 +25,12 @@
         <servlet-class>Controller.Summary</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>SubjectRegister</servlet-name>
         <servlet-class>Controller.SubjectRegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteOrder</servlet-name>
+        <servlet-class>Controller.DeleteOrder</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -38,7 +41,6 @@
         <servlet-class>Controller.SubjectDetailServlet</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>ChangePassServlet</servlet-name>
         <servlet-class>Controller.ChangePassServlet</servlet-class>
     </servlet>
@@ -70,11 +72,12 @@
         <servlet-name>UserProfileServlet</servlet-name>
         <url-pattern>/userprofile</url-pattern>
     </servlet-mapping>
-
-    
     <servlet-mapping>
         <servlet-name>SubjectRegister</servlet-name>
         <url-pattern>/subject-resgister</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>DeleteOrder</servlet-name>
+        <url-pattern>/deleteOrder</url-pattern>
+    </servlet-mapping>
 </web-app>
