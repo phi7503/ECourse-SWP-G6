@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -109,9 +108,7 @@ public class LessonDAO {
     public static void main(String[] args) {
         INS.load();
         System.out.println(INS.getStatus());
-    }
-
-    
+    }   
     
     public Lesson getLessonByID(int id) {
         try {
@@ -212,4 +209,4 @@ public class LessonDAO {
         return false;
     }
 
-}
+

@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <filter>
+        <filter-name>ServletFilter</filter-name>
+        <filter-class>Filter.ServletFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ServletFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Controller.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Quizing</servlet-name>
+        <servlet-class>Controller.Quizing</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>Controller.Home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Summary</servlet-name>
+        <servlet-class>Controller.Summary</servlet-class>
+    </servlet>
+    <servlet>
+
         <servlet-name>SubjectRegister</servlet-name>
         <servlet-class>Controller.SubjectRegisterServlet</servlet-class>
     </servlet>
@@ -13,6 +38,7 @@
         <servlet-class>Controller.SubjectDetailServlet</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>ChangePassServlet</servlet-name>
         <servlet-class>Controller.ChangePassServlet</servlet-class>
     </servlet>
@@ -20,10 +46,22 @@
         <servlet-name>UserProfileServlet</servlet-name>
         <servlet-class>Controller.UserProfileServlet</servlet-class>
     </servlet>
-    <servlet>
+    <servlet-mapping>
         <servlet-name>Login</servlet-name>
-        <servlet-class>Controller.Login</servlet-class>
-    </servlet>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Quizing</servlet-name>
+        <url-pattern>/Quizing</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Summary</servlet-name>
+        <url-pattern>/Summary</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePassServlet</servlet-name>
         <url-pattern>/changepass</url-pattern>
@@ -32,12 +70,11 @@
         <servlet-name>UserProfileServlet</servlet-name>
         <url-pattern>/userprofile</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
+
+    
     <servlet-mapping>
         <servlet-name>SubjectRegister</servlet-name>
         <url-pattern>/subject-resgister</url-pattern>
     </servlet-mapping>
+
 </web-app>
