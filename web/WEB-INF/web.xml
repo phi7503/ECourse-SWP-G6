@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
-
+        <servlet-name>SubjectRegister</servlet-name>
+        <servlet-class>Controller.SubjectRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LessonDetailController</servlet-name>
+        <servlet-class>Controller.SubjectDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ChangePassServlet</servlet-name>
         <servlet-class>Controller.ChangePassServlet</servlet-class>
     </servlet>
@@ -24,5 +35,9 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectRegister</servlet-name>
+        <url-pattern>/subject-resgister</url-pattern>
     </servlet-mapping>
 </web-app>
