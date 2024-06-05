@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import static DAO.OrderDAO.INS;
 import java.sql.Connection;
 import java.util.*;
 import Models.*;
@@ -41,15 +42,11 @@ public class LessonDAO {
         this.status = status;
     }
 
-    private LessonDAO() {
-        if (INS == null) {
-            try {
-                con = new DBContext().getConnection();
-            } catch (Exception e) {
-                status = "Error at Connection" + e.getMessage();
-            }
-        } else {
-            INS = this;
+    public LessonDAO() {
+        try {
+            con = new DBContext().getConnection();
+        } catch (Exception e) {
+            status = "Error at Connection" + e.getMessage();
         }
     }
 
@@ -94,9 +91,9 @@ public class LessonDAO {
                 String Description = rs.getString("Description");
                 java.sql.Date CreateDate = rs.getDate("CreateDate");
                 Lesson lesson = new Lesson(LessonID, LessonName, Price, DiscountID, Description, CreateDate);
-           
+
                 lesson.setImage(rs.getString("Image"));
-                
+
                 ll.add(lesson);
             }
         } catch (Exception e) {
@@ -111,8 +108,6 @@ public class LessonDAO {
         System.out.println(INS.getStatus());
     }
 
-    
-    
     public Lesson getLessonByID(int id) {
         try {
             String sql = """

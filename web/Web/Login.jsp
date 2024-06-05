@@ -44,7 +44,7 @@
         <div class="container-fluid" style="padding-top: 50px">           
             <div class="container">
                 <div class="text-center mx-auto mb-5">
-                    <a href="Home"><h1 class="text-primary display-6">Fruitables</h1></a>              
+                    <a href="Home"><h1 class="text-primary display-6">Course Online Practice</h1></a>              
                 </div>
             </div>
         </div>
@@ -53,54 +53,41 @@
         <!-- Fact Start -->
         <div class="container-fluid py-5 col-lg-6">
             <a href="../../src/java/Controller/Login.java"></a>
-            <form action="Login" method="post">
-                <div class="bg-light p-5">
-                    <div class="col-lg-12 col-md-12 col-xl-12">
-                        <div class="counter bg-white rounded p-4" >
-                            <h1 class="display-6 text-primary px-4">Username</h1>                                
-                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
-                            <h1 class="display-6 text-primary px-4">Password</h1>
-                            <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
-                            <br/>
-                            <c:if test='${err != null}'>
-                                <h4 class="mb-3 text-secondary">${err}</h4>
-                            </c:if>
-                            <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                        </div>                             
-                        <form action="Login" method="post">
-                            <div class="bg-light p-5">
-                                <div class="col-lg-12 col-md-12 col-xl-12">
-                                    <div class="counter bg-white rounded p-4" >
-                                        <h1 class="display-6 text-primary px-4">Username</h1>                                
-                                        <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
-                                        <h1 class="display-6 text-primary px-4">Password</h1>
-                                        <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
-                                        <br/>
-                                        <c:if test='${err != null}'>
-                                            <h4 class="mb-3 text-secondary">${err}</h4>
-                                        </c:if>
-                                        <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                                    </div>                        
-                                    <a href="ForgotPassword">Forgot Password </a>
-                                </div>
-                            </div>
-
-                    </div>
-            </form>
+        </div>                             
+        <form action="Login" method="post">
+            <div class="bg-light p-5">
+                <div class="col-lg-12 col-md-12 col-xl-12">
+                    <div class="counter bg-white rounded p-4" >
+                        <h1 class="display-6 text-primary px-4">Username</h1>                                
+                        <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
+                        <h1 class="display-6 text-primary px-4">Password</h1>
+                        <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
+                        <br/>
+                        <c:if test='${err != null}'>
+                            <h4 class="mb-3 text-secondary">${err}</h4>
+                        </c:if>
+                        <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
+                    </div>                        
+                    <a href="ForgotPassword">Forgot Password </a>
+                </div>
+            </div>
 
         </div>
-        <!-- Fact Start -->
+    </form>
 
-        <!-- JavaScript Libraries -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/lightbox/js/lightbox.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+</div>
+<!-- Fact Start -->
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
-    </body>
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/lightbox/js/lightbox.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+</body>
 
 </html>
