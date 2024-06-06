@@ -27,13 +27,15 @@ public class Review extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession ses = request.getSession();
+        User u = (User) ses.getAttribute("User");
         int QuizID = -1;
         try {
             QuizID = Integer.parseInt(request.getParameter("QuizID"));
         } catch (Exception e) {
 
         }
-        if (QuizID > 0) {
+        if (QuizID > 0 && QuizDAO.INS.getUserQuizStatus(u.getUserID(), QuizID) == 1) {
             List<Question> qul = QuestionDAO.INS.loadQuestionByQuizID(QuizID);
             request.setAttribute("qul", qul);
             request.setAttribute("AnswerINS", AnswerDAO.INS);
@@ -42,12 +44,9 @@ public class Review extends HttpServlet {
                 index = Integer.parseInt(request.getAttribute("index") + "");
             } catch (Exception e) {
             }
-            if (request.getParameter("index") == null) {
-                HttpSession ses = request.getSession();
+            if (request.getParameter("index") == null) {                
                 request.setAttribute("index", index);
-                request.setAttribute("QuizID", QuizID);
-                User u = (User) ses.getAttribute("User");
-                QuizDAO.INS.addUserQuizStatus(u.getUserID(), QuizID);
+                request.setAttribute("QuizID", QuizID);                                
             }
             request.setAttribute("Question", qul.get(index));
             request.getRequestDispatcher("/Web/Review.jsp").forward(request, response);

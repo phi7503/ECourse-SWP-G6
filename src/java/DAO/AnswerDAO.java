@@ -145,5 +145,6 @@ public class AnswerDAO {
         INS.load();
         System.out.println(INS.loadAnswerByQuestionId(1).size());
         System.out.println(INS.getStatus());
+        System.out.println(INS.getCorrectAnswer(1));
     }
 }

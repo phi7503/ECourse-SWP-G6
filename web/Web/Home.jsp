@@ -36,6 +36,18 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+
+        <script>
+            function confirmDoQuiz() {
+                let text = "Are you sure? Once you take this quiz, you can't re-attempt for a second time.";
+                if (confirm(text) == true) {
+                    document.getElementById("confirmation").value = "YES";                    
+                } else {
+                    document.getElementById("confirmation").value = "NO";                    
+                }                
+            }
+        </script>
+
     </head>
 
     <body>
@@ -52,15 +64,15 @@
         <div class="container-fluid">            
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
+                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">ECourse</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <a href="/Home" class="nav-item nav-link">Home</a>
+                            <a href="shop.html" class="nav-item nav-link">Lesson</a>
+                            <a href="/Quiz" class="nav-item nav-link active">Quiz</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
@@ -104,11 +116,19 @@
                                         <img src="img/best-product-1.jpg" class="img-fluid rounded-circle w-100" alt="">
                                     </div>
                                     <div class="col-6">
-                                        <h5>Quiz ${x.getQuizName()}</h5>        
-                                        <a href="Quizing?QuizID=1" class="btn border border-secondary rounded-pill px-3 text-primary">Do Quiz</a>
-                                        <c:if test="${QuizINS.getUserQuizStatus(User.getUserID(), x.getQuizID()) == 1}">
-                                        <br/>
-                                        <a href="Review?QuizID=1" class="btn border border-secondary rounded-pill px-3 text-primary">Review</a>
+                                        <h5>Quiz ${x.getQuizName()}</h5>       
+                                        <c:if test="${QuizINS.getUserQuizStatus(User.getUserID(), x.getQuizID()) == 0}">
+                                            <form action="Quizing" method="get">
+                                                <input type="text" name="QuizID" value="${x.getQuizID()}" hidden>
+                                                <input type="text" name="confirmation" value="YES" id="comfirmation" hidden>
+                                                <button name="goQuiz" class="btn border border-secondary rounded-pill px-3 text-primary" id="submit" onclick="confirmDoQuiz()">Do Quiz</button>
+                                            </form>
+                                        </c:if>
+                                        <c:if test="${QuizINS.getUserQuizStatus(User.getUserID(), x.getQuizID()) == 1}">   
+                                            <form action="Review" method="get">
+                                                <input type="text" name="QuizID" value="${x.getQuizID()}" hidden>                                                
+                                                <button class="btn border border-secondary rounded-pill px-3 text-primary">Review</button>
+                                            </form>
                                         </c:if>
                                     </div>
                                 </div>
@@ -117,6 +137,9 @@
                     </c:forEach>
                 </div>
             </div>
+            <form action="Home" method="post">
+                <input type="submit" name="Logout" value="Logout" class="btn border border-secondary rounded-pill px-3 text-primary">
+            </form>
         </div>
         <!-- Bestsaler Product End -->        
 
