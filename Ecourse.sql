@@ -1,7 +1,7 @@
-Create Database ECourse
+Create Database Testing
 Go
 
-Use ECourse
+Use Testing
 
 Create Table [User](
 	UserID int not null,
@@ -23,39 +23,92 @@ Create Table [SEQuestion](
 	Primary Key (SecurityQuestionID)
 );
 
-Create Table [Lesson](
-	LessonID int not null,
-	LessonName nvarchar(100) not null,
-	Price float not null,	
+Create Table [Course](
+	CourseID int not null,
+	CourseName nvarchar(100) not null,
+	Price float not null,
 	[Description] nvarchar(500),
 	CreateDate date not null,
-	Primary Key(LessonID)
+	Primary Key(CourseID)
+);
+
+Create Table [Lesson](
+	CourseID int not null,
+	LessonID int not null,
+	LessonName nvarchar(100) not null,	
+	[Description] nvarchar(500),	
+	Primary Key(CourseID, LessonID)
+);
+
+
+Create Table [Quiz](
+	CourseID int not null,
+	LessonID int not null,
+	QuizID int not null,
+	QuizName nvarchar(100) not null,
+	CreateDate date not null,
+	Primary Key (CourseID, LessonID, QuizID)
+);
+
+Create Table [Question](
+	CourseID int not null, 
+	LessonID int not null,
+	QuizID int not null,
+	QuestionID int not null,
+	Question nvarchar(100) not null,
+	Explaination nvarchar(100)
+	Primary Key (CourseID, LessonID, QuizID, QuestionID)
+);
+
+Create Table [Answer](
+	CourseID int not null,
+	LessonID int not null,
+	QuizID int not null,
+	QuestionID int not null,
+	AnswerID int not null,
+	[Description] nvarchar(100) not null,
+	[Role] int not null,
+	Primary Key (CourseID, LessonID, QuizID, QuestionID, AnswerID)
+);
+
+Create Table [UserAnswer](
+	UserID int not null,
+	AttemptID int not null,
+	CourseID int not null,
+	LessonID int not null,
+	QuizID int not null,
+	QuestionID int not null,	
+	AnswerID int not null,
+	Primary Key (UserID, AttemptID, CourseID, LessonID, QuizID, QuestionID, AnswerID)
+);
+
+Create Table [Attempt](
+	UserID int not null,
+	CourseID int not null,
+	LessonID int not null,
+	QuizID int not null,
+	AttemptID int not null,
+	Primary Key (UserID, CourseID, LessonID, QuizID, AttemptID)
 );
 
 Create Table [Discount](
-	LessonID int not null,
+	CourseID int not null,
 	[Percentage] float not null,
-	Primary Key (LessonID)
+	Primary Key (CourseID)
 );
 
 Create Table [Feedback](
-	LessonID int not null,
+	CourseID int not null,
 	FeedbackID int not null,	
-	Title nvarchar(100) not null,
-	[Description] nvarchar(100) not null,
+	Title nvarchar(500) not null,
+	[Description] nvarchar(500) not null,
 	Primary Key (FeedbackID)
 );
 
-Create Table [Session](
+Create Table [Cart](
 	UserID int not null,
-	SessionID int not null,	
-	Primary Key (SessionID)
-);
-
-Create Table Cart(
-	SessionID int not null,
-	LessonID int not null,	
-	Primary Key (SessionID, LessonID)
+	CourseID int not null,	
+	Primary Key (UserID, CourseID)
 );
 
 Create Table [Order](
@@ -65,134 +118,44 @@ Create Table [Order](
 	Primary Key (OrderID)
 );
 
-Create Table [OrderLesson](
+Create Table [OwnCourse](
+	CourseID int not null,
+	UserID int not null,
 	OrderID int not null,
-	LessonID int not null,		
-	Primary Key (OrderID, LessonID)
+	Primary Key (CourseID, UserID, OrderID)
 );
 
-Create Table [Quiz](
-	QuizID int not null,
-	LessonID int not null,
-	QuizName nvarchar(100) not null,
-	CreateDate date not null,
-	Primary Key (QuizID)
-);
-
-Create Table [Question](
-	QuizID int not null,
-	QuestionID int not null,
-	Question nvarchar(100) not null,
-	Explaination nvarchar(100)
-	Primary Key (QuestionID)
-);
-
-Create Table [QuestionStatus](
-	QuestionID int not null,
-	UserID int not null,
-	[Status] int not null,
-	Primary Key (QuestionID, UserID)
-);
-
-Create Table [Answer](
-	QuestionID int not null,
-	AnswerID int not null,
-	[Description] nvarchar(100) not null,
-	[Role] int not null,
-	Primary Key (QuestionID, AnswerID)
-);
-
-Create Table [UserAnswer](
-	UserID int not null,
-	QuestionID int not null,
-	AnswerID int not null,
-	Primary Key (UserID, QuestionID)
-);
-
-Create Table [QuizStatus](
-	UserID int not null,
-	QuizID int not null,
-	[Status] int not null,
-	Mark float
-	Primary Key (UserID, QuizID)
-);
-
-Alter Table [Session] with nocheck
+Alter Table [Attempt] with nocheck
+	Add Foreign Key (UserID) References [User](UserID)
+Alter Table [OwnCourse] with nocheck
 	Add Foreign Key (UserID) References [User](UserID)
 Alter Table [Order] with nocheck
 	Add Foreign Key (UserID) References [User](UserID)
-Alter Table [QuestionStatus] with nocheck
-	Add Foreign Key (UserID) References [User](UserID)
-Alter Table [QuizStatus] with nocheck
-	Add Foreign Key (UserID) References [User](UserID)
-Alter Table [Discount] with nocheck
-	Add Foreign Key (LessonID) References [Lesson](LessonID)
 Alter Table [User] with nocheck
 	Add Foreign Key (SecurityQuestionID) References [SEQuestion](SecurityQuestionID)
-Alter Table [Feedback] with nocheck
-	Add Foreign Key (LessonID) References [Lesson](LessonID)
 Alter Table [Cart] with nocheck
-	Add Foreign Key (LessonID) References [Lesson](LessonID)
-Alter Table [OrderLesson] with nocheck
-	Add Foreign Key (LessonID) References [Lesson](LessonID)
-Alter Table [Quiz] with nocheck
-	Add Foreign Key (LessonID) References [Lesson](LessonID)
-Alter Table [Cart] with nocheck
-	Add Foreign Key (SessionID) References [Session](SessionID)
-Alter Table [OrderLesson] with nocheck
-	Add Foreign Key (OrderID) References [Order](OrderID)
-Alter Table [Question] with nocheck
-	Add Foreign Key (QuizID) References [Quiz](QuizID)
-Alter Table [QuizStatus] with nocheck
-	Add Foreign Key (QuizID) References [Quiz](QuizID)
-Alter Table [QuestionStatus] with nocheck
-	Add Foreign Key (QuestionID) References [Question](QuestionID)
-Alter Table [Answer] with nocheck
-	Add Foreign Key (QuestionID) References [Question](QuestionID)
-Alter Table [UserAnswer] with nocheck
 	Add Foreign Key (UserID) References [User](UserID)
+Alter Table [Discount] with nocheck
+	Add Foreign Key (CourseID) References [Course](CourseID)
+Alter Table [Feedback] with nocheck
+	Add Foreign Key (CourseID) References [Course](CourseID)
+Alter Table [Cart] with nocheck
+	Add Foreign Key (CourseID) References [Course](CourseID)
+Alter Table [OwnCourse] with nocheck
+	Add Foreign Key (CourseID) References [Course](CourseID)
+Alter Table [Lesson] with nocheck
+	Add Foreign Key (CourseID) References [Course](CourseID)
+Alter Table [Quiz] with nocheck
+	Add Foreign Key (CourseID, LessonID) References [Lesson](CourseID, LessonID)
+Alter Table [Question] with nocheck
+	Add Foreign Key (CourseID, LessonID, QuizID) References [Quiz](CourseID, LessonID, QuizID)
+Alter Table [Answer] with nocheck
+	Add Foreign Key (CourseID, LessonID, QuizID, QuestionID) References [Question](CourseID, LessonID, QuizID, QuestionID)
+Alter Table [Attempt] with nocheck
+	Add Foreign Key (CourseID, LessonID, QuizID) References [Quiz](CourseID, LessonID, QuizID)
+Alter Table [UserAnswer] with nocheck 
+	Add Foreign Key (UserID, CourseID, LessonID, QuizID, AttemptID) References [Attempt](UserID, CourseID, LessonID, QuizID, AttemptID)
 Alter Table [UserAnswer] with nocheck
-	Add Foreign Key (QuestionID) References [Question](QuestionID)
-
-Insert Into [SEQuestion] Values
-(1, 'What');
-
-Insert Into [User] Values 
-(1, 'a', 'a', 'reotonaro@gmail.com', 'Huy', '2004-04-04', 1, 'no', 3, 1),
-(2, 'b', 'b', 'hi2otaku@gmail.com', 'Huya', '2004-04-04', 1, 'no', 1, 1);
-
-Insert Into [Lesson] Values
-(1, 'Math', 10, 'Mathematic', '2024-5-28');
-
-Insert Into [Discount] Values
-(1, 20);
-
-Insert Into [Quiz] Values
-(1, 1, 'Math 1', '2024-5-28'),
-(2, 1, 'Math 2', '2024-5-29');
-
-Insert Into [Question] Values
-(1, 1, '1 + 1 = ?', 'Nothing'),
-(1, 2, '1 + 2 = ?', 'Nothing'),
-(1, 3, '1 + 3 = ?', 'Nothing'),
-(1, 4, '1 + 4 = ?', 'Nothing'),
-(1, 5, '1 + 4 = ?', 'Nothing'),
-(1, 6, '1 + 4 = ?', 'Nothing'),
-(1, 7, '1 + 4 = ?', 'Nothing'),
-(1, 8, '1 + 4 = ?', 'Nothing'),
-(1, 9, '1 + 4 = ?', 'Nothing');
-
-
-Insert Into [Answer] Values
-(1, 1, '2', 1),
-(1, 2, '3', 2),
-(1, 3, '4', 2),
-(2, 1, '2', 2),
-(2, 2, '3', 1),
-(2, 3, '4', 2),
-(3, 1, '3', 2),
-(3, 2, '4', 1),
-(3, 3, '5', 2),
-(4, 1, '3', 2),
-(4, 2, '4', 2),
-(4, 3, '5', 1);
+	Add Foreign Key (CourseID, LessonID, QuizID, QuestionID, AnswerID) References [Answer](CourseID, LessonID, QuizID, QuestionID, AnswerID)
+Alter Table [OwnCourse] with nocheck
+	Add Foreign Key (OrderID) References [Order](OrderID)
