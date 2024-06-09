@@ -35,6 +35,16 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <script>                        
+            let now = null;
+            let x = setInterval(function () {                                
+                if (now === null) {
+                    now = document.getElementById("Time").value;
+                }                
+                document.getElementById("LiveTime").innerHTML = now;
+                now--;
+            }, 1000);
+        </script>
     </head>
 
     <body>
@@ -137,6 +147,7 @@
             <input type="text" name="index" value="${index}" hidden>
             <input type="text" name="QuizID" value="${QuizID}" hidden>
             <input type="text" name="confirmation" value="${confirmation}" hidden>
+            <input type="text" name="Time" value="${Time}" id="Time" hidden>
             <div class="container-fluid py-5 mt-5">
                 <div class="container py-5">
                     <div class="row g-4 mb-5">
@@ -147,7 +158,7 @@
                                     <p class="mb-3">${Question.getQuestion()}</p>
                                     <table>
                                         <c:set var="AnswerID" value="${AnswerINS.getAnswerbyUserID(User.getUserID(), Question.getQuestionID())}"></c:set>
-                                                                                
+
                                         <c:forEach items="${AnswerINS.loadAnswerByQuestionId(Question.getQuestionID())}" var="x"> 
                                             <c:if test="${x.getAnswerID() == AnswerID}">
                                                 <input type="radio" name="Answer" value="${x.getAnswerID()}" checked> ${x.getDescription()}  
@@ -157,15 +168,15 @@
                                             </c:if>
                                             <br/>
                                         </c:forEach>                      
-                                            
-                                    </table>
+
+                                    </table>                                    
                                     <c:if test="${index != 0}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnPrev" value="Prev">
                                     </c:if>
                                     <c:if test="${index != qul.size() - 1}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnNext" value="Next">
                                     </c:if>
-                                     <c:if test="${index == qul.size() - 1}">
+                                    <c:if test="${index == qul.size() - 1}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnFinish" value="Finish">
                                     </c:if>   
                                 </div>                                                
@@ -173,6 +184,11 @@
                         </div>
                         <div class="col-lg-4 col-xl-3">                            
                             <div class="col-lg-12">                               
+                                <div class="mt-5">
+                                    <h4>Time: </h4>
+                                    <p id="LiveTime"></p>
+
+                                </div>                                     
                                 <div class="mt-5 pagination">
                                     <h4>Quiz Navigation</h4>
                                     <c:forEach items="${qul}" var="x">
@@ -186,7 +202,7 @@
                                 </div>
                             </div>                            
                             <div class="d-flex justify-content-center my-4">
-                                <a href="/Home" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Finish</a>
+                                <a href="Home" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Finish</a>
                             </div>                                                                         
                         </div>
                     </div>                

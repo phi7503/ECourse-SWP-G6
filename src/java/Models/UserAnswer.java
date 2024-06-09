@@ -10,18 +10,59 @@ package Models;
  */
 public class UserAnswer {
     private int UserID;
+    private int AttemptID;
+    private int CourseID;
+    private int LessonID;
+    private int QuizID;
     private int QuestionID;
-    private int AnswerID;
+    private int AnswerID;    
 
     public UserAnswer() {
     }
 
-    public UserAnswer(int UserID, int QuestionID, int AnswerID) {
+    public UserAnswer(int UserID, int AttemptID, int CourseID, int LessonID, int QuizID, int QuestionID, int AnswerID) {
         this.UserID = UserID;
+        this.AttemptID = AttemptID;
+        this.CourseID = CourseID;
+        this.LessonID = LessonID;
+        this.QuizID = QuizID;
         this.QuestionID = QuestionID;
         this.AnswerID = AnswerID;
     }
 
+    public int getAttemptID() {
+        return AttemptID;
+    }
+
+    public void setAttemptID(int AttemptID) {
+        this.AttemptID = AttemptID;
+    }
+
+    public int getCourseID() {
+        return CourseID;
+    }
+
+    public void setCourseID(int CourseID) {
+        this.CourseID = CourseID;
+    }
+
+    public int getLessonID() {
+        return LessonID;
+    }
+
+    public void setLessonID(int LessonID) {
+        this.LessonID = LessonID;
+    }
+
+    public int getQuizID() {
+        return QuizID;
+    }
+
+    public void setQuizID(int QuizID) {
+        this.QuizID = QuizID;
+    }
+
+    
     public int getUserID() {
         return UserID;
     }

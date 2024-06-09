@@ -9,6 +9,8 @@ package Models;
  * @author hi2ot
  */
 public class Question {
+    private int CourseID;
+    private int LessonID;
     private int QuizID;
     private int QuestionID;
     private String Question;
@@ -17,12 +19,14 @@ public class Question {
     public Question() {
     }
 
-    public Question(int QuizID, int QuestionID, String Question, String Explaination) {
+    public Question(int CourseID, int LessonID, int QuizID, int QuestionID, String Question, String Explaination) {
+        this.CourseID = CourseID;
+        this.LessonID = LessonID;
         this.QuizID = QuizID;
         this.QuestionID = QuestionID;
         this.Question = Question;
         this.Explaination = Explaination;
-    }
+    }  
 
     public int getQuizID() {
         return QuizID;

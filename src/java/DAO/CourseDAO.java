@@ -6,37 +6,21 @@ package DAO;
 
 import Models.*;
 import java.sql.Connection;
+import java.util.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.*;
-
 /**
  *
  * @author hi2ot
  */
-public class QuizDAO {
-    List<Quiz> ql;
+public class CourseDAO {
+    
+    private List<Course> cl;
     private Connection con;
     private String status = "OK";
-    public static QuizDAO INS = new QuizDAO();
-
-    public List<Quiz> getQl() {
-        return ql;
-    }
-
-    public void setQl(List<Quiz> ql) {
-        this.ql = ql;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }        
+    public static CourseDAO INS = new CourseDAO();
     
-    private QuizDAO() {
+    private CourseDAO() {
         if (INS == null) {
             try {
                 con = new DBContext().getConnection();
@@ -48,28 +32,23 @@ public class QuizDAO {
         }
     }
     
-    public void load() {
-        String sql = "Select * From [Quiz]";
-        ql = new Vector<Quiz>();
+    public void loadCourse() {
+        String sql = "Select * From [Course]";
+        cl = new Vector<Course>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int CourseID = rs.getInt("CourseID");
-                int LessonID = rs.getInt("LessonID");
-                int QuizID = rs.getInt("QuizID");                
-                String QuizName = rs.getString("QuizName");
-                int NoQ = rs.getInt("NoQ");
+                String CourseName = rs.getString("CourseName");
+                float Price = rs.getFloat("Price");
+                String Description = rs.getString("Description");
                 java.sql.Date CreateDate = rs.getDate("CreateDate");
-                ql.add(new Quiz(CourseID, LessonID, QuizID, QuizName, NoQ, CreateDate));
+                cl.add(new Course(CourseID, CourseName, Price, Description, CreateDate));
             }
         } catch (Exception e) {
-            status = "Error at load Quiz " + e.getMessage();
+            status = "Error at load Course " + e.getMessage();
         }
-    }        
-    
-    public static void main(String[] agrs){
-        INS.load();
-        System.out.println(INS.getStatus());
     }
+    
 }

@@ -1,7 +1,7 @@
-Create Database Testing
+Create Database ECourse
 Go
 
-Use Testing
+Use ECourse
 
 Create Table [User](
 	UserID int not null,
@@ -40,13 +40,23 @@ Create Table [Lesson](
 	Primary Key(CourseID, LessonID)
 );
 
+Create Table [LessonDoc](
+	CourseID int not null,
+	LessonID int not null,
+	DocID int not null,
+	[Title] nvarchar(500) not null,
+	[Description] nvarchar(500),
+	[Link] nvarchar(5) not null
+	Primary Key (CourseID, LessonID, DocID)
+);
 
 Create Table [Quiz](
 	CourseID int not null,
 	LessonID int not null,
 	QuizID int not null,
 	QuizName nvarchar(100) not null,
-	CreateDate date not null,
+	NoQ int not null,
+	CreateDate date not null,	
 	Primary Key (CourseID, LessonID, QuizID)
 );
 
@@ -88,6 +98,7 @@ Create Table [Attempt](
 	LessonID int not null,
 	QuizID int not null,
 	AttemptID int not null,
+	AttemptDate date not null,
 	Primary Key (UserID, CourseID, LessonID, QuizID, AttemptID)
 );
 
@@ -98,11 +109,12 @@ Create Table [Discount](
 );
 
 Create Table [Feedback](
+	UserID int not null,
 	CourseID int not null,
 	FeedbackID int not null,	
 	Title nvarchar(500) not null,
 	[Description] nvarchar(500) not null,
-	Primary Key (FeedbackID)
+	Primary Key (UserID, CourseID, FeedbackID)
 );
 
 Create Table [Cart](
@@ -114,8 +126,9 @@ Create Table [Cart](
 Create Table [Order](
 	OrderID int not null,
 	UserID int not null,
-	[Status] int not null,
-	Primary Key (OrderID)
+	CreateDate date not null,
+	Price float not null,
+	Primary Key (OrderID, UserID)
 );
 
 Create Table [OwnCourse](
@@ -158,4 +171,95 @@ Alter Table [UserAnswer] with nocheck
 Alter Table [UserAnswer] with nocheck
 	Add Foreign Key (CourseID, LessonID, QuizID, QuestionID, AnswerID) References [Answer](CourseID, LessonID, QuizID, QuestionID, AnswerID)
 Alter Table [OwnCourse] with nocheck
-	Add Foreign Key (OrderID) References [Order](OrderID)
+	Add Foreign Key (OrderID, UserID) References [Order](OrderID, UserID)
+Alter Table [LessonDoc] with nocheck
+	Add Foreign Key (CourseID, LessonID) References [Lesson](CourseID, LessonID)
+
+Insert Into [SEQuestion] Values 
+(1, 'What do you like most?'),
+(2, 'nD');
+
+Insert Into [User] Values 
+(1, 'a', 'a', 'hi2otaku@gmail.com', 'PHQ', '04-04-2004', 1, 'Nothing', 1, 1),
+(2, 'b', 'b', 'reotonaro@gmail.com', 'PQH', '04-04-2004', 1, 'Nothing', 1, 1),
+(3, 'admin', 'admin', 'admin@admin.com', 'Admin', '01-01-0001', 1, 'Nothing', 2, 1);
+
+Insert Into [Course] Values 
+(1, 'Math', 15, 'Math for Elementary Student', '06-09-2024'),
+(2, 'English', 10, 'English for Elementary Student', '06-09-2024');
+
+Insert Into [Lesson] Values 
+(1, 1, 'Math 1', 'Math Lesson 1'),
+(1, 2, 'Math 2', 'Math Lesson 2'),
+(2, 1, 'English 1', 'English Lesson 1'),
+(2, 2, 'English 2', 'English Lesson 2');
+
+Insert Into [Quiz] Values 
+(1, 1, 1, 'Final Exam for Math 1', 2, '06-09-2024'),
+(1, 2, 1, 'Final Exam for Math 2', 2, '06-09-2024'),
+(2, 1, 1, 'Final Exam for English 1', 2, '06-09-2024'),
+(2, 2, 1, 'Final Exam for English 2', 2, '06-09-2024');
+
+Insert Into [Question] Values
+(1, 1, 1, 1, '1 + 1 = ?', 'Nothing'),
+(1, 1, 1, 2, '1 + 2 = ?', 'Nothing'),
+(1, 2, 1, 1, '3 - 1 = ?', 'Nothing'),
+(1, 2, 1, 2, '3 - 2 = ?', 'Nothing'),
+(2, 1, 1, 1, 'You ___ Beautiful', 'Nothing'),
+(2, 1, 1, 2, 'This ___ Cheap', 'Nothing'),
+(2, 2, 1, 1, '___ Banana', 'Nothing'),
+(2, 2, 1, 2, '___ Apple', 'Nothing');
+
+Insert Into [Answer] Values 
+(1, 1, 1, 1, 1, '1', 1),
+(1, 1, 1, 1, 2, '2', 2),
+(1, 1, 1, 1, 3, '3', 1),
+(1, 1, 1, 1, 4, '4', 1),
+
+(1, 1, 1, 2, 1, '1', 1),
+(1, 1, 1, 2, 2, '2', 1),
+(1, 1, 1, 2, 3, '3', 2),
+(1, 1, 1, 2, 4, '4', 1),
+
+(1, 2, 1, 1, 1, '1', 1),
+(1, 2, 1, 1, 2, '2', 2),
+(1, 2, 1, 1, 3, '3', 1),
+(1, 2, 1, 1, 4, '4', 1),
+
+(1, 2, 1, 2, 1, '1', 2),
+(1, 2, 1, 2, 2, '2', 1),
+(1, 2, 1, 2, 3, '3', 1),
+(1, 2, 1, 2, 4, '4', 1),
+
+(2, 1, 1, 1, 1, 'Are', 2),
+(2, 1, 1, 1, 2, 'Is', 1),
+(2, 1, 1, 1, 3, 'The', 1),
+(2, 1, 1, 1, 4, 'So', 1),
+
+(2, 1, 1, 2, 1, 'Are', 1),
+(2, 1, 1, 2, 2, 'Is', 2),
+(2, 1, 1, 2, 3, 'The', 1),
+(2, 1, 1, 2, 4, 'So', 1),
+
+(2, 2, 1, 1, 1, 'One', 2),
+(2, 2, 1, 1, 2, 'Two', 1),
+(2, 2, 1, 1, 3, 'Three', 1),
+(2, 2, 1, 1, 4, 'Four', 1),
+
+(2, 2, 1, 2, 1, 'An', 2),
+(2, 2, 1, 2, 2, 'A', 1),
+(2, 2, 1, 2, 3, 'Many', 1),
+(2, 2, 1, 2, 4, 'Ten', 1);
+
+Insert Into [Feedback] Values
+(1, 1, 1, 'So Good', 'Worthy Course')
+
+Insert Into [LessonDoc] Values 
+(1, 1, 1, 'Math Book 1', 'Math book volume 1', 'a.img');
+
+Insert Into [Order] Values 
+(1, 1, '06-09-2024', 10);
+
+Insert Into [OwnCourse] Values
+(1, 1, 1),
+(2, 1, 1);

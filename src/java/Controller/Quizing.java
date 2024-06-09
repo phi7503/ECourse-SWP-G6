@@ -23,7 +23,7 @@ public class Quizing extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
         HttpSession ses = request.getSession();
         String confirmation = request.getParameter("confirmation");
         if (confirmation.equals("NO")) {
@@ -48,7 +48,8 @@ public class Quizing extends HttpServlet {
                 if (request.getParameter("index") == null) {
                     request.setAttribute("index", index);
                     request.setAttribute("QuizID", QuizID);
-                    QuizDAO.INS.addUserQuizStatus(u.getUserID(), QuizID);
+                    request.setAttribute("Time", 900);
+                    
                 }
                 request.setAttribute("Question", qul.get(index));
                 request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
@@ -94,7 +95,11 @@ public class Quizing extends HttpServlet {
             }
             request.setAttribute("QuizID", QuizID);
             request.setAttribute("index", index);
-            doGet(request, response);
+            request.setAttribute("qul", qul);
+            request.setAttribute("AnswerINS", AnswerDAO.INS);
+            request.setAttribute("Question", qul.get(index));
+            request.setAttribute("Time", request.getParameter("Time"));
+            request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
         } else {
             int QuizID = Integer.parseInt(request.getParameter("QuizID"));
             request.setAttribute("QuizID", QuizID);

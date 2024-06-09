@@ -4,27 +4,29 @@
  */
 package Models;
 
-import java.util.Date;
-
 /**
  *
- * @author admin
+ * @author hi2ot
  */
-public class Lesson {
+public class LessonDoc {
     
     private int CourseID;
     private int LessonID;
-    private String LessonName;
+    private int DocID;
+    private String Title;
     private String Description;
+    private String Link;
 
-    public Lesson() {
+    public LessonDoc() {
     }
 
-    public Lesson(int CourseID, int LessonID, String LessonName, String Description) {
+    public LessonDoc(int CourseID, int LessonID, int DocID, String Title, String Description, String Link) {
         this.CourseID = CourseID;
         this.LessonID = LessonID;
-        this.LessonName = LessonName;
+        this.DocID = DocID;
+        this.Title = Title;
         this.Description = Description;
+        this.Link = Link;
     }
 
     public int getCourseID() {
@@ -43,12 +45,20 @@ public class Lesson {
         this.LessonID = LessonID;
     }
 
-    public String getLessonName() {
-        return LessonName;
+    public int getDocID() {
+        return DocID;
     }
 
-    public void setLessonName(String LessonName) {
-        this.LessonName = LessonName;
+    public void setDocID(int DocID) {
+        this.DocID = DocID;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String Title) {
+        this.Title = Title;
     }
 
     public String getDescription() {
@@ -57,6 +67,14 @@ public class Lesson {
 
     public void setDescription(String Description) {
         this.Description = Description;
+    }
+
+    public String getLink() {
+        return Link;
+    }
+
+    public void setLink(String Link) {
+        this.Link = Link;
     }
     
     

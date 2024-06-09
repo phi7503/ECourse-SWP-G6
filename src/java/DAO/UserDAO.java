@@ -65,6 +65,27 @@ public class UserDAO {
         }        
     }
     
+    public Vector<Course> loadUserOwnCourse(int UserID) {
+        String sql = "Select * From [OwnCourse] oc Join [Course] c On oc.CourseID = c.CourseID Where UserID = ?";
+        Vector<Course> course = new Vector<Course>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ResultSet rs = ps.executeQuery();            
+            while (rs.next()) {
+                int CourseID = rs.getInt("CourseID");
+                String CourseName = rs.getString("CourseName");
+                float Price = rs.getFloat("Price");
+                String Description = rs.getString("Description");
+                java.sql.Date CreateDate = rs.getDate("CreateDate");
+                course.add(new Course(CourseID, CourseName, Price, Description, CreateDate));
+            }
+        } catch (Exception e) {
+            status = "Error at loadUserOwnCourse " + e.getMessage();
+        }
+        return course;
+    }
+    
     public User getUserByName(String UserName) {
         for (User x : ul) {
             if (x.getUserName().equals(UserName)) {
