@@ -110,6 +110,20 @@
             }
         }
     });
+    
+    document.getElementById('deleteOrder').onclick = function(event) {
+    // Hiển thị thông báo xác nhận
+    var confirmDelete = confirm('Are you sure?');
+    
+    // Kiểm tra người dùng có nhấn OK hay không
+    if (!confirmDelete) {
+        // Nếu người dùng nhấn Cancel, ngăn chặn hành động xóa
+        event.preventDefault();
+    } else {
+        // Thực hiện hành động xóa ở đây
+        console.log('Deleted!');
+    }
+};
 
 
     // Modal Video
@@ -148,4 +162,5 @@
     });
 
 })(jQuery);
+
 

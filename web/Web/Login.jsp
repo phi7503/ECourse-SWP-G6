@@ -43,7 +43,7 @@
         <div class="container-fluid" style="padding-top: 50px">           
             <div class="container">
                 <div class="text-center mx-auto mb-5">
-                    <a href="Home"><h1 class="text-primary display-6">Fruitables</h1></a>              
+                    <a href="Home"><h1 class="text-primary display-6">Ecourse</h1></a>              
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
 
 
             <a href="../../src/java/Controller/Login.java"></a>
-            <form action="Login" method="post">
+<!--            <form action="Login" method="post">
                 <div class="bg-light p-5">
                     <div class="col-lg-12 col-md-12 col-xl-12">
                         <div class="counter bg-white rounded p-4" >
@@ -67,7 +67,7 @@
                                 <h4 class="mb-3 text-secondary">${err}</h4>
                             </c:if>
                             <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                        </div>                             
+                        </div>                             -->
                         <form action="Login" method="post">
                             <div class="bg-light p-5">
                                 <div class="col-lg-12 col-md-12 col-xl-12">
@@ -79,6 +79,9 @@
                                         <br/>
                                         <c:if test='${err != null}'>
                                             <h4 class="mb-3 text-secondary">${err}</h4>
+                                        </c:if>
+                                        <c:if test='${User != null}'>
+                                            ${User.getUserName()}
                                         </c:if>
                                         <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
                                     </div>                        

@@ -34,6 +34,17 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+         <script>
+            function confirmDelete() {
+                let text = "Are you sure?";
+                if (confirm(text) == true) {
+                    document.getElementById("deleteOrder").value = "OK";
+                } else {
+                    document.getElementById("deleteOrder").value = "No";
+                }
+                document.getElementById("deleteOrd").submit();d
+            }
+        </script>
     </head>
     <body>
 
@@ -142,7 +153,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <form action="deleteOrder" method="post">
                             <c:forEach var="item" items="${orders}" varStatus="index">
                                 <tr>
                                     <td>${index.index + 1}</td>
@@ -169,45 +179,48 @@
                                     <td>${item.getTotal()}</td>
                                     <td>
                                         <c:if test="${item.getStatus() == 1}">
-                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                            <form action="deleteOrder" method="post" id="deleteOrd">
+                                                <input type="text" hidden name="orderId" value="${item.getId()}">
+                                                <input type="submit" name="submit" class="btn btn-danger" id="deleteOrder" value="Delete" onclick="confirmDelete()">
+                                            </form>
+
                                         </c:if>
                                     </td>
                                 </tr> 
                             </c:forEach>
-                        </form>
                         </tbody>
                     </table>
                 </div>
-<!--                <div class="mt-5">
-                    <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">
-                    <button class="btn border-secondary rounded-pill px-4 py-3 text-primary" type="button">Apply Coupon</button>
-                </div>
-                <div class="row g-4 justify-content-end">
-                    <div class="col-8"></div>
-                    <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
-                        <div class="bg-light rounded">
-                            <div class="p-4">
-                                <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
-                                <div class="d-flex justify-content-between mb-4">
-                                    <h5 class="mb-0 me-4">Subtotal:</h5>
-                                    <p class="mb-0">$96.00</p>
+                <!--                <div class="mt-5">
+                                    <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">
+                                    <button class="btn border-secondary rounded-pill px-4 py-3 text-primary" type="button">Apply Coupon</button>
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="mb-0 me-4">Shipping</h5>
-                                    <div class="">
-                                        <p class="mb-0">Flat rate: $3.00</p>
+                                <div class="row g-4 justify-content-end">
+                                    <div class="col-8"></div>
+                                    <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
+                                        <div class="bg-light rounded">
+                                            <div class="p-4">
+                                                <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <h5 class="mb-0 me-4">Subtotal:</h5>
+                                                    <p class="mb-0">$96.00</p>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-0 me-4">Shipping</h5>
+                                                    <div class="">
+                                                        <p class="mb-0">Flat rate: $3.00</p>
+                                                    </div>
+                                                </div>
+                                                <p class="mb-0 text-end">Shipping to Ukraine.</p>
+                                            </div>
+                                            <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
+                                                <h5 class="mb-0 ps-4 me-4">Total</h5>
+                                                <p class="mb-0 pe-4">$99.00</p>
+                                            </div>
+                                            <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <p class="mb-0 text-end">Shipping to Ukraine.</p>
-                            </div>
-                            <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                <h5 class="mb-0 ps-4 me-4">Total</h5>
-                                <p class="mb-0 pe-4">$99.00</p>
-                            </div>
-                            <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
-                        </div>
-                    </div>
-                </div>-->
+                                </div>-->
             </div>
         </div>
         <!-- Cart Page End -->
@@ -319,7 +332,9 @@
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
         <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+        <script src="js/main.js">
+            
+        </script>
     </body>
 
 </html>

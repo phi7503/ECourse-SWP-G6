@@ -40,7 +40,7 @@ public class LessonDAO {
         this.status = status;
     }
 
-    private LessonDAO() {
+    public LessonDAO() {
         if (INS == null) {
             try {
                 con = new DBContext().getConnection();
@@ -208,5 +208,6 @@ public class LessonDAO {
         }
         return false;
     }
+}
 
 

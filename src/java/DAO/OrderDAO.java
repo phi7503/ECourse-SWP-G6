@@ -52,21 +52,24 @@ public class OrderDAO {
             INS = this;
         }
     }
-    
-    public boolean deleteOrder(String orderId) {
-        String sql = "DELETE FROM order WHERE OrderID = ?";
-        try {
-            
-            PreparedStatement statement = con.prepareStatement(sql);
-            statement.setString(1, orderId);
 
-            boolean rowDeleted = statement.executeUpdate() > 0;
-            statement.close();
-            return rowDeleted;
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public boolean deleteOrder(String orderId) {
+        String sql = "   DELETE FROM [Order] WHERE OrderID = " + orderId;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            status = "Error at load Lesson " + e.getMessage();
+            System.out.println(status);
             return false;
         }
+
+        return true;
+    }
+    
+    public static void main(String[] args) {
+        OrderDAO.INS.deleteOrder("2");
     }
 
     public List<Order> loadByUser(int userId) {
@@ -86,13 +89,13 @@ public class OrderDAO {
                 order.setId(rs.getInt("OrderID"));
                 order.setStatus(rs.getInt("Status"));
                 order.setLessons(LessonDAO.INS.loadByOrder(order.getId()));
-                
+
                 orders.add(order);
             }
         } catch (Exception e) {
             status = "Error at load Lesson " + e.getMessage();
         }
-        
+
         return orders;
     }
 }

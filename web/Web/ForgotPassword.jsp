@@ -69,7 +69,7 @@
                             </select>
                             <h1 class="display-6 text-primary px-4">Answer</h1>
                             <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="answer" placeholder="Enter Answer" required>
-                            <h1 class="display-6 text-primary px-4">New Passworld</h1>
+                            <h1 class="display-6 text-primary px-4">New Password</h1>
                             <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="newPass" placeholder="Enter New Password" required>
                                 
                             <br/>
@@ -77,7 +77,7 @@
                                 <h4 class="mb-3 text-secondary">${err}</h4>
                             </c:if>
                                 <c:if test='${suc != null}'>
-                                <h4 class="mb-3 text-primary">${err}</h4>
+                                <h4 class="mb-3 text-primary">${suc}</h4>
                             </c:if>
                             <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
                         </div>                        
