@@ -98,7 +98,8 @@ Create Table [Attempt](
 	LessonID int not null,
 	QuizID int not null,
 	AttemptID int not null,
-	AttemptDate date not null,
+	AttemptDate datetime not null,
+	SubmittedDate datetime,
 	Primary Key (UserID, CourseID, LessonID, QuizID, AttemptID)
 );
 
@@ -169,7 +170,7 @@ Alter Table [Attempt] with nocheck
 Alter Table [UserAnswer] with nocheck 
 	Add Foreign Key (UserID, CourseID, LessonID, QuizID, AttemptID) References [Attempt](UserID, CourseID, LessonID, QuizID, AttemptID)
 Alter Table [UserAnswer] with nocheck
-	Add Foreign Key (CourseID, LessonID, QuizID, QuestionID, AnswerID) References [Answer](CourseID, LessonID, QuizID, QuestionID, AnswerID)
+	Add Foreign Key (CourseID, LessonID, QuizID, QuestionID) References [Question](CourseID, LessonID, QuizID, QuestionID)
 Alter Table [OwnCourse] with nocheck
 	Add Foreign Key (OrderID, UserID) References [Order](OrderID, UserID)
 Alter Table [LessonDoc] with nocheck
@@ -187,6 +188,14 @@ Insert Into [User] Values
 Insert Into [Course] Values 
 (1, 'Math', 15, 'Math for Elementary Student', '06-09-2024'),
 (2, 'English', 10, 'English for Elementary Student', '06-09-2024');
+
+Insert Into [Order] Values
+(1, 1, '11-06-2024', 10),
+(2, 1, '11-06-2024', 15);
+
+Insert Into [OwnCourse] Values
+(1, 1, 1),
+(2, 1, 1);
 
 Insert Into [Lesson] Values 
 (1, 1, 'Math 1', 'Math Lesson 1'),
@@ -256,10 +265,3 @@ Insert Into [Feedback] Values
 
 Insert Into [LessonDoc] Values 
 (1, 1, 1, 'Math Book 1', 'Math book volume 1', 'a.img');
-
-Insert Into [Order] Values 
-(1, 1, '06-09-2024', 10);
-
-Insert Into [OwnCourse] Values
-(1, 1, 1),
-(2, 1, 1);
