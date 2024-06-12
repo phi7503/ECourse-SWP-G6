@@ -33,6 +33,7 @@
         <div class="container d-flex align-items-center justify-content-center min-vh-100 ">
             <div class="col-md-8 bg-white p-3 bg-transparent text-white">
                 <h2 class="text-center">Create New Account</h2> <br>
+                <h4 class="text-center text-danger">${mess}</h4>
                 <form action="register" method="post">
                     <div class="form-group row">
                         <label for="fullname" class="col-sm-3 col-form-label">FULL NAME</label>
@@ -67,7 +68,7 @@
                     <div class="form-group row">
                         <label for="dateOfBirth" class="col-sm-3 col-form-label">DATE OF BIRTH</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="YYYY-MM-DD" required>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="YYYY-MM-DD" required>
 
                         </div>
                     </div>
@@ -116,7 +117,7 @@
 
                     <div class="form-group row">
                         <div class="col-sm-9 offset-sm-3">
-                            <button class="btn btn-success btn-block" type="button">Sign In</button>
+                            <a href="login.jsp" class="btn btn-success btn-block" type="button">Sign In</a>
                         </div>
                     </div>
                 </form>
