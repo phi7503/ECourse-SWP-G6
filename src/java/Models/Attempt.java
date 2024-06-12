@@ -4,7 +4,7 @@
  */
 package Models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -16,13 +16,22 @@ public class Attempt {
     private int LessonID;
     private int QuizID;
     private int AttemptID;
-    private java.sql.Date AttemptDate;
-    private java.sql.Date SubmittedDate;
+    private java.sql.Timestamp AttemptDate;   
+    private java.sql.Timestamp SubmittedDate;
 
     public Attempt() {
     }
 
-    public Attempt(int UserID, int CourseID, int LessonID, int QuizID, int AttemptID, Date AttemptDate, Date SubmittedDate) {
+    public Attempt(int UserID, int CourseID, int LessonID, int QuizID, int AttemptID, Timestamp AttemptDate) {
+        this.UserID = UserID;
+        this.CourseID = CourseID;
+        this.LessonID = LessonID;
+        this.QuizID = QuizID;
+        this.AttemptID = AttemptID;
+        this.AttemptDate = AttemptDate;
+    }        
+
+    public Attempt(int UserID, int CourseID, int LessonID, int QuizID, int AttemptID, Timestamp AttemptDate, Timestamp SubmittedDate) {
         this.UserID = UserID;
         this.CourseID = CourseID;
         this.LessonID = LessonID;
@@ -72,21 +81,20 @@ public class Attempt {
         this.AttemptID = AttemptID;
     }
 
-    public Date getAttemptDate() {
+    public Timestamp getAttemptDate() {
         return AttemptDate;
     }
 
-    public void setAttemptDate(Date AttemptDate) {
+    public void setAttemptDate(Timestamp AttemptDate) {
         this.AttemptDate = AttemptDate;
     }
 
-    public Date getSubmittedDate() {
+    public Timestamp getSubmittedDate() {
         return SubmittedDate;
     }
 
-    public void setSubmittedDate(Date SubmittedDate) {
+    public void setSubmittedDate(Timestamp SubmittedDate) {
         this.SubmittedDate = SubmittedDate;
     }
-    
-    
+       
 }

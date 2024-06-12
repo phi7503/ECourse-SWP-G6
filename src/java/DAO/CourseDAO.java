@@ -19,6 +19,22 @@ public class CourseDAO {
     private Connection con;
     private String status = "OK";
     public static CourseDAO INS = new CourseDAO();
+
+    public List<Course> getCl() {
+        return cl;
+    }
+
+    public void setCl(List<Course> cl) {
+        this.cl = cl;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }       
     
     private CourseDAO() {
         if (INS == null) {

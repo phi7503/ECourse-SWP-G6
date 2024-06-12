@@ -59,5 +59,23 @@ public class Question {
     public void setExplaination(String Explaination) {
         this.Explaination = Explaination;
     }
+
+    public int getCourseID() {
+        return CourseID;
+    }
+
+    public void setCourseID(int CourseID) {
+        this.CourseID = CourseID;
+    }
+
+    public int getLessonID() {
+        return LessonID;
+    }
+
+    public void setLessonID(int LessonID) {
+        this.LessonID = LessonID;
+    }
+    
+    
     
 }

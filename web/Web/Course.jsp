@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Home
-    Created on : May 29, 2024, 6:47:31 AM
+    Document   : Course
+    Created on : Jun 10, 2024, 6:24:13 AM
     Author     : hi2ot
 --%>
 
@@ -101,12 +101,13 @@
 
         <!-- Bestsaler Product Start -->
         <div class="container-fluid py-5">
+            <input type="text" name="CourseID" value="${CourseID}" hidden>
             <div class="container py-5">
                 <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                    <h1 class="display-4">Course List</h1>
+                    <h1 class="display-4">Lesson List</h1>
                 </div>
                 <div class="row g-4">
-                    <c:forEach items="${cl}" var="x">                            
+                    <c:forEach items="${LessonList}" var="x">                            
                         <div class="col-lg-6 col-xl-4">
                             <div class="p-4 rounded bg-light">
                                 <div class="row align-items-center">
@@ -114,8 +115,12 @@
                                         <img src="img/best-product-1.jpg" class="img-fluid rounded-circle w-100" alt="">
                                     </div>
                                     <div class="col-6">
-                                        <h5>${x.getCourseName()}</h5>       
-                                        <a href="Course?CourseID=${x.getCourseID()}" class="btn border border-secondary px-3 text-primary">Go to Course</a>
+                                        <h5>${x.getLessonName()}</h5>       
+                                        <form action="Lesson" method="get">
+                                            <input type="text" name="CourseID" value="${CourseID}" hidden>
+                                            <input type="text" name="LessonID" value="${x.getLessonID()}" hidden>
+                                            <button class="btn border border-secondary rounded-pill px-3 text-primary" value="Go to Lesson">Go to Lesson</button>
+                                        </form>
                                     </div>                                            
                                 </div>
                             </div>
@@ -125,43 +130,44 @@
             </div>                
             <a href="Logout" class="btn border border-secondary rounded-pill px-3 text-primary">Logout</a>    
         </div>
-        
-    <!-- Bestsaler Product End -->        
 
-    <!-- Copyright Start -->
-    <div class="container-fluid copyright bg-dark py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
-                </div>
-                <div class="col-md-6 my-auto text-center text-md-end text-white">
-                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                    Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+        <!-- Bestsaler Product End -->        
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Copyright End -->
+        <!-- Copyright End -->
 
 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
 
-    <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-</body>
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
 
 </html>
+

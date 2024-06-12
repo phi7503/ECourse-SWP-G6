@@ -67,10 +67,59 @@ public class QuestionDAO {
         } catch (Exception e) {
             status = "Error at load Question " + e.getMessage();
         }
-    }   
+    }
 
-    public static void main(String[] agrs) {
-        INS.load();        
+    public Vector<Answer> loadQuestionAnswer(int CourseID, int LessonID, int QuizID, int QuestionID) {
+        String sql = "Select * From [Answer] Where CourseID = ? And LessonID = ? And QuizID = ? And QuestionID = ?";
+        Vector<Answer> AnswerList = new Vector<Answer>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, QuizID);
+            ps.setInt(4, QuestionID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int AnswerID = rs.getInt("AnswerID");
+                String Description = rs.getString("Description");
+                int Role = rs.getInt("Role");
+                AnswerList.add(new Answer(CourseID, LessonID, QuizID, QuestionID, AnswerID, Description, Role));
+            }
+        } catch (Exception e) {
+            status = "Error at loadQuestionAnswer " + e.getMessage();
+        }
+        return AnswerList;
+    }
+
+    public Answer loadUserQuestionAnswer(int CourseID, int LessonID, int QuizID, int QuestionID, int UserID, int AttemptID) {
+        String sql = "Select * From [UserAnswer] ua "
+                + "\n Join [Answer] a On ua.CourseID = a.CourseID And ua.LessonID = a.LessonID And ua.QuizID = a.QuizID And ua.QuestionID = a.QuestionID And ua.AnswerID = a.AnswerID"
+                + "\n Where ua.CourseID = ? And ua.LessonID = ? And ua.QuizID = ? And ua.QuestionID = ? And ua.UserID = ? And ua.AttemptID = ?";
+        Answer ans = new Answer();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, QuizID);
+            ps.setInt(4, QuestionID);
+            ps.setInt(5, UserID);
+            ps.setInt(6, AttemptID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                int AnswerID = rs.getInt("AnswerID");
+                String Description = rs.getString("Description");
+                int Role = rs.getInt("Role");
+                ans = new Answer(CourseID, LessonID, QuizID, QuestionID, AnswerID, Description, Role);
+            }
+        } catch (Exception e) {
+            status = "Error at loadUserQuestionAnswer " + e.getMessage();
+        }
+        return ans;
+    }
+
+    public static void main(String[] agrs) {        
+        Answer ans = INS.loadUserQuestionAnswer(1, 1, 1, 1, 1, 33);
+        System.out.println(ans.getQuestionID());
         System.out.println(INS.getStatus());
     }
 }

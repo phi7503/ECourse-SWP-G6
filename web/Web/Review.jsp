@@ -142,33 +142,26 @@
                         <div class="col-lg-8 col-xl-9">
                             <div class="row g-4">                            
                                 <div class="col-lg-12">
-                                    <h4 class="fw-bold mb-3">Question ${qul.indexOf(Question) + 1}</h4>
+                                    <h4 class="fw-bold mb-3">Question ${QuestionList.indexOf(Question) + 1}</h4>
                                     <p class="mb-3">${Question.getQuestion()}</p>
                                     <table>
-                                        <c:set var="AnswerID" value="${AnswerINS.getAnswerbyUserID(User.getUserID(), Question.getQuestionID())}"></c:set>
-                                        <c:set var="CorrectAnswerID" value="${AnswerINS.getCorrectAnswer(Question.getQuestionID())}"></c:set>
+                                        <c:set var="UserAnswer" value="${QuestionINS.loadUserQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID(), User.getUserID(), AttemptID)}"></c:set>                                        
                                                                                 
                                         <c:forEach items="${AnswerINS.loadAnswerByQuestionId(Question.getQuestionID())}" var="x">                                                                                                                                                                                     
-                                            <c:if test="${x.getAnswerID() == AnswerID}">
+                                            <c:if test="${x.getAnswerID() == UserAnswer.getAnswerID()}">
                                                 <input type="radio" name="Answer" value="${x.getAnswerID()}" checked disabled> ${x.getDescription()}
-                                                <c:if test="${CorrectAnswerID != AnswerID}">
-                                                    Wrong!
-                                                </c:if>
+                                                
                                             </c:if>
                                             <c:if test="${x.getAnswerID() != AnswerID}">
                                                 <input type="radio" name="Answer" value="${x.getAnswerID()}" disabled> ${x.getDescription()}  
-                                            </c:if>
-                                            <c:if test="${CorrectAnswerID == x.getAnswerID()}">
-                                                Correct!
-                                            </c:if>
+                                            </c:if>                                            
                                             <br/>
-                                        </c:forEach>                      
-                                            
+                                        </c:forEach>                                                                                                              
                                     </table>
                                     <c:if test="${index != 0}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnPrev" value="Prev">
                                     </c:if>
-                                    <c:if test="${index != qul.size() - 1}">
+                                    <c:if test="${index != QuestionList.size() - 1}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnNext" value="Next">
                                     </c:if>                                    
                                 </div>                                                
@@ -178,12 +171,12 @@
                             <div class="col-lg-12">                               
                                 <div class="mt-5 pagination">
                                     <h4>Quiz Navigation</h4>
-                                    <c:forEach items="${qul}" var="x">
+                                    <c:forEach items="${QuestionList}" var="x">
                                         <c:if test="${Question == x}">
-                                            <input type="submit" class="btn btn-primary border border-secondary rounded-pill px-3" name="Btn${qul.indexOf(x)}" value="${qul.indexOf(x) + 1}">
+                                            <input type="submit" class="btn btn-primary border border-secondary rounded-pill px-3" name="Btn${QuestionList.indexOf(x)}" value="${QuestionList.indexOf(x) + 1}">
                                         </c:if>
                                         <c:if test="${Question != x}">
-                                            <input type="submit" class="btn border border-secondary rounded-pill px-3" name="Btn${qul.indexOf(x)}" value="${qul.indexOf(x) + 1}">
+                                            <input type="submit" class="btn border border-secondary rounded-pill px-3" name="Btn${QuestionList.indexOf(x)}" value="${QuestionList.indexOf(x) + 1}">
                                         </c:if>
                                     </c:forEach>
                                 </div>

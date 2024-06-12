@@ -35,12 +35,12 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-        <script>                        
+        <script>
             let now = null;
-            let x = setInterval(function () {                                
+            let x = setInterval(function () {
                 if (now === null) {
                     now = document.getElementById("Time").value;
-                }                
+                }
                 document.getElementById("LiveTime").innerHTML = now;
                 now--;
             }, 1000);
@@ -143,28 +143,31 @@
 
 
         <!-- Single Product Start -->
-        <form action="Quizing" method="post">  
-            <input type="text" name="index" value="${index}" hidden>
-            <input type="text" name="QuizID" value="${QuizID}" hidden>
-            <input type="text" name="confirmation" value="${confirmation}" hidden>
+        <form action="Quizing" method="post">   
+            <input type="text" name="CourseID" value="${CourseID}" hidden>
+            <input type="text" name="LessonID" value="${LessonID}" hidden>
+            <input type="text" name="QuizID" value="${QuizID}" hidden> 
+            <input type="text" name="AttemptID" value="${AttemptID}" hidden>
+            <input type="text" name="index" value="${index}" hidden>            
             <input type="text" name="Time" value="${Time}" id="Time" hidden>
+            <p>${User.getUserID()}</p>
             <div class="container-fluid py-5 mt-5">
                 <div class="container py-5">
                     <div class="row g-4 mb-5">
                         <div class="col-lg-8 col-xl-9">
                             <div class="row g-4">                            
                                 <div class="col-lg-12">
-                                    <h4 class="fw-bold mb-3">Question ${qul.indexOf(Question) + 1}</h4>
+                                    <h4 class="fw-bold mb-3">Question ${QuestionList.indexOf(Question) + 1}</h4>
                                     <p class="mb-3">${Question.getQuestion()}</p>
                                     <table>
-                                        <c:set var="AnswerID" value="${AnswerINS.getAnswerbyUserID(User.getUserID(), Question.getQuestionID())}"></c:set>
+                                        <c:set var="UserAnswer" value="${QuestionINS.loadUserQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID(), User.getUserID(), AttemptID)}"></c:set>
 
-                                        <c:forEach items="${AnswerINS.loadAnswerByQuestionId(Question.getQuestionID())}" var="x"> 
-                                            <c:if test="${x.getAnswerID() == AnswerID}">
-                                                <input type="radio" name="Answer" value="${x.getAnswerID()}" checked> ${x.getDescription()}  
+                                        <c:forEach items="${QuestionINS.loadQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID())}" var="x"> 
+                                            <c:if test="${x.getAnswerID() == UserAnswer.getAnswerID()}">
+                                                <input type="radio" name="AnswerID" value="${x.getAnswerID()}" checked> ${x.getDescription()}  
                                             </c:if>
-                                            <c:if test="${x.getAnswerID() != AnswerID}">
-                                                <input type="radio" name="Answer" value="${x.getAnswerID()}"> ${x.getDescription()}  
+                                            <c:if test="${x.getAnswerID() != UserAnswer.getAnswerID()}">
+                                                <input type="radio" name="AnswerID" value="${x.getAnswerID()}"> ${x.getDescription()}  
                                             </c:if>
                                             <br/>
                                         </c:forEach>                      
@@ -173,12 +176,9 @@
                                     <c:if test="${index != 0}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnPrev" value="Prev">
                                     </c:if>
-                                    <c:if test="${index != qul.size() - 1}">
+                                    <c:if test="${index != QuestionList.size() - 1}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnNext" value="Next">
                                     </c:if>
-                                    <c:if test="${index == qul.size() - 1}">
-                                        <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnFinish" value="Finish">
-                                    </c:if>   
                                 </div>                                                
                             </div>
                         </div>
@@ -191,12 +191,12 @@
                                 </div>                                     
                                 <div class="mt-5 pagination">
                                     <h4>Quiz Navigation</h4>
-                                    <c:forEach items="${qul}" var="x">
+                                    <c:forEach items="${QuestionList}" var="x">
                                         <c:if test="${Question == x}">
-                                            <input type="submit" class="btn btn-primary border border-secondary rounded-pill px-3" name="Btn${qul.indexOf(x)}" value="${qul.indexOf(x) + 1}">
+                                            <input type="submit" class="btn btn-primary border border-secondary rounded-pill px-3" name="Btn${QuestionList.indexOf(x)}" value="${QuestionList.indexOf(x) + 1}">
                                         </c:if>
                                         <c:if test="${Question != x}">
-                                            <input type="submit" class="btn border border-secondary rounded-pill px-3" name="Btn${qul.indexOf(x)}" value="${qul.indexOf(x) + 1}">
+                                            <input type="submit" class="btn border border-secondary rounded-pill px-3" name="Btn${QuestionList.indexOf(x)}" value="${QuestionList.indexOf(x) + 1}">
                                         </c:if>
                                     </c:forEach>
                                 </div>

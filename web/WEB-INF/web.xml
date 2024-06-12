@@ -28,6 +28,22 @@
         <servlet-name>Review</servlet-name>
         <servlet-class>Controller.Review</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Controller.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Course</servlet-name>
+        <servlet-class>Controller.Course</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Lesson</servlet-name>
+        <servlet-class>Controller.Lesson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizNavigate</servlet-name>
+        <servlet-class>Controller.QuizNavigate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -47,5 +63,21 @@
     <servlet-mapping>
         <servlet-name>Review</servlet-name>
         <url-pattern>/Review</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Course</servlet-name>
+        <url-pattern>/Course</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Lesson</servlet-name>
+        <url-pattern>/Lesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizNavigate</servlet-name>
+        <url-pattern>/QuizNavigate</url-pattern>
     </servlet-mapping>
 </web-app>

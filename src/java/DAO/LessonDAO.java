@@ -85,6 +85,25 @@ public class LessonDAO {
         return list;
     }
     
+    public Vector<Lesson> loadLessonByCourseID(int CourseID) {
+        String sql = "Select * From [Lesson] Where CourseID = ?";
+        Vector<Lesson> list = new Vector<Lesson>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int LessonID = rs.getInt("LessonID");
+                String LessonName = rs.getString("LessonName");
+                String Description = rs.getString("Description");
+                list.add(new Lesson(CourseID, LessonID, LessonName, Description));
+            }
+        } catch (Exception e) {
+            status = "Error at loadLessonByCourseID " + e.getMessage();
+        }
+        return list;
+    }
+    
     public static void main(String[] args){        
         INS.loadLesson();
         System.out.println(INS.getLl().size());

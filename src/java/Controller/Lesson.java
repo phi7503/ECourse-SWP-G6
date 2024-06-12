@@ -20,9 +20,8 @@ import java.util.List;
  *
  * @author hi2ot
  */
-public class Summary extends HttpServlet {    
-
-    @Override
+public class Lesson extends HttpServlet {
+   
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession ses = request.getSession();
@@ -32,29 +31,26 @@ public class Summary extends HttpServlet {
         } else {
             int CourseID = -1;
             int LessonID = -1;
-            int QuizID = -1;
             try {
-                CourseID = Integer.parseInt(request.getParameter("CourseID"));
+                CourseID = Integer.parseInt(request.getParameter("CourseID"));  
                 LessonID = Integer.parseInt(request.getParameter("LessonID"));
-                QuizID = Integer.parseInt(request.getParameter("QuizID"));
             } catch (Exception e) {
                 request.getRequestDispatcher("/404.html").forward(request, response);
             }
-            if (CourseID > 0 && LessonID > 0 && QuizID > 0) {
-                List<Attempt> AttemptList = UserDAO.INS.loadUserQuizAttempt(u.getUserID(), CourseID, LessonID, QuizID);
-                request.setAttribute("UserINS", UserDAO.INS);
-                request.setAttribute("AttemptList", AttemptList);
+            if (CourseID > 0 && LessonID > 0) {
+                List<LessonDoc> DocList = LessonDAO.INS.loadLessonDoc(CourseID, LessonID);
+                List<Quiz> QuizList = QuizDAO.INS.loadQuizByLesson(CourseID, LessonID);
+                request.setAttribute("DocList", DocList);
+                request.setAttribute("QuizList", QuizList);
                 request.setAttribute("CourseID", CourseID);
                 request.setAttribute("LessonID", LessonID);
-                request.setAttribute("QuizID", QuizID);
-                request.getRequestDispatcher("/Web/Summary.jsp").forward(request, response);
+                request.getRequestDispatcher("/Web/Lesson.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("/404.html").forward(request, response);
             }
         }
     } 
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         doGet(request, response);

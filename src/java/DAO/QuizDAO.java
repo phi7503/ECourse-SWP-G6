@@ -68,8 +68,30 @@ public class QuizDAO {
         }
     }        
     
+    public Vector<Quiz> loadQuizByLesson(int CourseID, int LessonID) {
+        String sql = "Select * From [Quiz] Where CourseID = ? And LessonID = ?";
+        Vector<Quiz> list = new Vector<Quiz>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int QuizID = rs.getInt("QuizID");
+                String QuizName = rs.getString("QuizName");
+                int NoQ = rs.getInt("NoQ");
+                java.sql.Date CreateDate = rs.getDate("CreateDate");
+                list.add(new Quiz(CourseID, LessonID, QuizID, QuizName, NoQ, CreateDate));
+            }
+        } catch (Exception e) {
+            status = "Error at loadQuizByLesson " + e.getMessage();
+        }
+        return list;
+    }
+    
     public static void main(String[] agrs){
         INS.load();
+        INS.loadQuizByLesson(1, 1);
         System.out.println(INS.getStatus());
     }
 }
