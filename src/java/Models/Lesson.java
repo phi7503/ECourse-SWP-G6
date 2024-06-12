@@ -12,11 +12,24 @@ import java.util.Date;
  * @author admin
  */
 public class Lesson {
+<<<<<<< HEAD
     
     private int CourseID;
     private int LessonID;
     private String LessonName;
     private String Description;
+=======
+
+    private int id;
+    private String name;
+    private double price;
+    private double percentage;
+    private String description;
+    private String tagline;
+    private String image;
+    private String title;
+    private Date createdDate;
+>>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
 
     public Lesson() {
     }
@@ -59,6 +72,4 @@ public class Lesson {
     public void setDescription(String Description) {
         this.Description = Description;
     }
-    
-    
 }

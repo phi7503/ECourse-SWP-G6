@@ -25,14 +25,29 @@
         <servlet-class>Controller.Summary</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>SubjectRegister</servlet-name>
         <servlet-class>Controller.SubjectRegisterServlet</servlet-class>
     </servlet>
+=======
+
+        <servlet-name>SubjectRegister</servlet-name>
+        <servlet-class>Controller.SubjectRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+>>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
     <servlet>
         <servlet-name>LessonDetailController</servlet-name>
         <servlet-class>Controller.SubjectDetailServlet</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
         <servlet-name>ChangePassServlet</servlet-name>
         <servlet-class>Controller.ChangePassServlet</servlet-class>
     </servlet>
@@ -68,12 +83,21 @@
         <servlet-name>UserProfileServlet</servlet-name>
         <url-pattern>/userprofile</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
     <servlet-mapping>
         <servlet-name>SubjectRegister</servlet-name>
         <url-pattern>/subject-resgister</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet-mapping>
         <servlet-name>EditUserProfileServlet</servlet-name>
         <url-pattern>/editprofile</url-pattern>
     </servlet-mapping>
+=======
+
+>>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
 </web-app>
