@@ -9,26 +9,25 @@ package Models;
  *
  * @author hi2ot
  */
-public class Answer {
+public class LessonDoc {
+    
     private int CourseID;
     private int LessonID;
-    private int QuizID;
-    private int QuestionID;
-    private int AnswerID;
+    private int DocID;
+    private String Title;
     private String Description;
-    private int Role;
+    private String Link;
 
-    public Answer() {
+    public LessonDoc() {
     }
 
-    public Answer(int CourseID, int LessonID, int QuizID, int QuestionID, int AnswerID, String Description, int Role) {
+    public LessonDoc(int CourseID, int LessonID, int DocID, String Title, String Description, String Link) {
         this.CourseID = CourseID;
         this.LessonID = LessonID;
-        this.QuizID = QuizID;
-        this.QuestionID = QuestionID;
-        this.AnswerID = AnswerID;
+        this.DocID = DocID;
+        this.Title = Title;
         this.Description = Description;
-        this.Role = Role;
+        this.Link = Link;
     }
 
     public int getCourseID() {
@@ -47,28 +46,20 @@ public class Answer {
         this.LessonID = LessonID;
     }
 
-    public int getQuizID() {
-        return QuizID;
+    public int getDocID() {
+        return DocID;
     }
 
-    public void setQuizID(int QuizID) {
-        this.QuizID = QuizID;
+    public void setDocID(int DocID) {
+        this.DocID = DocID;
     }
 
-    public int getQuestionID() {
-        return QuestionID;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setQuestionID(int QuestionID) {
-        this.QuestionID = QuestionID;
-    }
-
-    public int getAnswerID() {
-        return AnswerID;
-    }
-
-    public void setAnswerID(int AnswerID) {
-        this.AnswerID = AnswerID;
+    public void setTitle(String Title) {
+        this.Title = Title;
     }
 
     public String getDescription() {
@@ -79,12 +70,12 @@ public class Answer {
         this.Description = Description;
     }
 
-    public int getRole() {
-        return Role;
+    public String getLink() {
+        return Link;
     }
 
-    public void setRole(int Role) {
-        this.Role = Role;
+    public void setLink(String Link) {
+        this.Link = Link;
     }
     
     

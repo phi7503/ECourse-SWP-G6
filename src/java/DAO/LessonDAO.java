@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -46,28 +47,47 @@ public class LessonDAO {
         }
     }
     
-    public void load() {
+    public void loadLesson() {
         String sql = "Select * From [Lesson]";
         ll = new Vector<Lesson>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                int CourseID = rs.getInt("CourseID");
                 int LessonID = rs.getInt("LessonID");
-                String LessonName = rs.getString("LessonName");
-                float Price = rs.getFloat("Price");
-                int DiscountID = rs.getInt("DiscountID");
-                String Description = rs.getString("Description");
-                java.sql.Date CreateDate = rs.getDate("CreateDate");
-                ll.add(new Lesson(LessonID, LessonName, Price, DiscountID, Description, CreateDate));
+                String LessonName = rs.getString("LessonName");                              
+                String Description = rs.getString("Description");                
+                ll.add(new Lesson(CourseID, LessonID, LessonName, Description));
             }
         } catch (Exception e) {
             status = "Error at load Lesson " + e.getMessage();
         }
     }
     
-    public static void main(String[] args){
-        INS.load();
-        System.out.println(INS.getStatus());
+    public Vector<LessonDoc> loadLessonDoc(int CourseID, int LessonID) {
+        String sql = "Select * From [LessonDoc] Where CourseID = ? And LessonID = ?";
+        Vector<LessonDoc> list = new Vector<LessonDoc>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);           
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int DocID = rs.getInt("DocID");
+                String Title = rs.getString("Title");
+                String Description = rs.getString("Description");
+                String Link = rs.getString("Link");
+                list.add(new LessonDoc(CourseID, LessonID, DocID, Title, Description, Link));
+            }
+        } catch (Exception e) {
+            status = "Error at load LessonDoc " + e.getMessage();            
+        }
+        return list;
+    }
+    
+    public static void main(String[] args){        
+        INS.loadLesson();
+        System.out.println(INS.getLl().size());
     }
 }

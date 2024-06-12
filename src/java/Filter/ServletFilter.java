@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Filter.java to edit this template
@@ -99,19 +100,20 @@ public class ServletFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        HttpSession ses = req.getSession();
-        String url = req.getRequestURI();
-        if (ses.getAttribute("User") == null) {
-            if (url.contains("Login")) {
-                chain.doFilter(request, response);
-            } else {
-                res.sendRedirect(req.getContextPath() + "/Login");
-            }            
-        } else {                
-            chain.doFilter(request, response);
-        }        
+//        HttpServletRequest req = (HttpServletRequest) request;
+//        HttpServletResponse res = (HttpServletResponse) response;
+//        HttpSession ses = req.getSession();
+//        String url = req.getRequestURI();
+//        if (ses.getAttribute("User") == null) {
+//            if (url.contains("Login")) {
+//                chain.doFilter(request, response);
+//            } else {
+//                res.sendRedirect(req.getContextPath() + "/Login");
+//            }            
+//        } else {                
+//            chain.doFilter(request, response);
+//        }        
+        chain.doFilter(request, response);
     }
 
     /**

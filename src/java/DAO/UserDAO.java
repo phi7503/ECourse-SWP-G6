@@ -67,6 +67,29 @@ public class UserDAO {
         }
     }
 
+    
+    public Vector<Course> loadUserOwnCourse(int UserID) {
+        String sql = "Select * From [OwnCourse] oc Join [Course] c On oc.CourseID = c.CourseID Where UserID = ?";
+        Vector<Course> course = new Vector<Course>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ResultSet rs = ps.executeQuery();            
+            while (rs.next()) {
+                int CourseID = rs.getInt("CourseID");
+                String CourseName = rs.getString("CourseName");
+                float Price = rs.getFloat("Price");
+                String Description = rs.getString("Description");
+                java.sql.Date CreateDate = rs.getDate("CreateDate");
+                course.add(new Course(CourseID, CourseName, Price, Description, CreateDate));
+            }
+        } catch (Exception e) {
+            status = "Error at loadUserOwnCourse " + e.getMessage();
+        }
+        return course;
+    }
+    
+
     public User getUserByName(String UserName) {
         for (User x : ul) {
             if (x.getUserName().equals(UserName)) {
@@ -178,6 +201,24 @@ public class UserDAO {
             return rowsUpdated > 0;
         } catch (Exception e) {
             status = "Error at changePassword: " + e.getMessage();
+            System.out.println(status);
+            return false;
+        }
+    }
+    
+    public boolean updateUser(User user) {
+        String sql = "UPDATE [User] SET Mail = ?, FullName = ?, DoB = ?, Role = ? WHERE UserID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, user.getMail());
+            ps.setString(2, user.getFullName());
+            ps.setDate(3, user.getDoB());
+            ps.setInt(4, user.getRole());
+            ps.setInt(5, user.getUserID());
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            String status = "Error at updateUser: " + e.getMessage();
             System.out.println(status);
             return false;
         }

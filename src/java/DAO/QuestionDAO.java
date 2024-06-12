@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -15,6 +16,7 @@ import java.util.*;
  * @author hi2ot
  */
 public class QuestionDAO {
+
     List<Question> qul;
     private Connection con;
     private String status = "OK";
@@ -35,7 +37,7 @@ public class QuestionDAO {
     public void setStatus(String status) {
         this.status = status;
     }
-            
+
     private QuestionDAO() {
         if (INS == null) {
             try {
@@ -47,7 +49,7 @@ public class QuestionDAO {
             INS = this;
         }
     }
-    
+
     public void load() {
         String sql = "Select * From [Question]";
         qul = new Vector<Question>();
@@ -55,53 +57,21 @@ public class QuestionDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-               int QuizID = rs.getInt("QuizID");
-               int QuestionID = rs.getInt("QuestionID");
-               String Question = rs.getString("Question");
-               String Explaination = rs.getString("Explaination");
-               qul.add(new Question(QuizID, QuestionID, Question, Explaination));
+                int CourseID = rs.getInt("CourseID");
+                int LessonID = rs.getInt("LessonID");
+                int QuizID = rs.getInt("QuizID");
+                int QuestionID = rs.getInt("QuestionID");
+                String Question = rs.getString("Question");
+                String Explaination = rs.getString("Explaination");
+                qul.add(new Question(CourseID, LessonID, QuizID, QuestionID, Question, Explaination));
             }
         } catch (Exception e) {
             status = "Error at load Question " + e.getMessage();
         }
-    }
-    
-    public Vector<Question> loadQuestionByQuizID(int ID) {
-        String sql = "Select * From [Question] Where QuizID = ?";
-        Vector<Question> list = new Vector<Question>();
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, ID);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-               int QuizID = rs.getInt("QuizID");
-               int QuestionID = rs.getInt("QuestionID");
-               String Question = rs.getString("Question");
-               String Explaination = rs.getString("Explaination");
-               list.add(new Question(QuizID, QuestionID, Question, Explaination));
-            }
-        } catch (Exception e) {
-            status = "Error at load loadQuestionByQuizID " + e.getMessage();
-        }
-        return list;
-    }
-    
-    public void addUserQuestionStatus(int QuestionID, int UserID){
-        String sql = "Insert Into [QuestionStatus] Values(?,?,?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, QuestionID);
-            ps.setInt(2, UserID);
-            ps.setInt(3, 1);
-            ps.execute();
-        } catch (Exception e) {
-            
-        }
-    }
-    
+    }   
+
     public static void main(String[] agrs) {
-        INS.load();
-        System.out.println(INS.loadQuestionByQuizID(1).size());
+        INS.load();        
         System.out.println(INS.getStatus());
     }
 }

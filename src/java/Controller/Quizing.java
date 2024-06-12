@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -23,35 +24,40 @@ public class Quizing extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int QuizID = -1;
-        try {
-            QuizID = Integer.parseInt(request.getParameter("QuizID"));
-        } catch (Exception e) {
-
-        }
-        if (QuizID > 0) {
-            List<Question> qul = QuestionDAO.INS.loadQuestionByQuizID(QuizID);
-            request.setAttribute("qul", qul);
-            request.setAttribute("AnswerINS", AnswerDAO.INS);
-            int index = 0;
-            try {
-                index = Integer.parseInt(request.getAttribute("index") + "");
-            } catch (Exception e) {
-            }
-            if (request.getParameter("index") == null) {                                
-                HttpSession ses = request.getSession();
-                request.setAttribute("index", index);
-                request.setAttribute("QuizID", QuizID);                
-                User u = (User) ses.getAttribute("User");
-                QuizDAO.INS.addUserQuizStatus(u.getUserID(), QuizID);
-            }
-            request.setAttribute("Question", qul.get(index));
-            request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
+            throws ServletException, IOException {        
+        HttpSession ses = request.getSession();
+        String confirmation = request.getParameter("confirmation");
+        if (confirmation.equals("NO")) {
+            response.sendRedirect(request.getContextPath() + "/Home");
         } else {
-            response.sendRedirect(request.getContextPath() + "/404.html");
-        }
+            int QuizID = -1;
+            User u = (User) ses.getAttribute("User");
+            try {
+                QuizID = Integer.parseInt(request.getParameter("QuizID"));
+            } catch (Exception e) {
 
+            }
+            if (QuizID > 0 && QuizDAO.INS.getUserQuizStatus(u.getUserID(), QuizID) == 0) {
+                List<Question> qul = QuestionDAO.INS.loadQuestionByQuizID(QuizID);
+                request.setAttribute("qul", qul);
+                request.setAttribute("AnswerINS", AnswerDAO.INS);
+                int index = 0;
+                try {
+                    index = Integer.parseInt(request.getAttribute("index") + "");
+                } catch (Exception e) {
+                }
+                if (request.getParameter("index") == null) {
+                    request.setAttribute("index", index);
+                    request.setAttribute("QuizID", QuizID);
+                    request.setAttribute("Time", 900);
+                    
+                }
+                request.setAttribute("Question", qul.get(index));
+                request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/404.html");
+            }
+        }
     }
 
     @Override
@@ -90,11 +96,15 @@ public class Quizing extends HttpServlet {
             }
             request.setAttribute("QuizID", QuizID);
             request.setAttribute("index", index);
-            doGet(request, response);
+            request.setAttribute("qul", qul);
+            request.setAttribute("AnswerINS", AnswerDAO.INS);
+            request.setAttribute("Question", qul.get(index));
+            request.setAttribute("Time", request.getParameter("Time"));
+            request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
         } else {
             int QuizID = Integer.parseInt(request.getParameter("QuizID"));
             request.setAttribute("QuizID", QuizID);
-            request.getRequestDispatcher("/Web/Summary.jsp").forward(request, response);
+            request.getRequestDispatcher("/Web/Review.jsp").forward(request, response);
         }
     }
 }
