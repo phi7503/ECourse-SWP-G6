@@ -39,10 +39,27 @@
             let now = null;
             let x = setInterval(function () {
                 if (now === null) {
-                    now = document.getElementById("Time").value;
+                    if (localStorage.getItem("Time")) {
+                        now = localStorage.getItem("Time");
+                    } else {
+                        now = document.getElementById("Time").value;
+                    }
                 }
-                document.getElementById("LiveTime").innerHTML = now;
+
+                let hours = Math.floor(now / 3600);
+                let minutes = Math.floor((now / 60) % 60);
+                let seconds = Math.floor(now % 60);
+                document.getElementById("LiveTime").innerHTML = hours + ":" + minutes + ":" + seconds;
                 now--;
+                document.getElementById("Time").value = now;
+                localStorage.removeItem("Time");
+                localStorage.setItem("Time", now);
+
+                if (hours <= 0 && minutes <= 0 && seconds <= 0) {                    
+                    localStorage.removeItem("Time");
+                    document.getElementById("BtnFinish").value = "Yes";
+                    document.getElementById("finish").submit();
+                }
             }, 1000);
         </script>
     </head>
@@ -132,7 +149,7 @@
 
         <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">Shop Detail</h1>
+            <h1 class="text-center text-white display-6">Quizing</h1>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Quiz</a></li>
@@ -143,13 +160,14 @@
 
 
         <!-- Single Product Start -->
-        <form action="Quizing" method="post">   
+        <form action="Quizing" method="post" id="finish">   
             <input type="text" name="CourseID" value="${CourseID}" hidden>
             <input type="text" name="LessonID" value="${LessonID}" hidden>
             <input type="text" name="QuizID" value="${QuizID}" hidden> 
             <input type="text" name="AttemptID" value="${AttemptID}" hidden>
             <input type="text" name="index" value="${index}" hidden>            
             <input type="text" name="Time" value="${Time}" id="Time" hidden>
+            <input typt="text" name="BtnFinish" id="BtnFinish" value="No" hidden>
             <p>${User.getUserID()}</p>
             <div class="container-fluid py-5 mt-5">
                 <div class="container py-5">
@@ -202,7 +220,7 @@
                                 </div>
                             </div>                            
                             <div class="d-flex justify-content-center my-4">
-                                <a href="Home" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Finish</a>
+                                <input type="submit" name="BtnFinish" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100" value="Finish">
                             </div>                                                                         
                         </div>
                     </div>                

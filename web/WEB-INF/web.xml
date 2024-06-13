@@ -44,6 +44,10 @@
         <servlet-name>QuizNavigate</servlet-name>
         <servlet-class>Controller.QuizNavigate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReviewNavigate</servlet-name>
+        <servlet-class>Controller.ReviewNavigate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -79,5 +83,9 @@
     <servlet-mapping>
         <servlet-name>QuizNavigate</servlet-name>
         <url-pattern>/QuizNavigate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewNavigate</servlet-name>
+        <url-pattern>/ReviewNavigate</url-pattern>
     </servlet-mapping>
 </web-app>

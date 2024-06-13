@@ -93,7 +93,7 @@ public class QuestionDAO {
 
     public Answer loadUserQuestionAnswer(int CourseID, int LessonID, int QuizID, int QuestionID, int UserID, int AttemptID) {
         String sql = "Select * From [UserAnswer] ua "
-                + "\n Join [Answer] a On ua.CourseID = a.CourseID And ua.LessonID = a.LessonID And ua.QuizID = a.QuizID And ua.QuestionID = a.QuestionID And ua.AnswerID = a.AnswerID"
+                + "\n Join [Answer] a On ua.CourseID = a.CourseID And ua.LessonID = a.LessonID And ua.QuizID = a.QuizID And ua.QuestionID = a.QuestionID"
                 + "\n Where ua.CourseID = ? And ua.LessonID = ? And ua.QuizID = ? And ua.QuestionID = ? And ua.UserID = ? And ua.AttemptID = ?";
         Answer ans = new Answer();
         try {
@@ -116,10 +116,36 @@ public class QuestionDAO {
         }
         return ans;
     }
+    
+    public Answer loadQuestionCorrectAnswer(int UserID, int AttemptID, int CourseID, int LessonID, int QuizID, int QuestionID) {
+        String sql = "Select * From [UserAnswer] ua"
+                + "\nJoin [Answer] a On ua.CourseID = a.CourseID and ua.LessonID = a.LessonID and ua.QuizID = a.QuizID and ua.QuestionID = a.QuestionID"
+                + "\nWhere a.[Role] = 2 And ua.UserID = ? and ua.CourseID = ? and ua.LessonID = ? and ua.QuizID = ? and ua.AttemptID = ? And ua.QuestionID = ?";
+        Answer ans = new Answer();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ps.setInt(2, CourseID);
+            ps.setInt(3, LessonID);
+            ps.setInt(4, QuizID);
+            ps.setInt(5, AttemptID);
+            ps.setInt(6, QuestionID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int AnswerID = rs.getInt("AnswerID");
+                String Description = rs.getString("Description");
+                int Role = rs.getInt("Role");
+                ans = new Answer(CourseID, LessonID, QuizID, QuestionID, AnswerID, Description, Role);
+            }
+        } catch (Exception e) {
+            status = "Error at loadQuestionCorrectAnswer " + e.getMessage();
+        }
+        return ans;
+    }
 
     public static void main(String[] agrs) {        
-        Answer ans = INS.loadUserQuestionAnswer(1, 1, 1, 1, 1, 33);
-        System.out.println(ans.getQuestionID());
+        Answer ans = INS.loadQuestionCorrectAnswer(1, 1, 1, 1, 1, 1);
+        
         System.out.println(INS.getStatus());
     }
 }

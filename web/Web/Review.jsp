@@ -122,7 +122,7 @@
 
         <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">Shop Detail</h1>
+            <h1 class="text-center text-white display-6">Review</h1>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Quiz</a></li>
@@ -134,8 +134,11 @@
 
         <!-- Single Product Start -->
         <form action="Review" method="post">  
-            <input type="text" name="index" value="${index}" hidden>
-            <input type="text" name="QuizID" value="${QuizID}" hidden>
+            <input type="text" name="CourseID" value="${CourseID}" hidden>
+            <input type="text" name="LessonID" value="${LessonID}" hidden>
+            <input type="text" name="QuizID" value="${QuizID}" hidden> 
+            <input type="text" name="AttemptID" value="${AttemptID}" hidden>
+            <input type="text" name="index" value="${index}" hidden>          
             <div class="container-fluid py-5 mt-5">
                 <div class="container py-5">
                     <div class="row g-4 mb-5">
@@ -146,15 +149,27 @@
                                     <p class="mb-3">${Question.getQuestion()}</p>
                                     <table>
                                         <c:set var="UserAnswer" value="${QuestionINS.loadUserQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID(), User.getUserID(), AttemptID)}"></c:set>                                        
-                                                                                
-                                        <c:forEach items="${AnswerINS.loadAnswerByQuestionId(Question.getQuestionID())}" var="x">                                                                                                                                                                                     
+                                        <c:set var="CorrectAnswer" value="${QuestionINS.loadQuestionCorrectAnswer(User.getUserID(), AttemptID, CourseID, LessonID, QuizID, Question.getQuestionID())}"></c:set>
+
+                                        <c:forEach items="${QuestionINS.loadQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID())}" var="x">   
+                                            
                                             <c:if test="${x.getAnswerID() == UserAnswer.getAnswerID()}">
-                                                <input type="radio" name="Answer" value="${x.getAnswerID()}" checked disabled> ${x.getDescription()}
+                                                <input type="radio" name="Answer" value="${x.getAnswerID()}" checked disabled> ${x.getDescription()}   
                                                 
-                                            </c:if>
-                                            <c:if test="${x.getAnswerID() != AnswerID}">
+                                                <c:if test="${x.getAnswerID() != CorrectAnswer.getAnswerID()}">
+                                                    Wrong!
+                                                </c:if>
+                                                    
+                                            </c:if>            
+                                                    
+                                            <c:if test="${x.getAnswerID() != UserAnswer.getAnswerID()}">
                                                 <input type="radio" name="Answer" value="${x.getAnswerID()}" disabled> ${x.getDescription()}  
-                                            </c:if>                                            
+                                            </c:if>       
+                                                
+                                            <c:if test="${x.getAnswerID() == CorrectAnswer.getAnswerID()}">
+                                                Correct!
+                                            </c:if>
+                                                
                                             <br/>
                                         </c:forEach>                                                                                                              
                                     </table>
