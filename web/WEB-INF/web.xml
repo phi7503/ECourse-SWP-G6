@@ -36,6 +36,7 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
+ 
     <servlet>
         <servlet-name>LessonDetailController</servlet-name>
         <servlet-class>Controller.SubjectDetailServlet</servlet-class>
