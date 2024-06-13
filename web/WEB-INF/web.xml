@@ -38,6 +38,7 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
 >>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
     <servlet>
         <servlet-name>LessonDetailController</servlet-name>
@@ -100,4 +101,62 @@
 =======
 
 >>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
+=======
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>ControllerAdmin.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Controller.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>ControllerAdmin.AddUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UsersListServlet</servlet-name>
+        <servlet-class>ControllerAdmin.UsersListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsersListServlet</servlet-name>
+        <url-pattern>/userslist</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DetailUser</servlet-name>
+        <servlet-class>ControllerAdmin.DetailUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DetailUser</servlet-name>
+        <url-pattern>/detailuser</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>ControllerAdmin.EditUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/edituser</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>ControllerAdmin.DeleteUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SearchUser</servlet-name>
+        <servlet-class>ControllerAdmin.SearchUser</servlet-class>
+    </servlet>
+>>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6
 </web-app>
