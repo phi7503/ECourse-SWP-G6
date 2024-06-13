@@ -42,7 +42,7 @@
                 } else {
                     document.getElementById("deleteOrder").value = "No";
                 }
-                document.getElementById("deleteOrd").submit();d
+                document.getElementById("deleteOrd").submit();
             }
         </script>
     </head>
