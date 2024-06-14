@@ -51,7 +51,7 @@ public class QuizNavigate extends HttpServlet {
         request.setAttribute("AttemptID", NewAttempt.getAttemptID());
         request.setAttribute("index", 0);
         request.setAttribute("Question", QuestionList.get(0));
-        request.setAttribute("Time", 10);        
+        request.setAttribute("Time", 900);        
         request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
     }
 
