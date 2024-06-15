@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Vector;
+import java.sql.SQLException;
 
 /**
  *
@@ -40,7 +42,7 @@ public class OrderDAO {
         this.status = status;
     }
 
-    private OrderDAO() {
+    public OrderDAO() {
         if (INS == null) {
             try {
                 con = new DBContext().getConnection();
@@ -50,6 +52,25 @@ public class OrderDAO {
         } else {
             INS = this;
         }
+    }
+
+    public boolean deleteOrder(String orderId) {
+        String sql = "   DELETE FROM [Order] WHERE OrderID = " + orderId;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            status = "Error at load Lesson " + e.getMessage();
+            System.out.println(status);
+            return false;
+        }
+
+        return true;
+    }
+    
+    public static void main(String[] args) {
+        OrderDAO.INS.deleteOrder("2");
     }
 
     public List<Order> loadByUser(int userId) {
@@ -69,13 +90,13 @@ public class OrderDAO {
                 order.setId(rs.getInt("OrderID"));
                 order.setStatus(rs.getInt("Status"));
                 order.setLessons(LessonDAO.INS.loadByOrder(order.getId()));
-                
+
                 orders.add(order);
             }
         } catch (Exception e) {
             status = "Error at load Lesson " + e.getMessage();
         }
-        
+
         return orders;
     }
 }

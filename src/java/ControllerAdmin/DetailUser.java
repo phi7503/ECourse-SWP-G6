@@ -5,12 +5,9 @@
 
 package ControllerAdmin;
 
-<<<<<<<< HEAD:src/java/ControllerAdmin/SubjectDetailServlet.java
+
 import DAO.LessonDAO;
-import Models.Lesson;
-========
 import DAO.UserDAO;
->>>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6:src/java/ControllerAdmin/DetailUser.java
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,12 +21,10 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-<<<<<<<< HEAD:src/java/ControllerAdmin/SubjectDetailServlet.java
-public class SubjectDetailServlet extends HttpServlet {
-========
+
 //@WebServlet(name="DetailUser", urlPatterns={"/detailuser"})
 public class DetailUser extends HttpServlet {
->>>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6:src/java/ControllerAdmin/DetailUser.java
+
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,19 +37,7 @@ public class DetailUser extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-<<<<<<<< HEAD:src/java/ControllerAdmin/SubjectDetailServlet.java
-            User user = (User)request.getSession().getAttribute("User");
-            String id = request.getParameter("id");
-            LessonDAO lessonDAO = new LessonDAO();
-            Lesson lesson = lessonDAO.getLessonByID(Integer.parseInt(id));
-            Boolean check = false;
-            if(user != null){
-                check = lessonDAO.checkRegistered(user.getUserID());
-            }
-            request.setAttribute("lesson", lesson);
-            request.setAttribute("check", check);
-            request.getRequestDispatcher("LessonDetail.jsp").forward(request, response);
-========
+
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -65,7 +48,7 @@ public class DetailUser extends HttpServlet {
             out.println("<h1>Servlet DetailUser at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
->>>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6:src/java/ControllerAdmin/DetailUser.java
+
         }
     } 
 

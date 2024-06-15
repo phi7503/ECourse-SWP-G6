@@ -12,13 +12,6 @@ import java.util.Date;
  * @author admin
  */
 public class Lesson {
-<<<<<<< HEAD
-    
-    private int CourseID;
-    private int LessonID;
-    private String LessonName;
-    private String Description;
-=======
 
     private int id;
     private String name;
@@ -29,47 +22,88 @@ public class Lesson {
     private String image;
     private String title;
     private Date createdDate;
->>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
 
     public Lesson() {
     }
 
-    public Lesson(int CourseID, int LessonID, String LessonName, String Description) {
-        this.CourseID = CourseID;
-        this.LessonID = LessonID;
-        this.LessonName = LessonName;
-        this.Description = Description;
+    public Lesson(int id, String name, double price, double percentage, String description, Date createdDate) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.percentage = percentage;
+        this.description = description;
+        this.createdDate = createdDate;
     }
 
-    public int getCourseID() {
-        return CourseID;
+    public int getId() {
+        return id;
     }
 
-    public void setCourseID(int CourseID) {
-        this.CourseID = CourseID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getLessonID() {
-        return LessonID;
+    public String getName() {
+        return name;
     }
 
-    public void setLessonID(int LessonID) {
-        this.LessonID = LessonID;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLessonName() {
-        return LessonName;
+    public double getPrice() {
+        return price;
     }
 
-    public void setLessonName(String LessonName) {
-        this.LessonName = LessonName;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

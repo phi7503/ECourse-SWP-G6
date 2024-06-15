@@ -5,12 +5,11 @@
  */
 package Models;
 
-<<<<<<< HEAD
+
 import java.sql.Date;
-=======
+
 //import java.sql.Date;
-import java.util.Date;
->>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6
+
 
 /**
  *
@@ -28,12 +27,11 @@ public class User {
     private int Role;
     private int Status;
 
-<<<<<<< HEAD
-=======
+
     public User() {
     }
 
->>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6
+
     public User(int UserID, String UserName, String Password, String Mail, String FullName, Date DoB, int SecurityQuestionID, String Answer, int Role) {
         this.UserID = UserID;
         this.UserName = UserName;
@@ -44,23 +42,8 @@ public class User {
         this.SecurityQuestionID = SecurityQuestionID;
         this.Answer = Answer;
         this.Role = Role;
-<<<<<<< HEAD
         this.Status = 0;
-=======
-    }
 
-    public User(int UserID, String UserName, String Password, String Mail, String FullName, Date DoB, int SecurityQuestionID, String Answer, int Role, int Status) {
-        this.UserID = UserID;
-        this.UserName = UserName;
-        this.Password = Password;
-        this.Mail = Mail;
-        this.FullName = FullName;
-        this.DoB = DoB;
-        this.SecurityQuestionID = SecurityQuestionID;
-        this.Answer = Answer;
-        this.Role = Role;
-        this.Status = Status;
->>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6
     }
 
     public int getUserID() {
@@ -142,15 +125,11 @@ public class User {
     public void setStatus(int Status) {
         this.Status = Status;
     }
-<<<<<<< HEAD
+
 
     @Override
     public String toString() {
         return "User{" + "UserID=" + UserID + ", UserName=" + UserName + ", Password=" + Password + ", Mail=" + Mail + ", FullName=" + FullName + ", DoB=" + DoB + ", SecurityQuestionID=" + SecurityQuestionID + ", Answer=" + Answer + ", Role=" + Role + ", Status=" + Status + '}';
     }        
-=======
-    
-    
->>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6
-    
+
 }

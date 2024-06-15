@@ -10,60 +10,40 @@
     </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>Controller.Login</servlet-class>
+        <servlet-class>controller.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Quizing</servlet-name>
-        <servlet-class>Controller.Quizing</servlet-class>
+        <servlet-class>controller.Quizing</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Home</servlet-name>
-        <servlet-class>Controller.Home</servlet-class>
+        <servlet-class>controller.Home</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Summary</servlet-name>
-        <servlet-class>Controller.Summary</servlet-class>
+        <servlet-class>controller.Summary</servlet-class>
     </servlet>
-    <servlet>
-<<<<<<< HEAD
-        <servlet-name>SubjectRegister</servlet-name>
-        <servlet-class>Controller.SubjectRegisterServlet</servlet-class>
-    </servlet>
-=======
-
-        <servlet-name>SubjectRegister</servlet-name>
-        <servlet-class>Controller.SubjectRegisterServlet</servlet-class>
-    </servlet>
+    
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
-<<<<<<< HEAD
->>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
+
     <servlet>
         <servlet-name>LessonDetailController</servlet-name>
-        <servlet-class>Controller.SubjectDetailServlet</servlet-class>
+        <servlet-class>controller.SubjectDetailServlet</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
-=======
 
->>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
         <servlet-name>ChangePassServlet</servlet-name>
-        <servlet-class>Controller.ChangePassServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UserProfileServlet</servlet-name>
-        <servlet-class>Controller.UserProfileServlet</servlet-class>
+        <servlet-class>controller.UserProfileServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditUserProfileServlet</servlet-name>
-        <servlet-class>Controller.EditUserProfileServlet</servlet-class>
+        <servlet-class>controller.EditUserProfileServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>Quizing</servlet-name>
         <url-pattern>/Quizing</url-pattern>
@@ -84,24 +64,15 @@
         <servlet-name>UserProfileServlet</servlet-name>
         <url-pattern>/userprofile</url-pattern>
     </servlet-mapping>
-<<<<<<< HEAD
-=======
-
-    
->>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
     <servlet-mapping>
         <servlet-name>SubjectRegister</servlet-name>
         <url-pattern>/subject-resgister</url-pattern>
     </servlet-mapping>
-<<<<<<< HEAD
+
     <servlet-mapping>
         <servlet-name>EditUserProfileServlet</servlet-name>
         <url-pattern>/editprofile</url-pattern>
     </servlet-mapping>
-=======
-
->>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
-=======
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>ControllerAdmin.RegisterServlet</servlet-class>
@@ -110,10 +81,7 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>Controller.Login</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>AddUser</servlet-name>
         <servlet-class>ControllerAdmin.AddUser</servlet-class>
@@ -158,5 +126,5 @@
         <servlet-name>SearchUser</servlet-name>
         <servlet-class>ControllerAdmin.SearchUser</servlet-class>
     </servlet>
->>>>>>> 01c855e1d6039d1665043ed687ad7fa980f157a6
+
 </web-app>
