@@ -45,8 +45,13 @@ public class LessonDAO {
             INS = this;
         }
     }
+
+
+
     
     public void loadLesson() {
+
+
         String sql = "Select * From [Lesson]";
         ll = new Vector<Lesson>();
         try {
@@ -63,7 +68,7 @@ public class LessonDAO {
             status = "Error at load Lesson " + e.getMessage();
         }
     }
-    
+
     public Vector<LessonDoc> loadLessonDoc(int CourseID, int LessonID) {
         String sql = "Select * From [LessonDoc] Where CourseID = ? And LessonID = ?";
         Vector<LessonDoc> list = new Vector<LessonDoc>();
@@ -85,6 +90,7 @@ public class LessonDAO {
         return list;
     }
     
+
     public Vector<Lesson> loadLessonByCourseID(int CourseID) {
         String sql = "Select * From [Lesson] Where CourseID = ?";
         Vector<Lesson> list = new Vector<Lesson>();
@@ -104,8 +110,75 @@ public class LessonDAO {
         return list;
     }
     
+
     public static void main(String[] args){        
         INS.loadLesson();
         System.out.println(INS.getLl().size());
     }
-}
+
+
+    public int insertSession(int userID) {
+        try {
+            String sql = """
+                         INSERT INTO [dbo].[Session]
+                                    ([UserID])
+                              VALUES
+                                    (?)
+                         """;
+            Connection connection = con;
+            PreparedStatement ptm = connection.prepareStatement(sql);
+            ptm.setInt(1, userID);
+            ptm.executeUpdate();
+            String xSql = """
+                          SELECT top 1 SessionID
+                            FROM [ECourse].[dbo].[Session] order by SessionID desc""";
+            PreparedStatement qtm = connection.prepareStatement(xSql);
+            ResultSet rs = qtm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DAO.LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public void registerLesson(int session, int lessonID) {
+        try {
+            String sql = """
+                        INSERT INTO [dbo].[Cart]
+                                               ([SessionID]
+                                               ,[LessonID])
+                                         VALUES
+                                               (?,?)
+                         """;
+            Connection connection = con;
+            PreparedStatement ptm = connection.prepareStatement(sql);
+            ptm.setInt(1, session);
+            ptm.setInt(2, lessonID);
+            ptm.executeUpdate();
+        } catch (Exception ex) {
+            Logger.getLogger(DAO.LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Boolean checkRegistered(int userID) {
+        try {
+            String sql = """
+                         select * from Cart c join [Session] s on c.SessionID = s.SessionID where s.UserID = ?""";
+            Connection connection = con;
+            PreparedStatement ptm = connection.prepareStatement(sql);
+            ptm.setInt(1, userID);
+            ResultSet rs = ptm.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DAO.LessonDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    }
+
+
+
