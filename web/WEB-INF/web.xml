@@ -22,6 +22,7 @@
     </servlet>
     <servlet>
         <servlet-name>Summary</servlet-name>
+
         <servlet-class>controller.Summary</servlet-class>
     </servlet>
     
@@ -42,6 +43,7 @@
     <servlet>
         <servlet-name>EditUserProfileServlet</servlet-name>
         <servlet-class>controller.EditUserProfileServlet</servlet-class>
+
     </servlet>
     
     <servlet-mapping>
@@ -57,22 +59,31 @@
         <url-pattern>/Summary</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ChangePassServlet</servlet-name>
-        <url-pattern>/changepass</url-pattern>
+        <servlet-name>Review</servlet-name>
+        <url-pattern>/Review</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserProfileServlet</servlet-name>
-        <url-pattern>/userprofile</url-pattern>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SubjectRegister</servlet-name>
-        <url-pattern>/subject-resgister</url-pattern>
+        <servlet-name>Course</servlet-name>
+        <url-pattern>/Course</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>EditUserProfileServlet</servlet-name>
-        <url-pattern>/editprofile</url-pattern>
+        <servlet-name>Lesson</servlet-name>
+        <url-pattern>/Lesson</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizNavigate</servlet-name>
+        <url-pattern>/QuizNavigate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewNavigate</servlet-name>
+        <url-pattern>/ReviewNavigate</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>ControllerAdmin.RegisterServlet</servlet-class>
@@ -126,5 +137,6 @@
         <servlet-name>SearchUser</servlet-name>
         <servlet-class>ControllerAdmin.SearchUser</servlet-class>
     </servlet>
+
 
 </web-app>

@@ -18,7 +18,6 @@
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
 
@@ -52,24 +51,6 @@
 
         <!-- Fact Start -->
         <div class="container-fluid py-5 col-lg-6">
-<<<<<<< HEAD
-            
-                <form action="Login" method="post">
-                    <div class="bg-light p-5">
-                        <div class="col-lg-12 col-md-12 col-xl-12">
-                            <div class="counter bg-white rounded p-4" >
-                                <h1 class="display-6 text-primary px-4">Username</h1>                                
-                                <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
-                                <h1 class="display-6 text-primary px-4">Password</h1>
-                                <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
-                                <br/>
-                                <c:if test='${err != null}'>
-                                    <h4 class="mb-3 text-secondary">${err}</h4>
-                                </c:if>
-                                <input type="submit" name="LoginSubmit" value="Login" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                            </div>                             
-                        </div>
-=======
 
 
             <a href="../../src/java/Controller/Login.java"></a>
@@ -87,28 +68,7 @@
                             </c:if>
                             <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
                         </div>                             
-                        <form action="Login" method="post">
-                            <div class="bg-light p-5">
-                                <div class="col-lg-12 col-md-12 col-xl-12">
-                                    <div class="counter bg-white rounded p-4" >
-                                        <h1 class="display-6 text-primary px-4">Username</h1>                                
-                                        <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
-                                        <h1 class="display-6 text-primary px-4">Password</h1>
-                                        <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
-                                        <br/>
-                                        <c:if test='${err != null}'>
-                                            <h4 class="mb-3 text-secondary">${err}</h4>
-                                        </c:if>
-                                        <input type="submit" name="LoginSubmit" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
-                                    </div>                        
-                                    <a href="ForgotPassword">Forgot Password </a>
-                                </div>
-                            </div>
-
-
->>>>>>> 55609f03a79a05168caa2a99f12537d0da970c95
-                    </div>
-            </form>
+                        
 
         </div>
         <!-- Fact Start -->

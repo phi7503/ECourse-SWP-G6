@@ -25,11 +25,11 @@ public class DBContext {
 
     /*Insert your other code right after this comment*/
  /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
-    private final String serverName = "localhost";
+    private final String serverName = "mssql-175397-0.cloudclusters.net";
     private final String dbName = "Ecourse";
-    private final String portNumber = "1433";
-    private final String userID = "sa";
-    private final String password = "123";
+    private final String portNumber = "10010";
+    private final String userID = "root";
+    private final String password = "Admin@123";
 
 }
 

@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -29,8 +28,8 @@ public class Home extends HttpServlet {
         if (u == null) {
             response.sendRedirect(request.getContextPath() + "/Login");
         } else {
-            QuizDAO.INS.load();
-            request.setAttribute("QuizINS", QuizDAO.INS);
+            CourseDAO.INS.loadCourse();
+            request.setAttribute("cl", CourseDAO.INS.getCl());
             request.getRequestDispatcher("/Web/Home.jsp").forward(request, response);
         }
     }

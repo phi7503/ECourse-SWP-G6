@@ -35,18 +35,33 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-
         <script>
             let now = null;
             let x = setInterval(function () {
                 if (now === null) {
-                    now = document.getElementById("Time").value;
+                    if (localStorage.getItem("Time")) {
+                        now = localStorage.getItem("Time");
+                    } else {
+                        now = document.getElementById("Time").value;
+                    }
                 }
-                document.getElementById("LiveTime").innerHTML = now;
+
+                let hours = Math.floor(now / 3600);
+                let minutes = Math.floor((now / 60) % 60);
+                let seconds = Math.floor(now % 60);
+                document.getElementById("LiveTime").innerHTML = hours + ":" + minutes + ":" + seconds;
                 now--;
+                document.getElementById("Time").value = now;
+                localStorage.removeItem("Time");
+                localStorage.setItem("Time", now);
+
+                if (hours <= 0 && minutes <= 0 && seconds <= 0) {                    
+                    localStorage.removeItem("Time");
+                    document.getElementById("BtnFinish").value = "Yes";
+                    document.getElementById("finish").submit();
+                }
             }, 1000);
         </script>
-
     </head>
 
     <body>
@@ -75,9 +90,7 @@
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-
                     <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">ECourse</h1></a>
-
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
@@ -136,7 +149,7 @@
 
         <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">Shop Detail</h1>
+            <h1 class="text-center text-white display-6">Quizing</h1>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Quiz</a></li>
@@ -147,76 +160,67 @@
 
 
         <!-- Single Product Start -->
-        <form action="Quizing" method="post">  
-            <input type="text" name="index" value="${index}" hidden>
-            <input type="text" name="QuizID" value="${QuizID}" hidden>
-
-            <input type="text" name="confirmation" value="${confirmation}" hidden>
+        <form action="Quizing" method="post" id="finish">   
+            <input type="text" name="CourseID" value="${CourseID}" hidden>
+            <input type="text" name="LessonID" value="${LessonID}" hidden>
+            <input type="text" name="QuizID" value="${QuizID}" hidden> 
+            <input type="text" name="AttemptID" value="${AttemptID}" hidden>
+            <input type="text" name="index" value="${index}" hidden>            
             <input type="text" name="Time" value="${Time}" id="Time" hidden>
-
+            <input typt="text" name="BtnFinish" id="BtnFinish" value="No" hidden>
+            <p>${User.getUserID()}</p>
             <div class="container-fluid py-5 mt-5">
                 <div class="container py-5">
                     <div class="row g-4 mb-5">
                         <div class="col-lg-8 col-xl-9">
                             <div class="row g-4">                            
                                 <div class="col-lg-12">
-                                    <h4 class="fw-bold mb-3">Question ${qul.indexOf(Question) + 1}</h4>
+                                    <h4 class="fw-bold mb-3">Question ${QuestionList.indexOf(Question) + 1}</h4>
                                     <p class="mb-3">${Question.getQuestion()}</p>
                                     <table>
-                                        <c:set var="AnswerID" value="${AnswerINS.getAnswerbyUserID(User.getUserID(), Question.getQuestionID())}"></c:set>
+                                        <c:set var="UserAnswer" value="${QuestionINS.loadUserQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID(), User.getUserID(), AttemptID)}"></c:set>
 
-
-                                        <c:forEach items="${AnswerINS.loadAnswerByQuestionId(Question.getQuestionID())}" var="x"> 
-                                            <c:if test="${x.getAnswerID() == AnswerID}">
-                                                <input type="radio" name="Answer" value="${x.getAnswerID()}" checked> ${x.getDescription()}  
+                                        <c:forEach items="${QuestionINS.loadQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID())}" var="x"> 
+                                            <c:if test="${x.getAnswerID() == UserAnswer.getAnswerID()}">
+                                                <input type="radio" name="AnswerID" value="${x.getAnswerID()}" checked> ${x.getDescription()}  
                                             </c:if>
-                                            <c:if test="${x.getAnswerID() != AnswerID}">
-                                                <input type="radio" name="Answer" value="${x.getAnswerID()}"> ${x.getDescription()}  
+                                            <c:if test="${x.getAnswerID() != UserAnswer.getAnswerID()}">
+                                                <input type="radio" name="AnswerID" value="${x.getAnswerID()}"> ${x.getDescription()}  
                                             </c:if>
                                             <br/>
                                         </c:forEach>                      
 
                                     </table>                                    
-
                                     <c:if test="${index != 0}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnPrev" value="Prev">
                                     </c:if>
-                                    <c:if test="${index != qul.size() - 1}">
+                                    <c:if test="${index != QuestionList.size() - 1}">
                                         <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnNext" value="Next">
                                     </c:if>
-
-                                    <c:if test="${index == qul.size() - 1}">
-
-                                        <input type="submit" class="btn border border-secondary round-pill text-primary" name="BtnFinish" value="Finish">
-                                    </c:if>   
                                 </div>                                                
                             </div>
                         </div>
                         <div class="col-lg-4 col-xl-3">                            
                             <div class="col-lg-12">                               
-
                                 <div class="mt-5">
                                     <h4>Time: </h4>
                                     <p id="LiveTime"></p>
 
                                 </div>                                     
-
                                 <div class="mt-5 pagination">
                                     <h4>Quiz Navigation</h4>
-                                    <c:forEach items="${qul}" var="x">
+                                    <c:forEach items="${QuestionList}" var="x">
                                         <c:if test="${Question == x}">
-                                            <input type="submit" class="btn btn-primary border border-secondary rounded-pill px-3" name="Btn${qul.indexOf(x)}" value="${qul.indexOf(x) + 1}">
+                                            <input type="submit" class="btn btn-primary border border-secondary rounded-pill px-3" name="Btn${QuestionList.indexOf(x)}" value="${QuestionList.indexOf(x) + 1}">
                                         </c:if>
                                         <c:if test="${Question != x}">
-                                            <input type="submit" class="btn border border-secondary rounded-pill px-3" name="Btn${qul.indexOf(x)}" value="${qul.indexOf(x) + 1}">
+                                            <input type="submit" class="btn border border-secondary rounded-pill px-3" name="Btn${QuestionList.indexOf(x)}" value="${QuestionList.indexOf(x) + 1}">
                                         </c:if>
                                     </c:forEach>
                                 </div>
                             </div>                            
                             <div class="d-flex justify-content-center my-4">
-
-                                <a href="Home" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Finish</a>
-
+                                <input type="submit" name="BtnFinish" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100" value="Finish">
                             </div>                                                                         
                         </div>
                     </div>                

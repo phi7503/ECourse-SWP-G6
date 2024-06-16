@@ -111,7 +111,10 @@
                     <input type="hidden" name="userId" value="${user.userID}" />
                     <button type="submit" class="btn btn-primary">Change Password</button>
                 </form><br/>
-                <button type="submit" class="btn btn-primary">Change Profile</button>
+                <form action="editprofile" method="post">
+                    <input type="hidden" name="userId" value="${user.userID}" />
+                    <button type="submit" class="btn btn-primary">Change Profile</button>
+                </form><br/>
             </div>
         </div>
         <!-- User Profile End -->
