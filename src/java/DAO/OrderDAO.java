@@ -87,9 +87,9 @@ public class OrderDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Order order = new Order();
-                order.setId(rs.getInt("OrderID"));
-                order.setStatus(rs.getInt("Status"));
-                order.setLessons(LessonDAO.INS.loadByOrder(order.getId()));
+//                order.setId(rs.getInt("OrderID"));
+//                order.setStatus(rs.getInt("Status"));
+//                order.setLessons(LessonDAO.INS.loadByOrder(order.getId()));
 
                 orders.add(order);
             }

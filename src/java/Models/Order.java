@@ -1,63 +1,63 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
 
 /**
  *
- * @author DELL
+ * @author hi2ot
  */
 public class Order {
-
-    private int id, UserId, Status;
-
-    private List<Lesson> lessons = new ArrayList<>();
+    private int UserID;
+    private int OrderID;
+    private java.sql.Date CreateDate;
+    private float Price;
 
     public Order() {
     }
 
-    public int getId() {
-        return id;
+    public Order(int UserID, int OrderID, Date CreateDate, float Price) {
+        this.UserID = UserID;
+        this.OrderID = OrderID;
+        this.CreateDate = CreateDate;
+        this.Price = Price;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getUserID() {
+        return UserID;
     }
 
-    public int getUserId() {
-        return UserId;
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
     }
 
-    public void setUserId(int UserId) {
-        this.UserId = UserId;
+    public int getOrderID() {
+        return OrderID;
     }
 
-    public int getStatus() {
-        return Status;
+    public void setOrderID(int OrderID) {
+        this.OrderID = OrderID;
     }
 
-    public void setStatus(int Status) {
-        this.Status = Status;
+    public Date getCreateDate() {
+        return CreateDate;
     }
 
-    public List<Lesson> getLessons() {
-        return lessons;
+    public void setCreateDate(Date CreateDate) {
+        this.CreateDate = CreateDate;
     }
 
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
+    public float getPrice() {
+        return Price;
     }
 
-    public String getTotal() {
-
-        double total = 0;
-        for (Lesson lesson : this.lessons) {
-            total += lesson.getPrice();
-        }
-        return total + "";
+    public void setPrice(float Price) {
+        this.Price = Price;
     }
+    
+    
 }
