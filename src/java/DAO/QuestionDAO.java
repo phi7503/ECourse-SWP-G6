@@ -118,7 +118,7 @@ public class QuestionDAO {
     }
     
     public Answer loadQuestionCorrectAnswer(int UserID, int AttemptID, int CourseID, int LessonID, int QuizID, int QuestionID) {
-        String sql = "Select * From [UserAnswer] ua"
+        String sql = "Select a.AnswerID, a.[Description], a.[Role] From [UserAnswer] ua"
                 + "\nJoin [Answer] a On ua.CourseID = a.CourseID and ua.LessonID = a.LessonID and ua.QuizID = a.QuizID and ua.QuestionID = a.QuestionID"
                 + "\nWhere a.[Role] = 2 And ua.UserID = ? and ua.CourseID = ? and ua.LessonID = ? and ua.QuizID = ? and ua.AttemptID = ? And ua.QuestionID = ?";
         Answer ans = new Answer();
@@ -144,8 +144,7 @@ public class QuestionDAO {
     }
 
     public static void main(String[] agrs) {        
-        Answer ans = INS.loadQuestionCorrectAnswer(1, 1, 1, 1, 1, 1);
-        
-        System.out.println(INS.getStatus());
+        System.out.println(INS.loadQuestionCorrectAnswer(1, 2, 1, 2, 1, 1).getAnswerID());
+        System.out.println(INS.status);
     }
 }

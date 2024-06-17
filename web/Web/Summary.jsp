@@ -129,7 +129,7 @@
                                                 <h4 class="text-dark">Attempt ${x.getAttemptID()}</h4>
                                                 <p class="m-0 pb-3">Attempt Date: ${x.getAttemptDate()}</p>
                                                 <p class="m-0 pb-3">Mark: ${UserINS.getAttemptMark(User.getUserID(), CourseID, LessonID, QuizID, x.getAttemptID())}</p>                                                
-                                                <form action="ReviewNavigate" method="post">
+                                                <form action="Review" method="post">
                                                     <input type="text" name="CourseID" value="${CourseID}" hidden>
                                                     <input type="text" name="LessonID" value="${LessonID}" hidden>
                                                     <input type="text" name="QuizID" value="${QuizID}" hidden> 

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author hi2ot
@@ -65,6 +66,64 @@ public class CourseDAO {
         } catch (Exception e) {
             status = "Error at load Course " + e.getMessage();
         }
+    }
+    
+    public void addSubject(int SubjectID, String SubjectName) {
+        String sql = "Insert Into [Subject] Value (?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, SubjectID);
+            ps.setString(2, SubjectName);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at addSubject " + e.getMessage();
+        }
+    }
+    
+    public void addCategory(int CategoryID, String CategoryName) {
+        String sql = "Insert Into [Category] Value (?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CategoryID);
+            ps.setString(2, CategoryName);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at addCategory " + e.getMessage();
+        }
+    }
+    
+    public Vector<Subject> loadSubjectList() {
+        String sql = "Select * From [Subject]";
+        Vector<Subject> SubjectList = new Vector<Subject>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int SubjectID = rs.getInt("SubjectID");
+                String SubjectName = rs.getString("SubjectName");
+                SubjectList.add(new Subject(SubjectID, SubjectName));
+            }
+        } catch (SQLException e) {
+            status = "Error at loadSubjectList " + e.getMessage();
+        }
+        return SubjectList;
+    }
+    
+    public Vector<Category> loadCategoryList() {
+        String sql = "Select * From [Category]";
+        Vector<Category> CategoryList = new Vector<Category>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int CategoryID = rs.getInt("CategoryID");
+                String CategoryName = rs.getString("CategoryName");
+                CategoryList.add(new Category(CategoryID, CategoryName));
+            }
+        } catch (SQLException e) {
+            status = "Error at loadCategoryList " + e.getMessage();
+        }
+        return CategoryList;
     }
     
 }

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Review
-    Created on : May 30, 2024, 11:11:19 AM
+    Document   : CreateCategory
+    Created on : Jun 16, 2024, 7:38:27 AM
     Author     : hi2ot
 --%>
 
@@ -133,69 +133,16 @@
 
 
         <!-- Single Product Start -->
-        <form action="Review" method="post">  
-            <input type="text" name="CourseID" value="${CourseID}" hidden>
-            <input type="text" name="LessonID" value="${LessonID}" hidden>
-            <input type="text" name="QuizID" value="${QuizID}" hidden>
-            <input type="text" name="AttemptID" value="${AttemptID}" hidden>
-            <input type="text" name="index" value="${index}" hidden>
-            <div class="container-fluid py-5 mt-5">
+        <form action="CreateCategory" method="post">  
+            <div class="container-fluid testimonial py-5 col-lg-8">
                 <div class="container py-5">
-                    <div class="row g-4 mb-5">
-                        <div class="col-lg-8 col-xl-9">
-                            <div class="row g-4">                            
-                                <div class="col-lg-12">
-                                    <c:forEach items="${QuestionList}" var="Question">
-                                        <h4 class="fw-bold mb-3">Question ${QuestionList.indexOf(Question) + 1}</h4>
-                                        <p class="mb-3">${Question.getQuestion()}</p>                                        
-                                        <table>
-                                            <c:set var="UserAnswer" value="${QuestionINS.loadUserQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID(), User.getUserID(), AttemptID)}"></c:set>                                                                                    
-                                            <c:set var="CorrectAnswer" value="${QuestionINS.loadQuestionCorrectAnswer(User.getUserID(), AttemptID, CourseID, LessonID, QuizID, Question.getQuestionID())}"></c:set>
+                    <div class="testimonial-header p-3">                    
+                        <h1 class="display-5 mb-5 text-dark text-center">Create Category</h1>                        
+                        <h3 class="fw-bold mb-3 py-2"> Category Name: </h3>                        
+                        <input type="text" class="form-control border-2 border-secondary px-4 rounded-pill" name="CategoryName" value="" placeholder="Enter Category Name">
+                        <input type="submit" class="btn btn-primary border-2 border-secondary rounded-pill text-white" value="Submit">
 
-                                            <c:forEach items="${QuestionINS.loadQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID())}" var="x">                                                   
-                                                <c:if test="${x.getAnswerID() == UserAnswer.getAnswerID()}">                                                    
-                                                    <input type="radio" name="Answer${Question.getQuestionID()}" value="${x.getAnswerID()}" checked disabled> ${x.getDescription()}   
-
-                                                    <c:if test="${x.getAnswerID() != CorrectAnswer.getAnswerID()}">
-                                                        Wrong!
-                                                    </c:if>
-
-                                                </c:if>            
-
-                                                <c:if test="${x.getAnswerID() != UserAnswer.getAnswerID()}">
-                                                    <input type="radio" name="Answer${Question.getQuestionID()}" value="${x.getAnswerID()}" disabled> ${x.getDescription()}  
-                                                </c:if>       
-
-                                                <c:if test="${x.getAnswerID() == CorrectAnswer.getAnswerID()}">
-                                                    Correct!
-                                                </c:if>
-
-                                                <br/>
-                                            </c:forEach>                                                                                                              
-                                        </table>           
-                                        <hr/>
-                                    </c:forEach>   
-                                </div>                                                
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-3">                            
-                            <div class="col-lg-12">                               
-                                <div class="mt-5 pagination">
-                                    <h4>Quiz Navigation</h4>
-                                    <c:forEach items="${QuestionList}" var="Question">
-                                        <c:set var="UserAnswer" value="${QuestionINS.loadUserQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID(), User.getUserID(), AttemptID)}"></c:set>                                                                                    
-                                        <c:set var="CorrectAnswer" value="${QuestionINS.loadQuestionCorrectAnswer(User.getUserID(), AttemptID, CourseID, LessonID, QuizID, Question.getQuestionID())}"></c:set>
-                                        <c:if test="${CorrectAnswer.getAnswerID() == UserAnswer.getAnswerID()}">       
-                                            <input type="submit" class="btn btn-primary border border-secondary rounded-pill px-3" name="Btn${QuestionList.indexOf(Question)}" value="${QuestionList.indexOf(Question) + 1}">
-                                        </c:if>
-                                        <c:if test="${CorrectAnswer.getAnswerID() != UserAnswer.getAnswerID()}">       
-                                            <input type="submit" class="btn btn-secondary border border-secondary rounded-pill px-3" name="Btn${QuestionList.indexOf(Question)}" value="${QuestionList.indexOf(Question) + 1}">
-                                        </c:if>
-                                    </c:forEach>
-                                </div>
-                            </div>                                                        
-                        </div>
-                    </div>                
+                    </div>
                 </div>
             </div>
         </form>   
@@ -238,4 +185,6 @@
     </body>
 
 </html>
+
+
 
