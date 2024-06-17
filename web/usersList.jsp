@@ -40,26 +40,14 @@
         <div class="container-fluid fixed-top">
 
             <header>
-                <div class="container topbar bg-success d-none d-lg-block">
-                    <div class="d-flex justify-content-between">
-                        <div class="top-info ps-2">
-                            <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
-                            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
-                        </div>
-                        <div class="top-link pe-2">
-                            <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                            <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                            <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
-                        </div>
-                    </div>
-                </div>
+                <jsp:include page="/header.jsp"/>
             </header>
 
             <div class="row">
-            <div class="col-md-2 border-4 border-black mt-5" style="padding-right: 0px;">
-                        <jsp:include page="/admin/adminStrator.jsp"/>
-                    </div>
-            <div class="col-md-10">
+                <div class="col-md-2 border-4 border-black mt-5" style="padding-right: 0px;">
+                    <jsp:include page="/admin/adminStrator.jsp"/>
+                </div>
+                <div class="col-md-10">
                     <div class="col-md-8 row mt-5">
                         <div class="row">
                             <div class="col-md-5">
@@ -87,70 +75,71 @@
                     </div>
 
 
-                <div class="row">
-                    
-                    <div class="col-md-10 justify-content-center mt-5 text-dark">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th onclick="sortByID()">ID</th>
-                                    <th onclick="sortByName()">Full Name</th>
-                                    <th onclick="sortByAge()">Date Of Birth</th>
-                                    <th>Email</th>
-                                    <th onclick="sortByRole()">Role</th>
-                                    <th onclick="sortByStatus()">Status</th>
-                                    <th> Detail </th>
-                                </tr>        
-                            </thead>
-                            <tbody>
-                                <c:forEach var="b" items="${requestScope.data}">
-                                    <tr>
-                                        <td>${b.getUserID()}</td>
-                                        <td>${b.getFullName()}</td>
-                                        <td>${b.getDoB()}</td>
-                                        <td>${b.getMail()}</td>
-                                        <c:choose>
-                                            <c:when test="${b.getRole() eq 1}">
-                                                <td>Admin</td>
-                                            </c:when>
-                                            <c:when test="${b.getRole() eq 2}">
-                                                <td>Expert</td>
-                                            </c:when>
-                                            <c:when test="${b.getRole() eq 3}">
-                                                <td>Learner</td>
-                                            </c:when>
-                                        </c:choose>
+                    <div class="row">
 
-                                        <c:choose>
-                                            <c:when test="${b.getStatus() eq 1}">
-                                                <td>Active</td>
-                                            </c:when>
-                                            <c:when test="${b.getStatus() eq 0}">
-                                                <td>Inactive</td>
-                                            </c:when>
-                                        </c:choose>
-                                        <td><a href="detailuser?ID=${b.getUserID()}" onclick)">Detail</a></td>
-                                    </tr>
-                                </c:forEach>
-                            <script>
-                                function getRoleName(role) {
-                                    switch (role) {
-                                        case 1:
-                                            return "Admin";
-                                        case 2:
-                                            return "Expert";
-                                        case 3:
-                                            return "Learner";
+                        <div class="col-md-10 justify-content-center mt-5 text-dark">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th onclick="sortByID()">ID</th>
+                                        <th onclick="sortByName()">Full Name</th>
+                                        <th onclick="sortByAge()">Date Of Birth</th>
+                                        <th>Email</th>
+                                        <th onclick="sortByRole()">Role</th>
+                                        <th onclick="sortByStatus()">Status</th>
+                                        <th> Detail </th>
+                                    </tr>        
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="b" items="${requestScope.data}">
+                                        <tr>
+                                            <td>${b.getUserID()}</td>
+                                            <td>${b.getFullName()}</td>
+                                            <td>${b.getDoB()}</td>
+                                            <td>${b.getMail()}</td>
+                                            <c:choose>
+                                                <c:when test="${b.getRole() eq 1}">
+                                                    <td>Admin</td>
+                                                </c:when>
+                                                <c:when test="${b.getRole() eq 2}">
+                                                    <td>Expert</td>
+                                                </c:when>
+                                                <c:when test="${b.getRole() eq 3}">
+                                                    <td>Learner</td>
+                                                </c:when>
+                                            </c:choose>
+
+                                            <c:choose>
+                                                <c:when test="${b.getStatus() eq 1}">
+                                                    <td>Active</td>
+                                                </c:when>
+                                                <c:when test="${b.getStatus() eq 0}">
+                                                    <td>Inactive</td>
+                                                </c:when>
+                                            </c:choose>
+                                            <td><a href="detailuser?ID=${b.getUserID()}" onclick)">Detail</a></td>
+                                        </tr>
+                                    </c:forEach>
+                                <script>
+                                    function getRoleName(role) {
+                                        switch (role) {
+                                            case 1:
+                                                return "Admin";
+                                            case 2:
+                                                return "Expert";
+                                            case 3:
+                                                return "Learner";
+                                        }
                                     }
-                                }
-                            </script>
-                            </tbody>    
-                        </table>
+                                </script>
+                                </tbody>    
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-                    </div>
         </div>
+                <jsp:include page="/footer.jsp"/>
 
         <script>
             const sortByID = () => {
