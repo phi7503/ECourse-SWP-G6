@@ -37,7 +37,9 @@
         <link href="css/style.css" rel="stylesheet">
 
         <script>
-
+            function submitReview() {
+                document.getElementById("submit").value = AttemptID;
+            }
         </script>
 
     </head>
@@ -96,10 +98,10 @@
         <input type="text" name="CourseID" value="${CourseID}" hidden>
         <input type="text" name="LessonID" value="${LessonID}" hidden>
         <input type="text" name="QuizID" value="${QuizID}" hidden> 
-        <div class="container-fluid testimonial py-5">
-            <div class="container py-5">
+        <div class="container-fluid py-5">
+            <div class="container">
 
-                <div class="testimonial-header text-center">                    
+                <div class="text-center">                    
                     <h1 class="display-5 mb-5 text-dark">Summary</h1>
                 </div>
 
@@ -115,34 +117,36 @@
                 </c:if>
 
                 <c:if test="${AttemptList.size() > 0}">
-                    <div class="row g-4 justify-content-center">                        
-                        <c:forEach items="${AttemptList}" var="x">
+                    <div class="row justify-content-center">                        
+                        <div class="col-lg-10 row">
+                            <form action="Review" method="post">
+                                <input type="text" name="CourseID" value="${CourseID}" hidden>
+                                <input type="text" name="LessonID" value="${LessonID}" hidden>
+                                <input type="text" name="QuizID" value="${QuizID}" hidden> 
+                                <table>
+                                    <thead>
+                                    <th class="col-lg-4">AttemptID</th>
+                                    <th class="col-lg-4">Attempt Date</th>
+                                    <th class="col-lg-4">Mark</th>
+                                    <th class="col-lg-4">Review</th>
+                                    
+                                    </thead>
+                                    
+                                    <tbody>                                    
+                                        <c:forEach items="${AttemptList}" var="x">
+                                            <tr>
+                                                
+                                                <td>${x.getAttemptID()}</td>
+                                                <td>${x.getAttemptDate()}</td>
+                                                <td>${UserINS.getAttemptMark(User.getUserID(), CourseID, LessonID, QuizID, x.getAttemptID())}</td>
+                                                <td><input type="submit" name="AttemptID" value="Submit" id="submit" onclick="submitReview(x.getAttemptID())" class="btn border border-secondary rounded-pill px-3 text-primary"></td>                                                
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
 
-                            <div class="col-md-5">
-                                <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                                    <div class="position-relative">                                                                        
-                                        <div class="d-flex align-items-center flex-nowrap">
-                                            <div class="bg-secondary rounded">
-                                                <img src="img/best-product-1.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                                            </div>
-                                            <div class="ms-4 d-block">
-                                                <h4 class="text-dark">Attempt ${x.getAttemptID()}</h4>
-                                                <p class="m-0 pb-3">Attempt Date: ${x.getAttemptDate()}</p>
-                                                <p class="m-0 pb-3">Mark: ${UserINS.getAttemptMark(User.getUserID(), CourseID, LessonID, QuizID, x.getAttemptID())}</p>                                                
-                                                <form action="Review" method="post">
-                                                    <input type="text" name="CourseID" value="${CourseID}" hidden>
-                                                    <input type="text" name="LessonID" value="${LessonID}" hidden>
-                                                    <input type="text" name="QuizID" value="${QuizID}" hidden> 
-                                                    <input type="text" name="AttemptID" value="${x.getAttemptID()}" hidden>
-                                                    <button class="btn border border-secondary rounded-pill px-3 text-primary">Review</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>   
-                            </div>
-
-                        </c:forEach>
+                                </table>                                
+                            </form>
+                        </div>
                     </div>
                     <form action="QuizNavigate" method="post">
                         <div class="col-xl-12 d-flex mt-5 justify-content-center">

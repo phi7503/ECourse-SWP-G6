@@ -72,6 +72,14 @@
         <servlet-name>ManageSubject</servlet-name>
         <servlet-class>Controller.ManageSubject</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuestionImport</servlet-name>
+        <servlet-class>Controller.QuestionImport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PracticeList</servlet-name>
+        <servlet-class>Controller.PracticeList</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -135,5 +143,13 @@
     <servlet-mapping>
         <servlet-name>ManageSubject</servlet-name>
         <url-pattern>/ManageSubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionImport</servlet-name>
+        <url-pattern>/QuestionImport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PracticeList</servlet-name>
+        <url-pattern>/PracticeList</url-pattern>
     </servlet-mapping>
 </web-app>

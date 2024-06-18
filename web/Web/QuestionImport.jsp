@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Lesson
-    Created on : Jun 10, 2024, 9:04:57 AM
+    Document   : QuestionImport
+    Created on : Jun 18, 2024, 2:06:22 PM
     Author     : hi2ot
 --%>
 
@@ -11,7 +11,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Vegetable Website Template</title>
+        <title>Review</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -35,18 +35,6 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-
-        <script>
-            function confirmDoQuiz() {
-                let text = "Are you sure? Once you take this quiz, you can't re-attempt for a second time.";
-                if (confirm(text) === true) {
-                    document.getElementById("confirmation").value = "YES";
-                } else {
-                    document.getElementById("confirmation").value = "NO";
-                }
-            }
-        </script>
-
     </head>
 
     <body>
@@ -58,9 +46,21 @@
         <!-- Spinner End -->
 
 
-
         <!-- Navbar start -->
-        <div class="container-fluid">            
+        <div class="container-fluid fixed-top">
+            <div class="container topbar bg-primary d-none d-lg-block">
+                <div class="d-flex justify-content-between">
+                    <div class="top-info ps-2">
+                        <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
+                        <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
+                    </div>
+                    <div class="top-link pe-2">
+                        <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                    </div>
+                </div>
+            </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
                     <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">ECourse</h1></a>
@@ -70,13 +70,13 @@
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="/Home" class="nav-item nav-link">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Course</a>
+                            <a href="shop.html" class="nav-item nav-link">Lesson</a>
                             <a href="/Quiz" class="nav-item nav-link active">Quiz</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                     <a href="cart.html" class="dropdown-item">Cart</a>
-                                    <a href="chackout.html" class="dropdown-item">Checkout</a>
+                                    <a href="chackout.html" class="dropdown-item">Chackout</a>
                                     <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                                     <a href="404.html" class="dropdown-item">404 Page</a>
                                 </div>
@@ -97,74 +97,59 @@
                 </nav>
             </div>
         </div>
-        <!-- Navbar End -->        
+        <!-- Navbar End -->
 
-        <!-- Bestsaler Product Start -->
-        <div class="container-fluid py-5">
-            <input type="text" name="CourseID" value="${CourseID}" hidden>
 
-            <div class="container py-5">
-                <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                    <h1 class="display-4">Lesson Detail</h1>
+        <!-- Modal Search Start -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="row g-4">
-                    <c:forEach items="${DocList}" var="x">                            
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="p-4 rounded bg-light">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <img src="img/best-product-1.jpg" class="img-fluid rounded-circle w-100" alt="">
-                                    </div>
-                                    <div class="col-6">
-                                        <h5>${x.getTitle()}</h5>                                               
-                                    </div>                                            
-                                </div>
-                            </div>
-                        </div>                                    
-                    </c:forEach>
-                </div>
-
-                <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                    <h1 class="display-4">Quiz</h1>
-                </div>
-                <div class="row g-4">
-                    <c:forEach items="${QuizList}" var="x">                            
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="p-4 rounded bg-light">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <img src="img/best-product-1.jpg" class="img-fluid rounded-circle w-100" alt="">
-                                    </div>
-                                    <div class="col-6">
-                                        <c:if test="${User.getRole() == 4}">
-                                            <form action="Summary" method="get">                                           
-                                                <h5>${x.getQuizName()}</h5>                              
-                                                <input type="text" name="CourseID" value="${CourseID}" hidden>
-                                                <input type="text" name="LessonID" value="${LessonID}" hidden>
-                                                <input type="text" name="QuizID" value="${x.getQuizID()}" hidden>                         
-                                                <button class="btn border border-secondary rounded-pill px-3 text-primary">Do Quiz</button>
-                                            </form>
-                                        </c:if>
-                                        <c:if test="${User.getRole() == 1}">
-                                            <form action="QuestionImport" method="get">                                           
-                                                <h5>${x.getQuizName()}</h5>                              
-                                                <input type="text" name="CourseID" value="${CourseID}" hidden>
-                                                <input type="text" name="LessonID" value="${LessonID}" hidden>
-                                                <input type="text" name="QuizID" value="${x.getQuizID()}" hidden>                         
-                                                <button class="btn border border-secondary rounded-pill px-3 text-primary">Import Question</button>
-                                            </form>
-                                        </c:if>
-                                    </div>                                            
-                                </div>
-                            </div>
-                        </div>                                    
-                    </c:forEach>
-                </div>
-            </div>                
-            <a href="Logout" class="btn border border-secondary rounded-pill px-3 text-primary">Logout</a>    
+            </div>
         </div>
+        <!-- Modal Search End -->        
 
-        <!-- Bestsaler Product End -->        
+
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Review</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Quiz</a></li>
+                <li class="breadcrumb-item active text-white">Review</li>
+            </ol>
+        </div>
+        <!-- Single Page Header End -->
+
+
+        <!-- Single Product Start -->
+        <form action="QuestionImport" method="post">  
+            <div class="container-fluid py-5 col-lg-8">
+                <div class="container py-5">
+                    <div class="testimonial-header p-3">                    
+                        <h1 class="display-5 mb-5 text-dark text-center">Import Question</h1>                        
+                        <h3 class="fw-bold mb-3 py-2"> File: </h3>                        
+                        <input type="file" class="form-control border-2 border-secondary px-4 rounded-pill" name="File" value="" placeholder="Enter File">
+                        <br/>
+                        <input type="submit" class="btn btn-primary border-2 border-secondary rounded-pill text-white" value="Submit">
+                        <br/>
+                        <a href=# class="btn btn-primary border-2 border-secondary rounded-pill text-white" download="DemoImport.txt">Download File Format</a>
+
+                    </div>
+                </div>
+            </div>
+        </form>   
+        <!-- Single Product End -->      
 
         <!-- Copyright Start -->
         <div class="container-fluid copyright bg-dark py-4">
@@ -203,3 +188,6 @@
     </body>
 
 </html>
+
+
+
