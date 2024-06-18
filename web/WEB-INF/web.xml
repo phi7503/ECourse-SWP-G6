@@ -52,6 +52,26 @@
         <servlet-name>CreateCategory</servlet-name>
         <servlet-class>Controller.CreateCategory</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AttributeManage</servlet-name>
+        <servlet-class>Controller.AttributeManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageCategory</servlet-name>
+        <servlet-class>Controller.ManageCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCategory</servlet-name>
+        <servlet-class>Controller.UpdateCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSubject</servlet-name>
+        <servlet-class>Controller.UpdateSubject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageSubject</servlet-name>
+        <servlet-class>Controller.ManageSubject</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -95,5 +115,25 @@
     <servlet-mapping>
         <servlet-name>CreateCategory</servlet-name>
         <url-pattern>/CreateCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttributeManage</servlet-name>
+        <url-pattern>/AttributeManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCategory</servlet-name>
+        <url-pattern>/ManageCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCategory</servlet-name>
+        <url-pattern>/UpdateCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSubject</servlet-name>
+        <url-pattern>/UpdateSubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageSubject</servlet-name>
+        <url-pattern>/ManageSubject</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -41,8 +41,10 @@ public class QuizNavigate extends HttpServlet {
         } catch (Exception e) {
             request.getRequestDispatcher("/404.html").forward(request, response);
         }        
+        
         Attempt NewAttempt = UserDAO.INS.createNewUserQuizAttempt(u.getUserID(), CourseID, LessonID, QuizID);
-        List<Question> QuestionList = UserDAO.INS.createNewQuestionList(QuizID, CourseID, LessonID, QuizID, NewAttempt.getAttemptID());
+        List<Question> QuestionList = UserDAO.INS.createNewQuestionList(u.getUserID(), CourseID, LessonID, QuizID, NewAttempt.getAttemptID());
+        
         request.setAttribute("QuestionINS", QuestionDAO.INS);
         request.setAttribute("QuestionList", QuestionList);
         request.setAttribute("CourseID", CourseID);

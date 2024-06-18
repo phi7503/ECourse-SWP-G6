@@ -37,7 +37,7 @@
         <link href="css/style.css" rel="stylesheet">
 
         <script>
-            
+
         </script>
 
     </head>

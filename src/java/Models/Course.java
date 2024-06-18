@@ -16,16 +16,18 @@ public class Course {
     private float Price;
     private String Description;
     private java.sql.Date CreateDate;
+    private int UserID;
 
     public Course() {
     }
 
-    public Course(int CourseID, String CourseName, float Price, String Description, Date CreateDate) {
+    public Course(int CourseID, String CourseName, float Price, String Description, Date CreateDate, int UserID) {
         this.CourseID = CourseID;
         this.CourseName = CourseName;
         this.Price = Price;
         this.Description = Description;
         this.CreateDate = CreateDate;
+        this.UserID = UserID;
     }
 
     public int getCourseID() {
@@ -67,6 +69,15 @@ public class Course {
     public void setCreateDate(Date CreateDate) {
         this.CreateDate = CreateDate;
     }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
+    }
+    
     
     
 }
