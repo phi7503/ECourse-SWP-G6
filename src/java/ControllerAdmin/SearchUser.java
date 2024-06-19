@@ -14,13 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Vector;
 
 /**
  *
  * @author Admin
  */
-//@WebServlet(name="DetailUser", urlPatterns={"/detailuser"})
-public class DetailUser extends HttpServlet {
+//@WebServlet(name="SearchUser", urlPatterns={"/searchuser"})
+public class SearchUser extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +38,10 @@ public class DetailUser extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DetailUser</title>");  
+            out.println("<title>Servlet SearchUser</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DetailUser at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SearchUser at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,11 +58,8 @@ public class DetailUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("ID"));
-        UserDAO sd = UserDAO.INS;
-        User u = sd.findUserByID(id);
-        request.setAttribute("u", u);
-        request.getRequestDispatcher("detailUser.jsp").forward(request, response);
+        
+        
     } 
 
     /** 
@@ -74,7 +72,6 @@ public class DetailUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /** 

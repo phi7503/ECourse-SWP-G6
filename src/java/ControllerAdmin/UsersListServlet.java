@@ -59,7 +59,7 @@ public class UsersListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         
-        UserDAO usersdata = new UserDAO();
+        UserDAO usersdata = UserDAO.INS;
         Vector<User>  users = usersdata.getAllUser();
             
         request.setAttribute("data", users);
@@ -78,10 +78,10 @@ public class UsersListServlet extends HttpServlet {
     throws ServletException, IOException {
         String searchTerm = request.getParameter("searchTerm");
         
-        UserDAO dao = new UserDAO();
+        UserDAO dao = UserDAO.INS;
         Vector<User> searchResults = dao.searchUsers(searchTerm);
         
-        request.setAttribute("data", searchResults);
+        request.setAttribute("searchResults", searchResults);
         request.getRequestDispatcher("usersList.jsp").forward(request, response);
     }
 

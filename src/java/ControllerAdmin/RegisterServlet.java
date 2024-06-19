@@ -10,14 +10,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Vector;
 import Models.*;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 
 public class RegisterServlet extends HttpServlet {
 
-    UserDAO dao = new UserDAO();
+    UserDAO dao = UserDAO.INS;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -38,12 +36,11 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String fullname = request.getParameter("fullname");
         String dob = request.getParameter("dateOfBirth");
-        String seQuestion = request.getParameter("securityQuestion");
+        int seQuestionID = 1;
         String answer = request.getParameter("answer");
         String role1 = request.getParameter("role");
         int status = 1;
 
-        int seQuestionID = dao.findQuestionByName(seQuestion);
         int role = 2;
         if (role1.equals("expert")) {
             role = 2;
@@ -55,27 +52,16 @@ public class RegisterServlet extends HttpServlet {
         userid = listU.size() + 1;
 
         if (!isValidFullname(fullname)) {
-            request.setAttribute("mess", "Please enter the correct full name!!");
+            request.setAttribute("mess", "Please enter the correct full name");
             doGet(request, response);
-        } else if (!isValidUsername(username)) {
-            request.setAttribute("mess", "Username must have a length greater than 8!!!");
-            doGet(request, response);
-            
         } else if (checkUserExist(username, listU)) {
-            request.setAttribute("mess", "Username already exists!!");
+            request.setAttribute("mess", "Username already exists");
             doGet(request, response);
-        } else if (!isValidPassword(password)) {
-            request.setAttribute("mess", "Password must contain all uppercase letters, lowercase letters, numbers and special characters!!!");
-            doGet(request, response);
-            
-        } else if (!isValidAge(dob)) {
-            request.setAttribute("mess", "Age must be at least 10 years old!!");
-            doGet(request, response);
-            
         } else if (!password.equals(cfpass)) {
+            // kiem tra mat khau va nhap lai mat khau co khop nhau hay khong
             request.setAttribute("mess", "Password not match!");
             doGet(request, response);
-        }else{
+        }else {
         dao.Register(userid, username, password, email, fullname, dob, seQuestionID, answer, role, status);
         request.getRequestDispatcher("/index.html").forward(request, response);
         }
@@ -91,32 +77,14 @@ public class RegisterServlet extends HttpServlet {
         return false;
     }
 
-    private boolean isValidUsername(String username) {
-        if (username.length() <= 8) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isValidPassword(String password) {
-        if (password.length() < 8) {
-            return false;
-        }
-        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
-        return password.matches(regex);
-    }
-
+//    private boolean isValidEmail(String email) {
+//        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+//        return email.matches(regex);
+//    }
+    
     private boolean isValidFullname(String fullname) {
         String regex = "^[A-Z][a-z]*(\\s[A-Z][a-z]*)*$";
         return fullname.matches(regex);
     }
-
-    private boolean isValidAge(String dob) {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate birthDate = LocalDate.parse(dob);
-        long age = ChronoUnit.YEARS.between(birthDate, currentDate);
-        return age >= 10;
-    }
-
 
 }
