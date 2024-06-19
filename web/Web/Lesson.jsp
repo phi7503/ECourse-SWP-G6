@@ -102,7 +102,6 @@
         <!-- Bestsaler Product Start -->
         <div class="container-fluid py-5">
             <input type="text" name="CourseID" value="${CourseID}" hidden>
-            
             <div class="container py-5">
                 <div class="text-center mx-auto mb-5" style="max-width: 700px;">
                     <h1 class="display-4">Lesson Detail</h1>
@@ -136,13 +135,24 @@
                                         <img src="img/best-product-1.jpg" class="img-fluid rounded-circle w-100" alt="">
                                     </div>
                                     <div class="col-6">
-                                        <form action="Summary" method="get">                                           
-                                            <h5>${x.getQuizName()}</h5>                              
-                                            <input type="text" name="CourseID" value="${CourseID}" hidden>
-                                            <input type="text" name="LessonID" value="${LessonID}" hidden>
-                                            <input type="text" name="QuizID" value="${x.getQuizID()}" hidden>                         
-                                            <button class="btn border border-secondary rounded-pill px-3 text-primary">Do Quiz</button>
-                                        </form>
+                                        <c:if test="${User.getRole() == 4}">
+                                            <form action="Summary" method="get">                                           
+                                                <h5>${x.getQuizName()}</h5>                              
+                                                <input type="text" name="CourseID" value="${CourseID}" hidden>
+                                                <input type="text" name="LessonID" value="${LessonID}" hidden>
+                                                <input type="text" name="QuizID" value="${x.getQuizID()}" hidden>                         
+                                                <button class="btn border border-secondary rounded-pill px-3 text-primary">Do Quiz</button>
+                                            </form>
+                                        </c:if>
+                                        <c:if test="${User.getRole() == 1}">
+                                            <form action="QuestionImport" method="get">                                           
+                                                <h5>${x.getQuizName()}</h5>                              
+                                                <input type="text" name="CourseID" value="${CourseID}" hidden>
+                                                <input type="text" name="LessonID" value="${LessonID}" hidden>
+                                                <input type="text" name="QuizID" value="${x.getQuizID()}" hidden>                         
+                                                <button class="btn border border-secondary rounded-pill px-3 text-primary">Import Question</button>
+                                            </form>
+                                        </c:if>
                                     </div>                                            
                                 </div>
                             </div>

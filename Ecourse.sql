@@ -139,6 +139,30 @@ Create Table [OwnCourse](
 	Primary Key (CourseID, UserID, OrderID)
 );
 
+Create Table [Category](
+	CategoryID int not null,
+	CategoryName nvarchar(100) not null,
+	Primary Key (CategoryID)
+);
+
+Create Table [CourseCategory](
+	CourseID int not null,
+	CategoryID int not null,
+	Primary Key (CourseID, CategoryID)	
+);
+
+Create Table [Subject](
+	SubjectID int not null,
+	SubjectName nvarchar(100) not null,
+	Primary Key (SubjectID)
+);
+
+Create Table [CourseSubject](
+	CourseID int not null,
+	SubjectID int not null,
+	Primary Key (CourseID, SubjectID)
+);
+
 Alter Table [Attempt] with nocheck
 	Add Foreign Key (UserID) References [User](UserID)
 Alter Table [OwnCourse] with nocheck
@@ -175,6 +199,14 @@ Alter Table [OwnCourse] with nocheck
 	Add Foreign Key (OrderID, UserID) References [Order](OrderID, UserID)
 Alter Table [LessonDoc] with nocheck
 	Add Foreign Key (CourseID, LessonID) References [Lesson](CourseID, LessonID)
+Alter Table [CourseCategory] with nocheck
+	Add Foreign Key (CourseID) References [Course](CourseID)
+Alter Table [CourseSubject] with nocheck
+	Add Foreign Key (CourseID) References [Course](CourseID)
+Alter Table [CourseCategory] with nocheck
+	Add Foreign Key (CategoryID) References [Category](CategoryID)
+Alter Table [CourseSubject] with nocheck
+	Add Foreign Key (SubjectID) References [Subject](SubjectID)
 
 Insert Into [SEQuestion] Values 
 (1, 'What do you like most?'),
@@ -184,6 +216,21 @@ Insert Into [User] Values
 (1, 'a', 'a', 'hi2otaku@gmail.com', 'PHQ', '04-04-2004', 1, 'Nothing', 1, 1),
 (2, 'b', 'b', 'reotonaro@gmail.com', 'PQH', '04-04-2004', 1, 'Nothing', 1, 1),
 (3, 'admin', 'admin', 'admin@admin.com', 'Admin', '01-01-0001', 1, 'Nothing', 2, 1);
+
+Insert Into [Subject] Values
+(1, 'Elementary');
+
+Insert Into [Category] Values
+(1, 'Math'),
+(2, 'English');
+
+Insert Into [CourseSubject] Values
+(1, 1),
+(2, 1);
+
+Insert Into [CourseCategory] Values
+(1, 1),
+(2, 2);
 
 Insert Into [Course] Values 
 (1, 'Math', 15, 'Math for Elementary Student', '06-09-2024'),

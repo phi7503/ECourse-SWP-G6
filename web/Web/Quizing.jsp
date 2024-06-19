@@ -61,6 +61,11 @@
                     document.getElementById("finish").submit();
                 }
             }, 1000);
+            
+            function setFinish() {
+                document.getElementById("BtnFinish").value = "Yes";
+                document.getElementById("finish").submit();
+            }
         </script>
     </head>
 
@@ -220,7 +225,8 @@
                                 </div>
                             </div>                            
                             <div class="d-flex justify-content-center my-4">
-                                <input type="submit" name="BtnFinish" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100" value="Finish">
+
+                                <input type="button" id="BtnFinish" onclick="setFinish()" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100" value="Finish">
                             </div>                                                                         
                         </div>
                     </div>                

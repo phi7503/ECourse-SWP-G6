@@ -67,13 +67,11 @@ public class UserDAO {
             }
         } catch (Exception e) {
             status = "Error at load User" + e.getMessage();
-            System.out.println(status);
         }
-        
     }
 
     public Vector<Course> loadUserOwnCourse(int UserID) {
-        String sql = "Select * From [OwnCourse] oc Join [Course] c On oc.CourseID = c.CourseID Where UserID = ?";
+        String sql = "Select c.CourseID, c.CourseName, c.Price, c.Description, c.CreateDate, c. From [OwnCourse] oc Join [Course] c On oc.CourseID = c.CourseID Where oc.UserID = ?";
         Vector<Course> course = new Vector<Course>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -85,7 +83,8 @@ public class UserDAO {
                 float Price = rs.getFloat("Price");
                 String Description = rs.getString("Description");
                 java.sql.Date CreateDate = rs.getDate("CreateDate");
-                course.add(new Course(CourseID, CourseName, Price, Description, CreateDate));
+                UserID = rs.getInt("UserID");
+                course.add(new Course(CourseID, CourseName, Price, Description, CreateDate, UserID));
             }
         } catch (Exception e) {
             status = "Error at loadUserOwnCourse " + e.getMessage();
@@ -188,7 +187,8 @@ public class UserDAO {
     }
 
     public Vector<Question> getListQuestionOnAttempt(int UserID, int CourseID, int LessonID, int QuizID, int AttemptID) {
-        String sql = "Select * From [UserAnswer] ua"                
+
+        String sql = "Select * From [UserAnswer] ua"
                 + "\nWhere ua.UserID = ? and ua.CourseID = ? and ua.LessonID = ? and ua.QuizID = ? and ua.AttemptID = ?";
         List<Number> question = new ArrayList<>();
         try {
@@ -282,6 +282,9 @@ public class UserDAO {
     }
 
     public static void main(String agrs[]) {
+        Attempt NewAttempt = INS.createNewUserQuizAttempt(4, 1, 1, 1);
+        List<Question> QuestionList = INS.createNewQuestionList(4, 1, 1, 1, NewAttempt.getAttemptID());
+        System.out.println(INS.status);
         INS.updateUserAnswer(1, 1, 1, 2, 1, 1, 2);
         System.out.println(INS.status);
     }
@@ -594,5 +597,7 @@ public class UserDAO {
 }
 
     
+
+
 
 

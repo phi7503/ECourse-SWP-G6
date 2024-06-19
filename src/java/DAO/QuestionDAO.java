@@ -118,7 +118,7 @@ public class QuestionDAO {
     }
     
     public Answer loadQuestionCorrectAnswer(int UserID, int AttemptID, int CourseID, int LessonID, int QuizID, int QuestionID) {
-        String sql = "Select * From [UserAnswer] ua"
+        String sql = "Select a.AnswerID, a.[Description], a.[Role] From [UserAnswer] ua"
                 + "\nJoin [Answer] a On ua.CourseID = a.CourseID and ua.LessonID = a.LessonID and ua.QuizID = a.QuizID and ua.QuestionID = a.QuestionID"
                 + "\nWhere a.[Role] = 2 And ua.UserID = ? and ua.CourseID = ? and ua.LessonID = ? and ua.QuizID = ? and ua.AttemptID = ? And ua.QuestionID = ?";
         Answer ans = new Answer();
@@ -142,10 +142,44 @@ public class QuestionDAO {
         }
         return ans;
     }
+    
+    public void ImportQuestion(int CourseID, int LessonID, int QuizID, int QuestionID, String Question, String Explaination) {
+        String sql = "Insert Into [Question] Values(?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);            
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, QuizID);            
+            ps.setInt(4, QuestionID);
+            ps.setString(5, Question);
+            ps.setString(6, Explaination);
+            ps.execute();
+        } catch (Exception e) {
+            status = "Error at Import Question " + e.getMessage();
+        }
+    }
+    
+    public void ImportAnswer(int CourseID, int LessonID, int QuizID, int QuestionID, int AnswerID, String Description, int Role) {
+        String sql = "Insert Into [Answer] Values(?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);            
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, QuizID);            
+            ps.setInt(4, QuestionID);
+            ps.setInt(5, AnswerID);
+            ps.setString(6, Description);
+            ps.setInt(7, Role);
+            ps.execute();
+        } catch (Exception e) {
+            status = "Error at Import Answer " + e.getMessage();
+        }
+    }
 
-    public static void main(String[] agrs) {        
-        Answer ans = INS.loadQuestionCorrectAnswer(1, 1, 1, 1, 1, 1);
-        
-        System.out.println(INS.getStatus());
+    public static void main(String[] agrs) {                
+        INS.ImportAnswer(1, 1, 1, 3, 2, "3", 1);
+        INS.ImportAnswer(1, 1, 1, 3, 3, "4", 2);
+        INS.ImportAnswer(1, 1, 1, 3, 4, "5", 1);
+        System.out.println(INS.status);
     }
 }

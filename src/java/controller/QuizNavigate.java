@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -41,8 +42,10 @@ public class QuizNavigate extends HttpServlet {
         } catch (Exception e) {
             request.getRequestDispatcher("/404.html").forward(request, response);
         }        
+        
         Attempt NewAttempt = UserDAO.INS.createNewUserQuizAttempt(u.getUserID(), CourseID, LessonID, QuizID);
-        List<Question> QuestionList = UserDAO.INS.createNewQuestionList(QuizID, CourseID, LessonID, QuizID, NewAttempt.getAttemptID());
+        List<Question> QuestionList = UserDAO.INS.createNewQuestionList(u.getUserID(), CourseID, LessonID, QuizID, NewAttempt.getAttemptID());
+        
         request.setAttribute("QuestionINS", QuestionDAO.INS);
         request.setAttribute("QuestionList", QuestionList);
         request.setAttribute("CourseID", CourseID);
@@ -51,7 +54,7 @@ public class QuizNavigate extends HttpServlet {
         request.setAttribute("AttemptID", NewAttempt.getAttemptID());
         request.setAttribute("index", 0);
         request.setAttribute("Question", QuestionList.get(0));
-        request.setAttribute("Time", 10);        
+        request.setAttribute("Time", 900);        
         request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
     }
 

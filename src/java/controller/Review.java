@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -41,49 +42,26 @@ public class Review extends HttpServlet {
         int CourseID = -1;
         int LessonID = -1;
         int QuizID = -1;
-        int AttemptID = -1;
-        int index = 0;
+        int AttemptID = -1;        
         try {
             CourseID = Integer.parseInt(request.getParameter("CourseID"));
             LessonID = Integer.parseInt(request.getParameter("LessonID"));
             QuizID = Integer.parseInt(request.getParameter("QuizID"));
-            AttemptID = Integer.parseInt(request.getParameter("AttemptID"));
-            index = Integer.parseInt(request.getParameter("index"));
+            AttemptID = Integer.parseInt(request.getParameter("AttemptID"));            
         } catch (Exception e) {
             request.getRequestDispatcher("/404.html").forward(request, response);
         }
-        int AnswerID = -1;
-        try {
-            AnswerID = Integer.parseInt(request.getParameter("AnswerID"));
-        } catch (Exception e) {
-
-        }
-        List<Question> QuestionList = UserDAO.INS.getListQuestionOnAttempt(u.getUserID(), CourseID, LessonID, QuizID, AttemptID);        
-        if (request.getParameter("BtnPrev") != null) {
-            index--;
-        }
-        if (request.getParameter("BtnNext") != null) {
-            index++;
-        }
-        for (int i = 0; i < QuestionList.size(); i++) {
-            if (request.getParameter("Btn" + i) != null) {
-                index = i;
-                break;
-            }
-        }
+        
+        List<Question> QuestionList = UserDAO.INS.getListQuestionOnAttempt(u.getUserID(), CourseID, LessonID, QuizID, AttemptID);             
 
         request.setAttribute("QuestionINS", QuestionDAO.INS);
         request.setAttribute("QuestionList", QuestionList);
         request.setAttribute("CourseID", CourseID);
         request.setAttribute("LessonID", LessonID);
         request.setAttribute("QuizID", QuizID);
-        request.setAttribute("AttemptID", AttemptID);
-        request.setAttribute("index", index);
-        request.setAttribute("Question", QuestionList.get(index));
+        request.setAttribute("AttemptID", AttemptID);        
         
         request.getRequestDispatcher("/Web/Review.jsp").forward(request, response);
 
     }
 }
-
-
