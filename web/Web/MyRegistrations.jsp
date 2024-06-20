@@ -144,11 +144,10 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Order ID</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Lessons</th>
-                                <th scope="col">Total</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Order ID</th>                            
+                                <th scope="col">Course</th>
+                                
+                                
                                 <!--<th scope="col">Handle</th>-->
                             </tr>
                         </thead>
@@ -156,8 +155,7 @@
                             <c:forEach var="item" items="${orders}" varStatus="index">
                                 <tr>
                                     <td>${index.index + 1}</td>
-                                    <td>${item.getId()}</td>
-                                    <td>${item.getStatus() == 1 ? 'Wait for approval': 'Approved'}</td>
+                                    <td>${item.getId()}</td>                                  
                                     <td style="max-width: 50px">
                                         <c:forEach var="itemLessons" items="${item.getLessons()}">
                                             <div class="card mb-3">
@@ -176,16 +174,7 @@
                                             </div>
                                         </c:forEach>
                                     </td>
-                                    <td>${item.getTotal()}</td>
-                                    <td>
-                                        <c:if test="${item.getStatus() == 1}">
-                                            <form action="deleteOrder" method="post" id="deleteOrd">
-                                                <input type="text" hidden name="orderId" value="${item.getId()}">
-                                                <input type="submit" name="submit" class="btn btn-danger" id="deleteOrder" value="Delete" onclick="confirmDelete()">
-                                            </form>
-
-                                        </c:if>
-                                    </td>
+                                    
                                 </tr> 
                             </c:forEach>
                         </tbody>
