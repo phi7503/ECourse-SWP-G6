@@ -1,72 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
-        <servlet-name>LessonDetailController</servlet-name>
-        <servlet-class>Controller.LessonDetailController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LessonDetailController</servlet-name>
-        <url-pattern>/LessonDetail</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>ControllerAdmin.RegisterServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>Controller.Login</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddUser</servlet-name>
-        <servlet-class>ControllerAdmin.AddUser</servlet-class>
+        <servlet-name>Quizing</servlet-name>
+        <servlet-class>Controller.Quizing</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>AddUser</servlet-name>
-        <url-pattern>/AddUser</url-pattern>
-    </servlet-mapping>
     <servlet>
-        <servlet-name>UsersListServlet</servlet-name>
-        <servlet-class>ControllerAdmin.UsersListServlet</servlet-class>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>Controller.Home</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>UsersListServlet</servlet-name>
-        <url-pattern>/userslist</url-pattern>
-    </servlet-mapping>
     <servlet>
-        <servlet-name>DetailUser</servlet-name>
-        <servlet-class>ControllerAdmin.DetailUser</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DetailUser</servlet-name>
-        <url-pattern>/detailuser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>EditUser</servlet-name>
-        <servlet-class>ControllerAdmin.EditUser</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditUser</servlet-name>
-        <url-pattern>/edituser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>DeleteUser</servlet-name>
-        <servlet-class>ControllerAdmin.DeleteUser</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteUser</servlet-name>
-        <url-pattern>/deleteUser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>SearchUser</servlet-name>
-        <servlet-class>ControllerAdmin.SearchUser</servlet-class>
+        <servlet-name>Summary</servlet-name>
+        <servlet-class>Controller.Summary</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Cart</servlet-name>
         <servlet-class>Controller.Cart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyRegistration</servlet-name>
+        <servlet-class>Controller.MyRegistration</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartContact</servlet-name>
@@ -76,6 +32,26 @@
         <servlet-name>CartCompletation</servlet-name>
         <servlet-class>Controller.CartCompletation</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>MyRegistration</servlet-name>
+        <url-pattern>/MyRegistration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Quizing</servlet-name>
+        <url-pattern>/Quizing</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Summary</servlet-name>
+        <url-pattern>/Summary</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Cart</servlet-name>
         <url-pattern>/Cart</url-pattern>
