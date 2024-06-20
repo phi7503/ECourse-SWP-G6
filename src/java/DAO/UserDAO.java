@@ -11,6 +11,7 @@ import java.util.*;
 import Models.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -183,6 +184,55 @@ public class UserDAO {
             status = "Error at changePassword: " + e.getMessage();
             System.out.println(status);
             return false;
+        }
+    }
+    
+        public ArrayList<Course> loadUserCart(int UserID) {
+        ArrayList<Course> CourseList = new ArrayList<>();
+        String sql = "Select ce.* From [Cart] c  Join Course ce On c.CourseID = ce.CourseID Where c.UserID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int CourseID = rs.getInt("CourseID");
+                String CourseName = rs.getString("CourseName");
+                float Price = rs.getFloat("Price");
+                String Description = rs.getString("Description");
+                java.sql.Date CreateDate = rs.getDate("CreateDate");
+                UserID = rs.getInt("UserID");   
+                CourseList.add(new Course(CourseID, CourseName, Price, Description, CreateDate, UserID));
+            }
+            
+        } catch (SQLException e) {
+            status = "Error at loadUserCart " + e.getMessage();
+        }
+        return CourseList;
+    }
+    
+    public void deleteCartCourse(int UserID, int CourseID) {
+        String sql = "Delete From [Cart] Where UserID = ? And CourseID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ps.setInt(2, CourseID);
+            ps.execute();                        
+        } catch (SQLException e) {
+            status = "Error at deleteCartCourse " + e.getMessage();
+        }
+    }        
+    
+    public void addUserOwnCourse(int UserID, int CourseID, int OrderID) {
+        INS.deleteCartCourse(UserID, CourseID);
+        String sql = "Insert Into [OwnCourse] Values(?,?,?)";
+         try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ps.setInt(2, CourseID);
+            ps.setInt(3, OrderID);
+            ps.execute();                        
+        } catch (SQLException e) {
+            status = "Error at addUserOwnCourse " + e.getMessage();
         }
     }
 }
