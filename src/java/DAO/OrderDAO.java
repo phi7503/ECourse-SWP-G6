@@ -67,6 +67,35 @@ public class OrderDAO {
 
         return true;
     }
+    public int createOrder(int UserID, float Price) {
+        String sql = "Select Top 1 OrderID From [Order] Where UserID = ?";
+        int OrderID = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderID = rs.getInt("OrderID");
+            }
+        } catch (SQLException e) {
+            status = "Error at createOrder " + e.getMessage();
+        }
+        OrderID++;
+        java.util.Date Date = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(Date.getTime());
+        sql = "Insert Into [Order] Values(?,?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, OrderID);
+            ps.setInt(2, UserID);
+            ps.setDate(3, sqlDate);
+            ps.setFloat(4, Price);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at createOrder " + e.getMessage();
+        }
+        return OrderID;
+    }   
     
     public static void main(String[] args) {
         OrderDAO.INS.deleteOrder("2");
