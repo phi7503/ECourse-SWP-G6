@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+
+    <!-- Filter Definition -->
     <filter>
         <filter-name>ServletFilter</filter-name>
         <filter-class>Filter.ServletFilter</filter-class>
@@ -8,22 +10,23 @@
         <filter-name>ServletFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- Servlet Definitions -->
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>controller.Login</servlet-class>
+        <servlet-class>Controller.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Quizing</servlet-name>
-        <servlet-class>controller.Quizing</servlet-class>
+        <servlet-class>Controller.Quizing</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Home</servlet-name>
-        <servlet-class>controller.Home</servlet-class>
+        <servlet-class>Controller.Home</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Summary</servlet-name>
-
-        <servlet-class>controller.Summary</servlet-class>
+        <servlet-class>Controller.Summary</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
@@ -34,8 +37,16 @@
         <servlet-class>Controller.Course</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>Controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Lesson</servlet-name>
         <servlet-class>Controller.Lesson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Review</servlet-name>
+        <servlet-class>Controller.Review</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>QuizNavigate</servlet-name>
@@ -77,26 +88,52 @@
         <servlet-name>PracticeList</servlet-name>
         <servlet-class>Controller.PracticeList</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LessonDetailController</servlet-name>
+        <servlet-class>Controller.SubjectDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassServlet</servlet-name>
+        <servlet-class>Controller.ChangePassServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyRegistrationsServlet</servlet-name>
+        <servlet-class>Controller.MyRegistrationsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserProfileServlet</servlet-name>
+        <servlet-class>Controller.UserProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUserProfileServlet</servlet-name>
+        <servlet-class>Controller.EditUserProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>ControllerAdmin.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserListServlet</servlet-name>
+        <servlet-class>ControllerAdmin.UserListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailUser</servlet-name>
+        <servlet-class>ControllerAdmin.DetailUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>ControllerAdmin.EditUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchUser</servlet-name>
+        <servlet-class>ControllerAdmin.SearchUser</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mappings -->
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>LessonDetailController</servlet-name>
-        <servlet-class>controller.SubjectDetailServlet</servlet-class>
-    </servlet>
-    <servlet>
-
-        <servlet-name>ChangePassServlet</servlet-name>
-        <servlet-class>controller.UserProfileServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditUserProfileServlet</servlet-name>
-        <servlet-class>controller.EditUserProfileServlet</servlet-class>
-
-    </servlet>
-    
     <servlet-mapping>
         <servlet-name>Quizing</servlet-name>
         <url-pattern>/Quizing</url-pattern>
@@ -108,10 +145,6 @@
     <servlet-mapping>
         <servlet-name>Summary</servlet-name>
         <url-pattern>/Summary</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Review</servlet-name>
-        <url-pattern>/Review</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
@@ -133,60 +166,27 @@
         <servlet-name>ReviewNavigate</servlet-name>
         <url-pattern>/ReviewNavigate</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>ControllerAdmin.RegisterServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>AddUser</servlet-name>
-        <servlet-class>ControllerAdmin.AddUser</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>AddUser</servlet-name>
         <url-pattern>/AddUser</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>UsersListServlet</servlet-name>
-        <servlet-class>ControllerAdmin.UsersListServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
         <url-pattern>/userslist</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>DetailUser</servlet-name>
-        <servlet-class>ControllerAdmin.DetailUser</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>DetailUser</servlet-name>
         <url-pattern>/detailuser</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>EditUser</servlet-name>
-        <servlet-class>ControllerAdmin.EditUser</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>EditUser</servlet-name>
         <url-pattern>/edituser</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>DeleteUser</servlet-name>
-        <servlet-class>ControllerAdmin.DeleteUser</servlet-class>
-    </servlet>
     <servlet-mapping>
-        <servlet-name>DeleteUser</servlet-name>
-        <url-pattern>/deleteUser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>SearchUser</servlet-name>
-        <servlet-class>ControllerAdmin.SearchUser</servlet-class>
-    </servlet>
         <servlet-name>CreateSubject</servlet-name>
         <url-pattern>/CreateSubject</url-pattern>
     </servlet-mapping>
@@ -221,5 +221,33 @@
     <servlet-mapping>
         <servlet-name>PracticeList</servlet-name>
         <url-pattern>/PracticeList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassServlet</servlet-name>
+        <url-pattern>/changepass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserProfileServlet</servlet-name>
+        <url-pattern>/edituser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/ForgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyRegistrationsServlet</servlet-name>
+        <url-pattern>/MyRegistrations</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Review</servlet-name>
+        <url-pattern>/Review</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileServlet</servlet-name>
+        <url-pattern>/userprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserListServlet</servlet-name>
+        <url-pattern>/userlist</url-pattern>
     </servlet-mapping>
 </web-app>

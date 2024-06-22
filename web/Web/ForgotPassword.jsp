@@ -83,10 +83,8 @@
                         </div>                        
                         <a href="Login">Login </a>
                     </div>
-
                 </div>
             </form>
-
         </div>
         <!-- Fact Start -->
 

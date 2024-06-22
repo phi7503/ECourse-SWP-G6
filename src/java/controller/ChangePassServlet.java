@@ -1,7 +1,6 @@
 
-package controller;
+package Controller;
 
-import ControllerAdmin.*;
     import DAO.UserDAO;
     import java.io.IOException;
     import java.io.PrintWriter;

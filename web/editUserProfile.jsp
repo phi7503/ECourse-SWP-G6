@@ -104,11 +104,6 @@
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" value="${user.mail}">
                         </div>
-                        <div>
-                            <a>
-                                public void  
-                            </a>
-                        </div>
                         <div class="mb-3">
                             <label for="fullName" class="form-label">Full Name</label>
                             <input type="text" class="form-control" id="fullName" name="fullName" value="${user.fullName}">
