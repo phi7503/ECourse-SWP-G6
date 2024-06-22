@@ -67,7 +67,7 @@ public class CourseDAO {
         } catch (Exception e) {
             status = "Error at load Course " + e.getMessage();
         }
-    }
+    }        
     
     public void addSubject(int SubjectID, String SubjectName) {
         String sql = "Insert Into [Subject] Values (?,?)";

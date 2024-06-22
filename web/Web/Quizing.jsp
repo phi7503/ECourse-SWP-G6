@@ -172,8 +172,7 @@
             <input type="text" name="AttemptID" value="${AttemptID}" hidden>
             <input type="text" name="index" value="${index}" hidden>            
             <input type="text" name="Time" value="${Time}" id="Time" hidden>
-            <input typt="text" name="BtnFinish" id="BtnFinish" value="No" hidden>
-            <p>${User.getUserID()}</p>
+            <input typt="text" name="BtnFinish" id="BtnFinish" value="No" hidden>            
             <div class="container-fluid py-5 mt-5">
                 <div class="container py-5">
                     <div class="row g-4 mb-5">

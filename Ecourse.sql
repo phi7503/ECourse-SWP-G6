@@ -29,6 +29,7 @@ Create Table [Course](
 	Price float not null,
 	[Description] nvarchar(500),
 	CreateDate date not null,
+	UserID int not null
 	Primary Key(CourseID)
 );
 
@@ -207,22 +208,37 @@ Alter Table [CourseCategory] with nocheck
 	Add Foreign Key (CategoryID) References [Category](CategoryID)
 Alter Table [CourseSubject] with nocheck
 	Add Foreign Key (SubjectID) References [Subject](SubjectID)
+Alter Table [Course] with nocheck
+	Add Foreign Key (UserID) References [User](UserID)
 
 Insert Into [SEQuestion] Values 
 (1, 'What do you like most?'),
-(2, 'nD');
+(2, 'What is your favourite food?'),
+(3, 'What is your father name?');
 
 Insert Into [User] Values 
-(1, 'a', 'a', 'hi2otaku@gmail.com', 'PHQ', '04-04-2004', 1, 'Nothing', 1, 1),
-(2, 'b', 'b', 'reotonaro@gmail.com', 'PQH', '04-04-2004', 1, 'Nothing', 1, 1),
-(3, 'admin', 'admin', 'admin@admin.com', 'Admin', '01-01-0001', 1, 'Nothing', 2, 1);
+(1, 'admin', 'admin', 'admin@admin.com', 'PHQ', '04-04-2004', 1, 'Nothing', 1, 1),
+(2, 'expert', 'expert', 'expert@expert.com', 'NVL', '01-01-0001', 1, 'Nothing', 2, 1),
+(3, 'sale', 'sale', 'sale@sale.com', 'NLL', '01-01-2001', 1, 'Nothing', 3, 1),
+(4, 'leaner', 'learner', 'learner@learner.com', 'NBP', '04-04-2004', 1, 'Nothing', 4, 1),
+(5, 'testcart', 'testcart', 'testcart@testcart.com', 'NVL', '04-04-2004', 1, 'Nothing', 4, 1);
 
 Insert Into [Subject] Values
-(1, 'Elementary');
+(1, 'Elementary'),
+(2, 'Web Develop'),
+(3, 'Cooking');
 
 Insert Into [Category] Values
 (1, 'Math'),
-(2, 'English');
+(2, 'English'),
+(3, 'HTML'),
+(4, 'Cooking');
+
+Insert Into [Course] Values 
+(1, 'Math', 15, 'Math for Elementary Student', '06-09-2024', 1),
+(2, 'English', 10, 'English for Elementary Student', '06-09-2024', 1),
+(3, 'Basic Cooking', 10, 'Cooking for Starter', '06-20-2024', 1),
+(4, 'Basic HTML', 10, 'HTML for Starter', '06-20-2024', 1);
 
 Insert Into [CourseSubject] Values
 (1, 1),
@@ -232,17 +248,19 @@ Insert Into [CourseCategory] Values
 (1, 1),
 (2, 2);
 
-Insert Into [Course] Values 
-(1, 'Math', 15, 'Math for Elementary Student', '06-09-2024'),
-(2, 'English', 10, 'English for Elementary Student', '06-09-2024');
+Insert Into [Cart] Values
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 4);
 
 Insert Into [Order] Values
-(1, 1, '11-06-2024', 10),
-(2, 1, '11-06-2024', 15);
+(1, 4, '11-06-2024', 10),
+(2, 4, '11-06-2024', 15);
 
 Insert Into [OwnCourse] Values
-(1, 1, 1),
-(2, 1, 1);
+(1, 4, 1),
+(2, 4, 1);
 
 Insert Into [Lesson] Values 
 (1, 1, 'Math 1', 'Math Lesson 1'),
