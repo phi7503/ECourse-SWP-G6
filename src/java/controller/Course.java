@@ -38,7 +38,6 @@ public class Course extends HttpServlet {
             if (CourseID < 0) {
                 request.getRequestDispatcher("/404.html").forward(request, response);
             } else {
-
                 if (UserDAO.INS.checkOwnCourse(u.getUserID(), CourseID) == 1 || u.getRole() == 1) {
                     List<Models.Lesson> LessonList = LessonDAO.INS.loadLessonByCourseID(CourseID);
                     request.setAttribute("LessonList", LessonList);

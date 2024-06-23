@@ -37,9 +37,7 @@
         <link href="css/style.css" rel="stylesheet">
 
         <script>
-            function submitReview() {
-                document.getElementById("submit").value = AttemptID;
-            }
+
         </script>
 
     </head>
@@ -98,7 +96,6 @@
         <input type="text" name="CourseID" value="${CourseID}" hidden>
         <input type="text" name="LessonID" value="${LessonID}" hidden>
         <input type="text" name="QuizID" value="${QuizID}" hidden> 
-
         <div class="container-fluid py-5">
             <div class="container">
 
@@ -135,12 +132,11 @@
                                     
                                     <tbody>                                    
                                         <c:forEach items="${AttemptList}" var="x">
-                                            <tr>
-                                                
+                                            <tr>                                                
                                                 <td>${x.getAttemptID()}</td>
                                                 <td>${x.getAttemptDate()}</td>
                                                 <td>${UserINS.getAttemptMark(User.getUserID(), CourseID, LessonID, QuizID, x.getAttemptID())}</td>
-                                                <td><input type="submit" name="AttemptID" value="Submit" id="submit" onclick="submitReview(x.getAttemptID())" class="btn border border-secondary rounded-pill px-3 text-primary"></td>                                                
+                                                <td><input type="submit" name="AttemptID" value="${x.getAttemptID()}" class="btn border border-secondary rounded-pill px-3 text-primary"></td>                                                
                                             </tr>
                                         </c:forEach>
                                     </tbody>

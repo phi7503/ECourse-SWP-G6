@@ -172,8 +172,7 @@
             <input type="text" name="AttemptID" value="${AttemptID}" hidden>
             <input type="text" name="index" value="${index}" hidden>            
             <input type="text" name="Time" value="${Time}" id="Time" hidden>
-            <input typt="text" name="BtnFinish" id="BtnFinish" value="No" hidden>
-            <p>${User.getUserID()}</p>
+            <input typt="text" name="BtnFinish" id="BtnFinish" value="No" hidden>            
             <div class="container-fluid py-5 mt-5">
                 <div class="container py-5">
                     <div class="row g-4 mb-5">
@@ -225,7 +224,6 @@
                                 </div>
                             </div>                            
                             <div class="d-flex justify-content-center my-4">
-
                                 <input type="button" id="BtnFinish" onclick="setFinish()" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100" value="Finish">
                             </div>                                                                         
                         </div>

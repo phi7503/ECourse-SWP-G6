@@ -92,9 +92,8 @@
                 <h1 class="display-6 text-primary px-4">User Profile</h1>
                 <div class="col-lg-12 col-md-12 col-xl-12">
                     <div class="counter bg-white rounded p-4">
-                        
-                        <h3 class=" px-4">Email: ${user.mail}</h3>
                         <h3 class=" px-4">Full Name: ${user.fullName}</h3>
+                        <h3 class=" px-4">Email: ${user.mail}</h3>
                         <h3 class=" px-4">Date of Birth: ${user.doB}</h3>
                         <h3 class=" px-4">
                             Role: 
@@ -104,8 +103,7 @@
                                 <c:otherwise>Unknown</c:otherwise>
                             </c:choose>
                         </h3>
-                    </div>
-
+                    </div> 
                 </div>
                 <form action="changepass" method="post">
                     <input type="hidden" name="userId" value="${user.userID}" />

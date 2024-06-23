@@ -1,15 +1,10 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Models;
 
-
 import java.sql.Date;
-
-//import java.sql.Date;
-
 
 /**
  *
@@ -27,11 +22,6 @@ public class User {
     private int Role;
     private int Status;
 
-
-    public User() {
-    }
-
-
     public User(int UserID, String UserName, String Password, String Mail, String FullName, Date DoB, int SecurityQuestionID, String Answer, int Role) {
         this.UserID = UserID;
         this.UserName = UserName;
@@ -43,7 +33,6 @@ public class User {
         this.Answer = Answer;
         this.Role = Role;
         this.Status = 0;
-
     }
 
     public int getUserID() {
@@ -126,10 +115,9 @@ public class User {
         this.Status = Status;
     }
 
-
     @Override
     public String toString() {
         return "User{" + "UserID=" + UserID + ", UserName=" + UserName + ", Password=" + Password + ", Mail=" + Mail + ", FullName=" + FullName + ", DoB=" + DoB + ", SecurityQuestionID=" + SecurityQuestionID + ", Answer=" + Answer + ", Role=" + Role + ", Status=" + Status + '}';
     }        
-
+    
 }

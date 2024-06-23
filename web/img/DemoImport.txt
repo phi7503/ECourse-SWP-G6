@@ -1,7 +1,0 @@
-<QuestionID>
-<Question>
-<Explaination>
-<AnswerID>
-<Description>
-<Role>
-finish
