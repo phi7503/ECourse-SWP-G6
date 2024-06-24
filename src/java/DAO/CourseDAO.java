@@ -195,6 +195,43 @@ public class CourseDAO {
         
     }
     
+    public ArrayList<Attempt> getUnfinishedAttempt() {
+        ArrayList<Attempt> AttemptList = new ArrayList<>();
+        String sql = "Select * From [Attempt] Where Finished = 0";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int UserID = rs.getInt("UserID");
+                int CourseID = rs.getInt("CourseID");
+                int LessonID = rs.getInt("LessonID");
+                int QuizID = rs.getInt("QuizID");
+                int AttemptID = rs.getInt("AttemptID");
+                java.sql.Timestamp tmp1 = rs.getTimestamp("AttemptDate");
+                java.sql.Timestamp tmp2 = rs.getTimestamp("SubmittedDate");
+                int Finished = rs.getInt("Finished");
+                AttemptList.add(new Attempt(UserID, CourseID, LessonID, QuizID, AttemptID, tmp1, tmp2, Finished));
+            }
+        } catch (SQLException e) {
+            status = "Error at getUnfinishedAttempt " + e.getMessage();
+        }
+        return AttemptList;
+    }
+    
+    public void updateAttempt(Attempt atm) {
+        String sql = "Update [Attempt] Set Finished = 1 Where UserID = ? And CourseID = ? And LessonID = ? And QuizID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, atm.getUserID());
+            ps.setInt(2, atm.getCourseID());
+            ps.setInt(3, atm.getLessonID());
+            ps.setInt(4, atm.getQuizID());
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at updateAttempt " + e.getMessage();
+        }
+    }
+    
     public static void main (String[] agrs) {               
         System.out.println(INS.status);
     }

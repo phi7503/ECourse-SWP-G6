@@ -7,8 +7,8 @@ package DAO;
 import java.sql.Connection;
 import java.util.*;
 import Models.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+
 
 /**
  *
@@ -59,7 +59,7 @@ public class UserDAO {
                 int Role = rs.getInt("Role");
                 ul.add(new User(UserID, UserName, Password, Mail, FullName, DoB, SecurityQuestionID, Answer, Role));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at load User" + e.getMessage();
         }
     }
@@ -80,7 +80,7 @@ public class UserDAO {
                 UserID = rs.getInt("UserID");
                 course.add(new Course(CourseID, CourseName, Price, Description, CreateDate, UserID));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at loadUserOwnCourse " + e.getMessage();
         }
         return course;
@@ -96,7 +96,7 @@ public class UserDAO {
             while (rs.next()) {
                 return 1;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at checkOwnCourse " + e.getMessage();
         }
         return 0;
@@ -115,19 +115,26 @@ public class UserDAO {
             while (rs.next()) {
                 int AttemptID = rs.getInt("AttemptID");
                 java.sql.Timestamp AttemptDate = rs.getTimestamp("AttemptDate");
-                list.add(new Attempt(UserID, CourseID, LessonID, QuizID, AttemptID, AttemptDate));
+                java.sql.Timestamp SubmittedDate = rs.getTimestamp("SubmittedDate");
+                int Finished = rs.getInt("Finished");
+                list.add(new Attempt(UserID, CourseID, LessonID, QuizID, AttemptID, AttemptDate, SubmittedDate, Finished));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at loadUserQuizAttempt " + e.getMessage();
         }
         return list;
     }
 
     public Attempt createNewUserQuizAttempt(int UserID, int CourseID, int LessonID, int QuizID) {
-        String sql = "Insert Into [Attempt] Values (?,?,?,?,?,?,?)";
+        String sql = "Insert Into [Attempt] Values (?,?,?,?,?,?,?,?)";
         Vector<Attempt> list = loadUserQuizAttempt(UserID, CourseID, LessonID, QuizID);
         java.util.Date date = new java.util.Date();
-        java.sql.Timestamp tmp = new java.sql.Timestamp(date.getTime());
+        Calendar calendar = Calendar.getInstance(); 
+        calendar.setTime(date);
+        calendar.add(Calendar.SECOND, QuizDAO.INS.getQuizTimeLimt(CourseID, LessonID, QuizID));
+        java.sql.Timestamp tmp = new java.sql.Timestamp(date.getTime());      
+        java.util.Date date2 = calendar.getTime();
+        java.sql.Timestamp tmp2 = new java.sql.Timestamp(date2.getTime());
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, UserID);
@@ -136,12 +143,13 @@ public class UserDAO {
             ps.setInt(4, QuizID);
             ps.setInt(5, list.size() + 1);
             ps.setTimestamp(6, tmp);
-            ps.setTimestamp(7, null);
+            ps.setTimestamp(7, tmp2);
+            ps.setInt(8, 0);
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at createUserQuizAttempt " + e.getMessage();
         }
-        return new Attempt(UserID, CourseID, LessonID, QuizID, list.size() + 1, tmp);
+        return new Attempt(UserID, CourseID, LessonID, QuizID, list.size() + 1, tmp, tmp2, 0);
     }
 
     public Vector<Question> createNewQuestionList(int UserID, int CourseID, int LessonID, int QuizID, int AttemptID) {
@@ -159,7 +167,7 @@ public class UserDAO {
                 String Explaination = rs.getString("Explaination");
                 QuestionList.add(new Question(CourseID, LessonID, QuizID, QuestionID, Question, Explaination));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at createNewQuestionList " + e.getMessage();
         }
         for (Question x : QuestionList) {
@@ -173,7 +181,7 @@ public class UserDAO {
                 ps.setInt(5, QuizID);
                 ps.setInt(6, x.getQuestionID());
                 ps.execute();
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 status = "Error at addNewUserAnswer " + e.getMessage();
             }
         }
@@ -196,7 +204,7 @@ public class UserDAO {
                 int QuestionID = rs.getInt("QuestionID");
                 question.add(QuestionID);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at getListQuestionOnAttempt " + e.getMessage();
         }
 
@@ -217,7 +225,7 @@ public class UserDAO {
                     String Explaination = rs.getString("Explaination");
                     QuestionList.add(new Question(CourseID, LessonID, QuizID, QuestionID, Question, Explaination));
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 status = "Error at getListQuestionOnAttempt " + e.getMessage();
             }
         }
@@ -240,7 +248,7 @@ public class UserDAO {
             while (rs.next()) {
                 cnt++;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at getAttemptMark " + e.getMessage();
         }
         return cnt;
@@ -260,7 +268,7 @@ public class UserDAO {
             ps.setInt(6, QuizID);
             ps.setInt(7, QuestionID);
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at updateUserAnswer " + e.getMessage();
         }
     }
@@ -273,10 +281,50 @@ public class UserDAO {
         }
         return null;
     }
+    
+    public Attempt getNewestAttempt(int UserID, int CourseID, int LessonID, int QuizID) {
+        String sql = "Select Top 1 * From [Attempt] Where UserID = ? And CourseID = ? And LessonID = ? And QuizID = ? Order By AttemptDate desc";        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ps.setInt(2, CourseID);
+            ps.setInt(3, LessonID);
+            ps.setInt(4, QuizID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int AttemptID = rs.getInt("AttemptID");
+                java.sql.Timestamp AttemptDate = rs.getTimestamp("AttemptDate");
+                java.sql.Timestamp SubmittedDate = rs.getTimestamp("SubmittedDate");
+                int Finished = rs.getInt("Finished");
+                return new Attempt(UserID, CourseID, LessonID, QuizID, AttemptID, AttemptDate, SubmittedDate, Finished);
+            }
+        } catch (SQLException e) {
+            status = "Error at getNewestAttempt " + e.getMessage();
+        }
+        return null;
+    }        
+    
+    public void updateSubmittedTime(int UserID, int CourseID, int LessonID, int QuizID, int AttemptID, java.util.Date Time) {
+        Attempt atm = INS.getNewestAttempt(UserID, CourseID, LessonID, QuizID);        
+        String sql = "Update [Attempt] Set SubmittedDate = ?, Finished = 1 Where UserID = ? And CourseID = ? And LessonID = ? And QuizID = ? And AttemptID = ?";
+        java.sql.Timestamp tmp = new java.sql.Timestamp(Time.getTime());
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setTimestamp(1, tmp);
+            ps.setInt(2, UserID);
+            ps.setInt(3, CourseID);
+            ps.setInt(4, LessonID);
+            ps.setInt(5, QuizID);
+            ps.setInt(6, AttemptID);    
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at updateSubmittedTime " + e.getMessage();
+        }
+        
+    }
 
     public static void main(String agrs[]) {
-        Attempt NewAttempt = INS.createNewUserQuizAttempt(4, 1, 1, 1);
-        List<Question> QuestionList = INS.createNewQuestionList(4, 1, 1, 1, NewAttempt.getAttemptID());
+        INS.createNewUserQuizAttempt(4, 1, 1, 1);
         System.out.println(INS.status);
     }
 }

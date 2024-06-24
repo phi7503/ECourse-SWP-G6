@@ -45,16 +45,10 @@ public class QuizNavigate extends HttpServlet {
         Attempt NewAttempt = UserDAO.INS.createNewUserQuizAttempt(u.getUserID(), CourseID, LessonID, QuizID);
         List<Question> QuestionList = UserDAO.INS.createNewQuestionList(u.getUserID(), CourseID, LessonID, QuizID, NewAttempt.getAttemptID());
         
-        request.setAttribute("QuestionINS", QuestionDAO.INS);
-        request.setAttribute("QuestionList", QuestionList);
-        request.setAttribute("CourseID", CourseID);
-        request.setAttribute("LessonID", LessonID);
-        request.setAttribute("QuizID", QuizID);
-        request.setAttribute("AttemptID", NewAttempt.getAttemptID());
-        request.setAttribute("index", 0);
-        request.setAttribute("Question", QuestionList.get(0));
-        request.setAttribute("Time", 900);        
-        request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
+        ses.setAttribute("CourseID", CourseID);
+        ses.setAttribute("LessonID", LessonID);
+        ses.setAttribute("QuizID", QuizID);                                
+        
     }
 
 }

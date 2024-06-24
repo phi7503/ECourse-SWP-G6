@@ -57,6 +57,7 @@ Create Table [Quiz](
 	QuizID int not null,
 	QuizName nvarchar(100) not null,
 	NoQ int not null,
+	TimeLimit int not null,
 	CreateDate date not null,	
 	Primary Key (CourseID, LessonID, QuizID)
 );
@@ -101,6 +102,7 @@ Create Table [Attempt](
 	AttemptID int not null,
 	AttemptDate datetime not null,
 	SubmittedDate datetime,
+	[Finished] int not null,
 	Primary Key (UserID, CourseID, LessonID, QuizID, AttemptID)
 );
 
@@ -220,7 +222,7 @@ Insert Into [User] Values
 (1, 'admin', 'admin', 'admin@admin.com', 'PHQ', '04-04-2004', 1, 'Nothing', 1, 1),
 (2, 'expert', 'expert', 'expert@expert.com', 'NVL', '01-01-0001', 1, 'Nothing', 2, 1),
 (3, 'sale', 'sale', 'sale@sale.com', 'NLL', '01-01-2001', 1, 'Nothing', 3, 1),
-(4, 'leaner', 'learner', 'learner@learner.com', 'NBP', '04-04-2004', 1, 'Nothing', 4, 1),
+(4, 'learner', 'learner', 'learner@learner.com', 'NBP', '04-04-2004', 1, 'Nothing', 4, 1),
 (5, 'testcart', 'testcart', 'testcart@testcart.com', 'NVL', '04-04-2004', 1, 'Nothing', 4, 1);
 
 Insert Into [Subject] Values
@@ -269,10 +271,10 @@ Insert Into [Lesson] Values
 (2, 2, 'English 2', 'English Lesson 2');
 
 Insert Into [Quiz] Values 
-(1, 1, 1, 'Final Exam for Math 1', 2, '06-09-2024'),
-(1, 2, 1, 'Final Exam for Math 2', 2, '06-09-2024'),
-(2, 1, 1, 'Final Exam for English 1', 2, '06-09-2024'),
-(2, 2, 1, 'Final Exam for English 2', 2, '06-09-2024');
+(1, 1, 1, 'Final Exam for Math 1', 2, 900, '06-09-2024'),
+(1, 2, 1, 'Final Exam for Math 2', 2, 900, '06-09-2024'),
+(2, 1, 1, 'Final Exam for English 1', 2, 900, '06-09-2024'),
+(2, 2, 1, 'Final Exam for English 2', 2, 900, '06-09-2024');
 
 Insert Into [Question] Values
 (1, 1, 1, 1, '1 + 1 = ?', 'Nothing'),

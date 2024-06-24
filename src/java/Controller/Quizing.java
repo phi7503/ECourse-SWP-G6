@@ -24,7 +24,46 @@ public class Quizing extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        HttpSession ses = request.getSession();
+        User u = (User) ses.getAttribute("User");
+
+        int CourseID = -1;
+        int LessonID = -1;
+        int QuizID = -1;
+        try {
+            CourseID = Integer.parseInt(ses.getAttribute("CourseID") + "");
+            LessonID = Integer.parseInt(ses.getAttribute("LessonID") + "");
+            QuizID = Integer.parseInt(ses.getAttribute("QuizID") + "");
+        } catch (Exception e) {
+            CourseID = -1;
+            LessonID = -1;
+            QuizID = -1;
+        }
+        
+        int index = 0;
+        Attempt newAttempt = UserDAO.INS.getNewestAttempt(u.getUserID(), CourseID, LessonID, QuizID);
+        int AttemptID = newAttempt.getAttemptID();
+        Date date = new Date(newAttempt.getAttemptDate().getTime());
+        List<Question> QuestionList = UserDAO.INS.getListQuestionOnAttempt(u.getUserID(), CourseID, LessonID, QuizID, AttemptID);
+        
+        request.setAttribute("QuestionINS", QuestionDAO.INS);
+        request.setAttribute("QuestionList", QuestionList);
+        request.setAttribute("CourseID", CourseID);
+        request.setAttribute("LessonID", LessonID);
+        request.setAttribute("QuizID", QuizID);
+        request.setAttribute("AttemptID", AttemptID);
+        request.setAttribute("index", index);
+        request.setAttribute("date", date.getTime());
+        request.setAttribute("limit", QuizDAO.INS.getQuizTimeLimt(CourseID, LessonID, QuizID));
+        request.setAttribute("Question", QuestionList.get(index));
+
+        if (request.getParameter("BtnFinish") != null && request.getParameter("BtnFinish").equals("Yes")) {
+            request.getRequestDispatcher("/Web/Review.jsp").forward(request, response);
+            return;
+        } else {           
+            request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
+            return;
+        }
     }
 
     @Override
@@ -36,25 +75,45 @@ public class Quizing extends HttpServlet {
         int CourseID = -1;
         int LessonID = -1;
         int QuizID = -1;
-        int AttemptID = -1;
-        int index = 0;
+
+        ses.removeAttribute("CourseID");
+        ses.removeAttribute("LessonID");
+        ses.removeAttribute("QuizID");
         try {
             CourseID = Integer.parseInt(request.getParameter("CourseID"));
             LessonID = Integer.parseInt(request.getParameter("LessonID"));
             QuizID = Integer.parseInt(request.getParameter("QuizID"));
-            AttemptID = Integer.parseInt(request.getParameter("AttemptID"));
-            index = Integer.parseInt(request.getParameter("index"));
         } catch (Exception e) {
             request.getRequestDispatcher("/404.html").forward(request, response);
+            return;
         }
+
+        int index = 0;
+        try {
+            index = Integer.parseInt(request.getParameter("index"));
+        } catch (Exception e) {
+            index = 0;
+        }
+
         int AnswerID = -1;
         try {
             AnswerID = Integer.parseInt(request.getParameter("AnswerID"));
         } catch (Exception e) {
-
+            AnswerID = -1;
         }
+
+        Attempt newAttempt = UserDAO.INS.getNewestAttempt(u.getUserID(), CourseID, LessonID, QuizID);
+        
+        if (newAttempt.getFinished() == 1) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
+        
+        int AttemptID = newAttempt.getAttemptID();
+        Date date = new Date(newAttempt.getAttemptDate().getTime());
         List<Question> QuestionList = UserDAO.INS.getListQuestionOnAttempt(u.getUserID(), CourseID, LessonID, QuizID, AttemptID);
-        UserDAO.INS.updateUserAnswer(u.getUserID(), AttemptID, CourseID, LessonID, QuizID, QuestionList.get(index).getQuestionID(), AnswerID);
+        UserDAO.INS.updateUserAnswer(u.getUserID(), AttemptID, CourseID, LessonID, QuizID, QuestionList.get(index).getQuestionID(), AnswerID);                
+
         if (request.getParameter("BtnPrev") != null) {
             index--;
         }
@@ -75,13 +134,16 @@ public class Quizing extends HttpServlet {
         request.setAttribute("QuizID", QuizID);
         request.setAttribute("AttemptID", AttemptID);
         request.setAttribute("index", index);
-        request.setAttribute("Question", QuestionList.get(index));
+        request.setAttribute("date", date.getTime());
+        request.setAttribute("limit", QuizDAO.INS.getQuizTimeLimt(CourseID, LessonID, QuizID));
+        request.setAttribute("Question", QuestionList.get(index));                
 
-        if (request.getParameter("BtnFinish").equals("Yes")) {
-            request.getRequestDispatcher("/Web/Review.jsp").forward(request, response);
-        } else {
-            request.setAttribute("Time", request.getParameter("Time"));
-            request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);
+        if (request.getParameter("BtnFinish") != null && request.getParameter("BtnFinish").equals("Yes")) {
+            java.util.Date submitted = new java.util.Date();
+            UserDAO.INS.updateSubmittedTime(u.getUserID(), CourseID, LessonID, QuizID, AttemptID, submitted);
+            request.getRequestDispatcher("/Web/Review.jsp").forward(request, response);            
+        } else {            
+            request.getRequestDispatcher("/Web/Quizing.jsp").forward(request, response);            
         }
     }
 }

@@ -37,7 +37,14 @@
         <link href="css/style.css" rel="stylesheet">
 
         <script>
+            function setAttempt(ID) {
+                document.getElementById("AttemptID").value = ID;
+            }
 
+            function getState(Attempt) {
+                let x = Attempt;
+                window.alert("S");
+            }
         </script>
 
     </head>
@@ -100,11 +107,11 @@
             <div class="container">
 
                 <div class="text-center">                    
-                    <h1 class="display-5 mb-5 text-dark">Summary</h1>
+                    <h1 class="display-5 mb-5 text-dark">${Quiz.getQuizName()}</h1>
                 </div>
 
                 <c:if test="${AttemptList.size() < 1}">
-                    <form action="QuizNavigate" method="post">
+                    <form action="Summary" method="post">
                         <div class="col-xl-12 d-flex mt-5 justify-content-center">
                             <input type="text" name="CourseID" value="${CourseID}" hidden>
                             <input type="text" name="LessonID" value="${LessonID}" hidden>
@@ -116,41 +123,64 @@
 
                 <c:if test="${AttemptList.size() > 0}">
                     <div class="row justify-content-center">                        
-                        <div class="col-lg-10 row">
+                        <div class="col-lg-12 row">
                             <form action="Review" method="post">
                                 <input type="text" name="CourseID" value="${CourseID}" hidden>
                                 <input type="text" name="LessonID" value="${LessonID}" hidden>
                                 <input type="text" name="QuizID" value="${QuizID}" hidden> 
+                                <input type="text" name="AttemptID" value id="AttemptID" hidden>
+                                <hr/>
                                 <table>
+
                                     <thead>
-                                    <th class="col-lg-4">AttemptID</th>
-                                    <th class="col-lg-4">Attempt Date</th>
-                                    <th class="col-lg-4">Mark</th>
-                                    <th class="col-lg-4">Review</th>
-                                    
+                                    <th class="col-lg-2">Attempt<hr/></th>
+                                    <th class="col-lg-4">State<hr/></th>
+                                    <th class="col-lg-3">Marks / Number of Questions<hr/></th>
+                                    <th class="col-lg-3">Grades / 10<hr/></th>
+                                    <th class="col-lg-3">Review<hr/></th>                                    
                                     </thead>
-                                    
+
                                     <tbody>                                    
                                         <c:forEach items="${AttemptList}" var="x">
-                                            <tr>                                                
-                                                <td>${x.getAttemptID()}</td>
-                                                <td>${x.getAttemptDate()}</td>
-                                                <td>${UserINS.getAttemptMark(User.getUserID(), CourseID, LessonID, QuizID, x.getAttemptID())}</td>
-                                                <td><input type="submit" name="AttemptID" value="${x.getAttemptID()}" class="btn border border-secondary rounded-pill px-3 text-primary"></td>                                                
+                                            <tr>                             
+                                                <c:if test="${x.getFinished() == 0}">
+                                                    <td>${x.getAttemptID()}</td>
+                                                    <td>
+                                                        <h5>In Progess</h5>
+                                                        <p>Attempt Date: ${x.getAttemptDate()}</p>
+                                                    </td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                </c:if>
+                                                <c:if test="${x.getFinished() == 1}">
+                                                    <td>${x.getAttemptID()}</td>
+                                                    <td>
+                                                        <h5>Finished</h5>
+                                                        <p>Submitted Date: ${x.getSubmittedDate()}</p>
+                                                    </td>
+                                                    <td>${UserINS.getAttemptMark(User.getUserID(), CourseID, LessonID, QuizID, x.getAttemptID())} / ${Quiz.getNoQ()}</td>
+                                                    <td>${UserINS.getAttemptMark(User.getUserID(), CourseID, LessonID, QuizID, x.getAttemptID()) / Quiz.getNoQ() * 10}</td>
+                                                    <td><button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="setAttempt(${x.getAttemptID()})">Review</button></td>
+                                                </c:if>               
                                             </tr>
                                         </c:forEach>
                                     </tbody>
-
                                 </table>                                
                             </form>
                         </div>
                     </div>
-                    <form action="QuizNavigate" method="post">
+                    <form action="Summary" method="post">
                         <div class="col-xl-12 d-flex mt-5 justify-content-center">
                             <input type="text" name="CourseID" value="${CourseID}" hidden>
                             <input type="text" name="LessonID" value="${LessonID}" hidden>
-                            <input type="text" name="QuizID" value="${QuizID}" hidden>                                      
-                            <button class="btn border border-secondary rounded-pill px-3 text-primary">Re-Attempt Quiz</button>
+                            <input type="text" name="QuizID" value="${QuizID}" hidden> 
+                            <c:set var="Newest" value="${UserINS.getNewestAttempt(User.getUserID(), CourseID, LessonID, QuizID)}"></c:set>
+                            <c:if test="${Newest.getFinished() == 1}">
+                                <button class="btn border border-secondary rounded-pill px-3 text-primary">Re-Attempt Quiz</button>
+                            </c:if>
+                            <c:if test="${Newest.getFinished() == 0}">
+                                <button class="btn border border-secondary rounded-pill px-3 text-primary">Continue the last attempt</button>
+                            </c:if>
                         </div>
                     </form>
 

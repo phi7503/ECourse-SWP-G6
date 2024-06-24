@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -60,13 +61,52 @@ public class QuizDAO {
                 int QuizID = rs.getInt("QuizID");                
                 String QuizName = rs.getString("QuizName");
                 int NoQ = rs.getInt("NoQ");
+                int TimeLimit = rs.getInt("TimeLimit");
                 java.sql.Date CreateDate = rs.getDate("CreateDate");
-                ql.add(new Quiz(CourseID, LessonID, QuizID, QuizName, NoQ, CreateDate));
+                ql.add(new Quiz(CourseID, LessonID, QuizID, QuizName, NoQ, TimeLimit, CreateDate));
             }
         } catch (Exception e) {
             status = "Error at load Quiz " + e.getMessage();
         }
+    }    
+
+    public int getQuizTimeLimt(int CourseID, int LessonID, int QuizID) {
+        String sql = "Select TimeLimit From [Quiz] Where CourseID = ? And LessonID = ? And QuizID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, QuizID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("TimeLimit");
+            }
+        } catch (SQLException e) {
+            status = "Error at getQuizTimeLimit " + e.getMessage();
+        }
+        return 0;
     }        
+    
+    public Quiz getQuiz(int CourseID, int LessonID, int QuizID) {
+        String sql = "Select * From [Quiz] Where CourseID = ? And LessonID = ? And QuizID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, QuizID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String QuizName = rs.getString("QuizName");
+                int NoQ = rs.getInt("NoQ");
+                int TimeLimit = rs.getInt("TimeLimit");
+                java.sql.Date CreateDate = rs.getDate("CreateDate");
+                return new Quiz(CourseID, LessonID, QuizID, QuizName, NoQ, TimeLimit, CreateDate);
+            }
+        } catch (SQLException e) {
+            status = "Error at getQuiz " + e.getMessage();
+        }
+        return null;
+    }
     
     public Vector<Quiz> loadQuizByLesson(int CourseID, int LessonID) {
         String sql = "Select * From [Quiz] Where CourseID = ? And LessonID = ?";
@@ -80,8 +120,9 @@ public class QuizDAO {
                 int QuizID = rs.getInt("QuizID");
                 String QuizName = rs.getString("QuizName");
                 int NoQ = rs.getInt("NoQ");
+                int TimeLimit = rs.getInt("TimeLimit");
                 java.sql.Date CreateDate = rs.getDate("CreateDate");
-                list.add(new Quiz(CourseID, LessonID, QuizID, QuizName, NoQ, CreateDate));
+                list.add(new Quiz(CourseID, LessonID, QuizID, QuizName, NoQ, TimeLimit, CreateDate));
             }
         } catch (Exception e) {
             status = "Error at loadQuizByLesson " + e.getMessage();
@@ -91,7 +132,7 @@ public class QuizDAO {
     
     public static void main(String[] agrs){
         INS.load();
-        INS.loadQuizByLesson(1, 1);
+        Quiz quiz = INS.getQuiz(1, 1, 1);
         System.out.println(INS.getStatus());
     }
 }

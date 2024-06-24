@@ -18,6 +18,7 @@ public class Attempt {
     private int AttemptID;
     private java.sql.Timestamp AttemptDate;   
     private java.sql.Timestamp SubmittedDate;
+    private int Finished;
 
     public Attempt() {
     }
@@ -31,7 +32,7 @@ public class Attempt {
         this.AttemptDate = AttemptDate;
     }        
 
-    public Attempt(int UserID, int CourseID, int LessonID, int QuizID, int AttemptID, Timestamp AttemptDate, Timestamp SubmittedDate) {
+    public Attempt(int UserID, int CourseID, int LessonID, int QuizID, int AttemptID, Timestamp AttemptDate, Timestamp SubmittedDate, int Finished) {
         this.UserID = UserID;
         this.CourseID = CourseID;
         this.LessonID = LessonID;
@@ -39,7 +40,16 @@ public class Attempt {
         this.AttemptID = AttemptID;
         this.AttemptDate = AttemptDate;
         this.SubmittedDate = SubmittedDate;
+        this.Finished = Finished;
     }
+
+    public int getFinished() {
+        return Finished;
+    }
+
+    public void setFinished(int Finished) {
+        this.Finished = Finished;
+    }        
 
     public int getUserID() {
         return UserID;

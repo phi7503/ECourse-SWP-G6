@@ -36,24 +36,21 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <script>
-            let now = null;
-            let x = setInterval(function () {
-                if (now === null) {
-                    if (localStorage.getItem("Time")) {
-                        now = localStorage.getItem("Time");
-                    } else {
-                        now = document.getElementById("Time").value;
-                    }
-                }
+            
+            let x = setInterval(function () {                
+                let countdownDate = document.getElementById("date").value;        
+                let now = new Date().getTime();
+                
+                let distance = now - countdownDate;          
+                
+                let limit = document.getElementById("limit").value;
 
-                let hours = Math.floor(now / 3600);
-                let minutes = Math.floor((now / 60) % 60);
-                let seconds = Math.floor(now % 60);
+                let hours = Math.floor(((limit * 1000 - distance) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor(((limit * 1000 - distance) % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor(((limit * 1000 - distance) % (1000 * 60)) / 1000);
                 document.getElementById("LiveTime").innerHTML = hours + ":" + minutes + ":" + seconds;
-                now--;
-                document.getElementById("Time").value = now;
+                now--;                
                 localStorage.removeItem("Time");
-                localStorage.setItem("Time", now);
 
                 if (hours <= 0 && minutes <= 0 && seconds <= 0) {                    
                     localStorage.removeItem("Time");
@@ -65,7 +62,7 @@
             function setFinish() {
                 document.getElementById("BtnFinish").value = "Yes";
                 document.getElementById("finish").submit();
-            }
+            }                       
         </script>
     </head>
 
@@ -171,7 +168,8 @@
             <input type="text" name="QuizID" value="${QuizID}" hidden> 
             <input type="text" name="AttemptID" value="${AttemptID}" hidden>
             <input type="text" name="index" value="${index}" hidden>            
-            <input type="text" name="Time" value="${Time}" id="Time" hidden>
+            <input type="text" name="date" value="${date}" id="date" hidden>
+            <input type="text" name="limit" value="${limit}" id="limit" hidden>
             <input typt="text" name="BtnFinish" id="BtnFinish" value="No" hidden>            
             <div class="container-fluid py-5 mt-5">
                 <div class="container py-5">
@@ -183,6 +181,7 @@
                                     <p class="mb-3">${Question.getQuestion()}</p>
                                     <table>
                                         <c:set var="UserAnswer" value="${QuestionINS.loadUserQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID(), User.getUserID(), AttemptID)}"></c:set>
+                                        <c:set var="Attempt" value="${UserINS.getNewestAttempt(User.getUserID(), CourseID, LessonID, QuizID)}"></c:set>
 
                                         <c:forEach items="${QuestionINS.loadQuestionAnswer(CourseID, LessonID, QuizID, Question.getQuestionID())}" var="x"> 
                                             <c:if test="${x.getAnswerID() == UserAnswer.getAnswerID()}">

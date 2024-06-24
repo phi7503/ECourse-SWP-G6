@@ -16,20 +16,30 @@ public class Quiz {
     private int QuizID;
     private String QuizName;
     private int NoQ;
+    private int TimeLimit;
     private java.sql.Date CreateDate;
 
     public Quiz() {
     }
 
-    public Quiz(int CourseID, int LessonID, int QuizID, String QuizName, int NoQ, Date CreateDate) {
+    public Quiz(int CourseID, int LessonID, int QuizID, String QuizName, int NoQ, int TimeLimit, Date CreateDate) {
         this.CourseID = CourseID;
         this.LessonID = LessonID;
         this.QuizID = QuizID;
         this.QuizName = QuizName;
         this.NoQ = NoQ;
+        this.TimeLimit = TimeLimit;
         this.CreateDate = CreateDate;
     }
 
+    public int getTimeLimit() {
+        return TimeLimit;
+    }
+
+    public void setTimeLimit(int TimeLimit) {
+        this.TimeLimit = TimeLimit;
+    }
+    
     public int getCourseID() {
         return CourseID;
     }

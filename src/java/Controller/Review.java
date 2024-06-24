@@ -28,7 +28,7 @@ public class Review extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        response.sendRedirect(request.getContextPath() + "404.html");
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Review extends HttpServlet {
             QuizID = Integer.parseInt(request.getParameter("QuizID"));
             AttemptID = Integer.parseInt(request.getParameter("AttemptID"));            
         } catch (Exception e) {
-            request.getRequestDispatcher("/404.html").forward(request, response);
+            
         }
         
         List<Question> QuestionList = UserDAO.INS.getListQuestionOnAttempt(u.getUserID(), CourseID, LessonID, QuizID, AttemptID);             
