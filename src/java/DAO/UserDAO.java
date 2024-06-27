@@ -279,7 +279,7 @@ public class UserDAO {
         List<Question> QuestionList = INS.createNewQuestionList(4, 1, 1, 1, NewAttempt.getAttemptID());
         System.out.println(INS.status);
     }
-    
+
     public User getUserByID(int userID) {
         String sql = "SELECT * FROM [User] WHERE UserID = ?";
         try {
@@ -303,8 +303,7 @@ public class UserDAO {
         }
         return null;
     }
-    
-    
+
     public boolean changePassword(int userID, String newPassword) {
         String sql = "UPDATE [User] SET Password = ? WHERE UserID = ?";
         try {
@@ -319,16 +318,18 @@ public class UserDAO {
             return false;
         }
     }
-    
+
     public boolean updateUser(User user) {
-        String sql = "UPDATE [User] SET Mail = ?, FullName = ?, DoB = ?, Role = ? WHERE UserID = ?";
+        String sql = "UPDATE [User] SET Mail = ?, FullName = ?, DoB = ?, SecurityQuestionID = ?, Answer = ? WHERE UserID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getMail());
             ps.setString(2, user.getFullName());
             ps.setDate(3, user.getDoB());
-            ps.setInt(4, user.getRole());
-            ps.setInt(5, user.getUserID());
+            ps.setInt(4, user.getSecurityQuestionID());
+            ps.setString(5, user.getAnswer());
+            ps.setInt(6, user.getUserID());
+
             int rowsUpdated = ps.executeUpdate();
             return rowsUpdated > 0;
         } catch (Exception e) {
@@ -337,7 +338,7 @@ public class UserDAO {
             return false;
         }
     }
-    
+
     public User check(String username, String password) {
 
         String sql = "SELECT * FROM [User] WHERE UserName = ? AND Password = ?";
@@ -364,7 +365,7 @@ public class UserDAO {
         }
         return null;
     }
-    
+
     public void change(User user) {
         String sql = "UPDATE [User] SET Password = ? WHERE UserID = ?";
         try {
@@ -377,4 +378,5 @@ public class UserDAO {
             System.out.println(status);
         }
     }
+
 }

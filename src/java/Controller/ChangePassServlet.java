@@ -1,5 +1,5 @@
 
-package controller;
+package Controller;
 
     import DAO.UserDAO;
     import java.io.IOException;
@@ -37,42 +37,49 @@ package controller;
 
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
-                throws ServletException, IOException {
-            HttpSession session = request.getSession();
-            User currentUser = (User) session.getAttribute("User");
-            if (currentUser != null) {
-                String oPass = request.getParameter("opass");
-                String pass = request.getParameter("pass");
-                String re_pass = request.getParameter("re_pass");
+        throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    User currentUser = (User) session.getAttribute("User");
 
-                UserDAO userDAO = UserDAO.INS;
+    if (currentUser != null) {
+        String oPass = request.getParameter("opass");
+        String pass = request.getParameter("pass");
+        String re_pass = request.getParameter("re_pass");
 
-                if (currentUser.getPassword().equals(oPass)) {
-                    if (pass.length() >= 8) {
-                        if (pass.equals(re_pass)) {
-                            boolean isChanged = userDAO.changePassword(currentUser.getUserID(), pass);
-                            if (isChanged) {
-                                currentUser.setPassword(pass);
-                                request.setAttribute("mess", "Password changed successfully!");
-                                session.setAttribute("account", currentUser);
-                            } else {
-                                request.setAttribute("mess", "Failed to change password!");
-                            }
-                        } else {
-                            request.setAttribute("mess", "Re-entered password is incorrect");
-                        }
+        UserDAO userDAO = UserDAO.INS;
+
+        if (currentUser.getPassword().equals(oPass)) {
+            if (isValidPassword(pass)) {
+                if (pass.equals(re_pass)) {
+                    boolean isChanged = userDAO.changePassword(currentUser.getUserID(), pass);
+                    if (isChanged) {
+                        currentUser.setPassword(pass);
+                        request.setAttribute("mess", "Password changed successfully!");
+                        session.setAttribute("account", currentUser);
                     } else {
-                        request.setAttribute("mess", "Password too short!");
+                        request.setAttribute("mess", "Failed to change password!");
                     }
                 } else {
-                    request.setAttribute("mess", "Incorrect current password");
+                    request.setAttribute("mess", "Re-entered password is incorrect");
                 }
             } else {
-                response.sendRedirect("/Web/Login.jsp");
+                request.setAttribute("mess", "Password does not meet requirements!");
             }
-            doGet(request, response);
+        } else {
+            request.setAttribute("mess", "Incorrect current password");
         }
-
+    } else {
+        response.sendRedirect("/Web/Login.jsp");
+    }
+    doGet(request, response);
+        }
+private boolean isValidPassword(String password) {
+    if (password.length() < 8) {
+        return false;
+    }
+    String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+    return password.matches(regex);
+}
         @Override
         public String getServletInfo() {
             return "Short description";

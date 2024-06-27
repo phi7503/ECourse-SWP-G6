@@ -89,7 +89,7 @@
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="userProfile.jsp" class="my-auto">
+                            <a href="userprofile" class="my-auto">
                                 <i class="fas fa-user fa-2x"></i>
                             </a>
                         </div>
@@ -107,7 +107,10 @@
                 </div>
                 <div class="row g-4">
                     <c:forEach items="${cl}" var="x">                            
-                        <div class="col-lg-6 col-xl-4">
+                        <div class="col-md-6 col-lg-4 col-xl-3">
+                            <div  class="rounded position-relative fruite-item">
+                                
+                                
                             <div class="p-4 rounded bg-light">
                                 <div class="row align-items-center">
                                     <div class="col-6">
@@ -118,6 +121,7 @@
                                         <a href="Course?CourseID=${x.getCourseID()}" class="btn border border-secondary px-3 text-primary">Go to Course</a>
                                     </div>                                            
                                 </div>
+                            </div>
                             </div>
                         </div>                                    
                     </c:forEach>

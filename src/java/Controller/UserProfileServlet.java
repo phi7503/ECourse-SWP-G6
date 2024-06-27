@@ -1,5 +1,4 @@
-
-package controller;
+package Controller;
 
 import DAO.UserDAO;
 import java.io.IOException;
@@ -14,22 +13,20 @@ public class UserProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    HttpSession session = request.getSession();
-    User currentUser = (User) session.getAttribute("User");
-    if (currentUser != null) {
-        int userId = currentUser.getUserID();
-        User user = UserDAO.INS.getUserByID(userId);
-        if (user != null) {
-            request.setAttribute("user", user);
-            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/Web/Login.jsp"); // Redirect to login if user not found
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("User");
+        
+        if (currentUser != null) {
+            User user = UserDAO.INS.getUserByID(currentUser.getUserID());
+            if (user != null) {
+                request.setAttribute("user", user);
+                request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+                return;
+            }
         }
-    } else {
-        response.sendRedirect(request.getContextPath() + "/Web/Login.jsp"); // Redirect to login if not logged in
+        response.sendRedirect(request.getContextPath() + "/Web/Login.jsp");
     }
-}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

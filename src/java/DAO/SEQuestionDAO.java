@@ -8,6 +8,7 @@ import Models.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -69,5 +70,28 @@ public class SEQuestionDAO {
     public static void main(String[] agrs) {
         SEQuestionDAO.INS.load();
         System.out.println(INS.getStatus());
+        System.out.println(INS.getSEQuestion());
     }
+    
+     public List<SEQuestion> getSEQuestion() {
+        List<SEQuestion> securityQuestions = new ArrayList<>();
+        String sql = "SELECT SecurityQuestionID, Question FROM SEQuestion";
+
+        try (PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("SecurityQuestionID");
+                String question = rs.getString("Question");
+                securityQuestions.add(new SEQuestion(id, question));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return securityQuestions;
+    }
+    
+     
+     
 }

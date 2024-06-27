@@ -1,41 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Models;
 
-/**
- *
- * @author hi2ot
- */
 public class SEQuestion {
-    private int SecutiryQuestionID;
-    private String Question;
+    private int securityQuestionID;
+    private String question;
 
-    public SEQuestion(int SecutiryQuestionID, String Question) {
-        this.SecutiryQuestionID = SecutiryQuestionID;
-        this.Question = Question;
+    public SEQuestion() {
     }
 
-    public int getSecutiryQuestionID() {
-        return SecutiryQuestionID;
+    public SEQuestion(int securityQuestionID, String question) {
+        this.securityQuestionID = securityQuestionID;
+        this.question = question;
     }
 
-    public void setSecutiryQuestionID(int SecutiryQuestionID) {
-        this.SecutiryQuestionID = SecutiryQuestionID;
+    
+
+    public int getSecurityQuestionID() {
+        return securityQuestionID;
+    }
+
+    public void setSecurityQuestionID(int securityQuestionID) {
+        this.securityQuestionID = securityQuestionID;
     }
 
     public String getQuestion() {
-        return Question;
+        return question;
     }
 
-    public void setQuestion(String Question) {
-        this.Question = Question;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     @Override
     public String toString() {
-        return "SEQuestion{" + "SecutiryQuestionID=" + SecutiryQuestionID + ", Question=" + Question + '}';
+        return "SEQuestion{" + "securityQuestionID=" + securityQuestionID + ", question=" + question + '}';
     }
-        
+    
+    
 }
