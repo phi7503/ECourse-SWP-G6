@@ -63,7 +63,7 @@ public class UsersListServlet extends HttpServlet {
         Vector<User>  users = usersdata.getAllUser();
             
         request.setAttribute("data", users);
-        request.getRequestDispatcher("usersList.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/usersList.jsp").forward(request, response);
     } 
 
     /** 
@@ -82,7 +82,7 @@ public class UsersListServlet extends HttpServlet {
         Vector<User> searchResults = dao.searchUsers(searchTerm);
         
         request.setAttribute("searchResults", searchResults);
-        request.getRequestDispatcher("usersList.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/usersList.jsp").forward(request, response);
     }
 
     /** 

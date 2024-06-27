@@ -10,11 +10,19 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>ControllerAdmin.RegisterServlet</servlet-class>
+        <servlet-class>Controller.RegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Subjects</servlet-name>
+        <servlet-class>Controller.Subjects</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Subjects</servlet-name>
+        <url-pattern>/Subjects</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
@@ -51,14 +59,6 @@
     <servlet-mapping>
         <servlet-name>EditUser</servlet-name>
         <url-pattern>/edituser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>DeleteUser</servlet-name>
-        <servlet-class>ControllerAdmin.DeleteUser</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteUser</servlet-name>
-        <url-pattern>/deleteUser</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>SearchUser</servlet-name>

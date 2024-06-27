@@ -25,24 +25,12 @@ public class Subjects extends HttpServlet {
         Vector<Category> category = categorysdata.getAllCategory();
         request.setAttribute("subject", subject);
         request.setAttribute("category", category);
-        request.getRequestDispatcher("subjectlist.jsp").forward(request, response);
+        request.getRequestDispatcher("/Web/subjectlist.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String subjectName = request.getParameter("subjectName");
-        String categoryName = request.getParameter("categoryName");
-
-        if (subjectName != null && !subjectName.isEmpty()) {
-            Vector<Subject> subjects = subjectsdata.getAllSubject();
-            int subjectID = subjects.size() + 1;
-            subjectsdata.NewSubject(subjectID, subjectName);
-        } else if (categoryName != null && !categoryName.isEmpty()) {
-            Vector<Category> categories = categorysdata.getAllCategory();
-            int categoryID = categories.size() + 1;
-            categorysdata.NewCategory(categoryID, categoryName);
-        }
         response.sendRedirect("Subjects");
     }
 
