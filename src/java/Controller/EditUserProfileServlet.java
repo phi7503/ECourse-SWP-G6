@@ -41,51 +41,37 @@ public class EditUserProfileServlet extends HttpServlet {
     HttpSession session = request.getSession();
     User user = (User) session.getAttribute("User");
 
-    if (user == null) {
-        response.sendRedirect("Login.jsp");
-        return;
-    }
-
     String mail = request.getParameter("mail");
     String fullname = request.getParameter("fullname");
     String dobStr = request.getParameter("dob");
     String securityQuestionIDStr = request.getParameter("securityQuestionID");
     String answer = request.getParameter("answer");
 
-    try {
-       
-        
+    try {    
         if (fullname.length() > 30) {
             throw new IllegalArgumentException("Fullname is too long");
-        }
-
-        
+        }      
         if (mail == null || !mail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
             throw new IllegalArgumentException("Invalid email format");
-        }
-
-       
+        }      
         if (dobStr == null || dobStr.isEmpty() || securityQuestionIDStr == null || securityQuestionIDStr.isEmpty()) {
             throw new IllegalArgumentException("Missing or invalid parameters");
         }
 
         Date dob = Date.valueOf(dobStr);
         int securityQuestionID = Integer.parseInt(securityQuestionIDStr);
-
-        // Update user object
+       
         user.setMail(mail);
         user.setFullName(fullname);
         user.setDoB(dob);
         user.setSecurityQuestionID(securityQuestionID);
         user.setAnswer(answer);
-
-        // Update user in database
+    
         boolean isUpdated = UserDAO.INS.updateUser(user);
 
         if (isUpdated) {
             session.setAttribute("User", user);
-            request.setAttribute("successMessage", "Profile updated successfully");
-            
+            request.setAttribute("successMessage", "Profile updated successfully");            
             request.getRequestDispatcher("editUserProfile.jsp").forward(request, response);
             return; 
         } else {
@@ -97,7 +83,6 @@ public class EditUserProfileServlet extends HttpServlet {
         e.printStackTrace();
         request.setAttribute("error", "Internal server error");
     }
-
     
     List<SEQuestion> securityQuestions = SEQuestionDAO.INS.getSEQuestion();
     request.setAttribute("securityQuestions", securityQuestions);
