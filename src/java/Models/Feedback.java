@@ -4,6 +4,8 @@
  */
 package Models;
 
+import java.sql.Date;
+
 /**
  *
  * @author hi2ot
@@ -12,17 +14,17 @@ public class Feedback {
     private int UserID;
     private int CourseID;
     private int FeedbackID;
-    private String Title;
+    private java.sql.Date CreateDate;
     private String Description;
 
     public Feedback() {
     }
 
-    public Feedback(int UserID, int CourseID, int FeedbackID, String Title, String Description) {
+    public Feedback(int UserID, int CourseID, int FeedbackID, Date CreateDate, String Description) {
         this.UserID = UserID;
         this.CourseID = CourseID;
         this.FeedbackID = FeedbackID;
-        this.Title = Title;
+        this.CreateDate = CreateDate;
         this.Description = Description;
     }
 
@@ -50,12 +52,12 @@ public class Feedback {
         this.FeedbackID = FeedbackID;
     }
 
-    public String getTitle() {
-        return Title;
+    public Date getCreateDate() {
+        return CreateDate;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void setCreateDate(Date CreateDate) {
+        this.CreateDate = CreateDate;
     }
 
     public String getDescription() {
@@ -65,6 +67,8 @@ public class Feedback {
     public void setDescription(String Description) {
         this.Description = Description;
     }
+
+   
     
     
 }

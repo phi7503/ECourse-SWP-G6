@@ -18,7 +18,7 @@
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        
+
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
 
@@ -44,22 +44,22 @@
         <div class="container-fluid" style="padding-top: 50px">           
             <div class="container">
                 <div class="text-center mx-auto mb-5">
-                    <a href="Home"><h1 class="text-primary display-6">Fruitables</h1></a>              
+                    <a href="Home"><h1 class="text-primary display-6">Ecourse</h1></a>              
                 </div>
             </div>
         </div>
         <!-- Navbar End -->                   
 
         <!-- Fact Start -->
-        <div class="container-fluid py-5 col-lg-6">
-            
-                <form action="Login" method="post">
-                    <div class="bg-light p-5">
-                        <div class="col-lg-12 col-md-12 col-xl-12">
+        <div class="container-fluid py-5 row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <form action="Login" method="post">                    
+                        <div class="col-lg-12 col-md-12 col-xl-12" style="padding-top: 5%">
                             <div class="counter bg-white rounded p-4" >
-                                <h1 class="display-6 text-primary px-4">Username</h1>                                
+                                <h2 class="display-6 text-primary px-4">Username</h2>                                
                                 <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
-                                <h1 class="display-6 text-primary px-4">Password</h1>
+                                <h2 class="display-6 text-primary px-4">Password</h2>
                                 <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
                                 <br/>
                                 <c:if test='${err != null}'>
@@ -67,10 +67,17 @@
                                 </c:if>
                                 <input type="submit" name="LoginSubmit" value="Login" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
                             </div>                             
-                        </div>
-                    </div>
+                        </div>                    
                 </form>
-            
+            </div>
+            <div class="col-lg-1">                
+                <p class="text-center" style="margin-top: 150%"> OR </p>
+            </div>
+            <div class="col-lg-3" style="margin-top: 9%">
+                <p class="text-center">New to our system? <a href="Register">Create New Account</a></p>
+                <hr/>
+                <p class="text-center">Forget your password? <a href="ForgetPassword">Forget Password</a></p>
+            </div>
         </div>
         <!-- Fact Start -->
 

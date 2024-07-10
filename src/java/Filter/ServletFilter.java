@@ -4,6 +4,7 @@
  */
 package Filter;
 
+import Models.User;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -23,17 +24,17 @@ import jakarta.servlet.http.HttpSession;
  * @author hi2ot
  */
 public class ServletFilter implements Filter {
-    
+
     private static final boolean debug = true;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-    
+
     public ServletFilter() {
-    }    
-    
+    }
+
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -60,8 +61,8 @@ public class ServletFilter implements Filter {
 	    log(buf.toString());
 	}
          */
-    }    
-    
+    }
+
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -103,16 +104,25 @@ public class ServletFilter implements Filter {
 //        HttpServletResponse res = (HttpServletResponse) response;
 //        HttpSession ses = req.getSession();
 //        String url = req.getRequestURI();
-//        if (ses.getAttribute("User") == null) {
-//            if (url.contains("Login")) {
+//        User u = (User) ses.getAttribute("User");
+//        if (u == null) {
+//            if (url.contains("Login") || url.contains("Register")) {
 //                chain.doFilter(request, response);
 //            } else {
 //                res.sendRedirect(req.getContextPath() + "/Login");
-//            }            
-//        } else {                
-//            chain.doFilter(request, response);
-//        }        
-        chain.doFilter(request, response);
+//            }
+//        } else {
+//            if (u.getRole() == 0) {
+//                if (url.contains("Server") || url.contains("Logout")) {
+//                    chain.doFilter(request, response);
+//                } else {
+//                    res.sendRedirect(req.getContextPath() + "/ServerRefresh");
+//                }
+//            } else {
+//                chain.doFilter(request, response);
+//            }
+//        }
+chain.doFilter(request, response);
     }
 
     /**
@@ -134,16 +144,16 @@ public class ServletFilter implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {        
+    public void destroy() {
     }
 
     /**
      * Init method for this filter
      */
-    public void init(FilterConfig filterConfig) {        
+    public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
-            if (debug) {                
+            if (debug) {
                 log("ServletFilter:Initializing filter");
             }
         }
@@ -162,20 +172,20 @@ public class ServletFilter implements Filter {
         sb.append(")");
         return (sb.toString());
     }
-    
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
-        String stackTrace = getStackTrace(t);        
-        
+        String stackTrace = getStackTrace(t);
+
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
-                PrintWriter pw = new PrintWriter(ps);                
+                PrintWriter pw = new PrintWriter(ps);
                 pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
 
                 // PENDING! Localize this for next official release
-                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");                
-                pw.print(stackTrace);                
+                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
+                pw.print(stackTrace);
                 pw.print("</pre></body>\n</html>"); //NOI18N
                 pw.close();
                 ps.close();
@@ -192,7 +202,7 @@ public class ServletFilter implements Filter {
             }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -206,9 +216,9 @@ public class ServletFilter implements Filter {
         }
         return stackTrace;
     }
-    
+
     public void log(String msg) {
-        filterConfig.getServletContext().log(msg);        
+        filterConfig.getServletContext().log(msg);
     }
-    
+
 }

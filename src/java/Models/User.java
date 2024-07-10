@@ -13,6 +13,7 @@ import java.sql.Date;
 public class User {
     private int UserID;
     private String UserName;
+    private String salt;
     private String Password;
     private String Mail;
     private String FullName;
@@ -22,18 +23,29 @@ public class User {
     private int Role;
     private int Status;
 
-    public User(int UserID, String UserName, String Password, String Mail, String FullName, Date DoB, int SecurityQuestionID, String Answer, int Role) {
+    public User(int UserID, String UserName, String salt, String Password, String Mail, String FullName, Date DoB, int SecurityQuestionID, String Answer, int Role) {
         this.UserID = UserID;
         this.UserName = UserName;
+        this.salt = salt;
         this.Password = Password;
         this.Mail = Mail;
         this.FullName = FullName;
         this.DoB = DoB;
         this.SecurityQuestionID = SecurityQuestionID;
         this.Answer = Answer;
-        this.Role = Role;
+        this.Role = Role;        
         this.Status = 0;
     }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+   
 
     public int getUserID() {
         return UserID;

@@ -15,19 +15,30 @@ public class Question {
     private int QuestionID;
     private String Question;
     private String Explaination;
+    private int Status;
 
     public Question() {
     }
 
-    public Question(int CourseID, int LessonID, int QuizID, int QuestionID, String Question, String Explaination) {
+    public Question(int CourseID, int LessonID, int QuizID, int QuestionID, String Question, String Explaination, int Status) {
         this.CourseID = CourseID;
         this.LessonID = LessonID;
         this.QuizID = QuizID;
         this.QuestionID = QuestionID;
         this.Question = Question;
         this.Explaination = Explaination;
+        this.Status = Status;
     }  
 
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int Status) {
+        this.Status = Status;
+    }
+
+    
     public int getQuizID() {
         return QuizID;
     }
@@ -75,7 +86,11 @@ public class Question {
     public void setLessonID(int LessonID) {
         this.LessonID = LessonID;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" + "CourseID=" + CourseID + ", LessonID=" + LessonID + ", QuizID=" + QuizID + ", QuestionID=" + QuestionID + ", Question=" + Question + ", Explaination=" + Explaination + ", Status=" + Status + '}';
+    }
     
-    
-    
+        
 }

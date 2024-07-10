@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -62,7 +63,8 @@ public class QuestionDAO {
                 int QuestionID = rs.getInt("QuestionID");
                 String Question = rs.getString("Question");
                 String Explaination = rs.getString("Explaination");
-                qul.add(new Question(CourseID, LessonID, QuizID, QuestionID, Question, Explaination));
+                int Status = rs.getInt("Status");
+                qul.add(new Question(CourseID, LessonID, QuizID, QuestionID, Question, Explaination, Status));
             }
         } catch (Exception e) {
             status = "Error at load Question " + e.getMessage();
@@ -105,7 +107,7 @@ public class QuestionDAO {
             ps.setInt(5, UserID);
             ps.setInt(6, AttemptID);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 int AnswerID = rs.getInt("AnswerID");
                 String Description = rs.getString("Description");
                 int Role = rs.getInt("Role");
@@ -116,7 +118,7 @@ public class QuestionDAO {
         }
         return ans;
     }
-    
+
     public Answer loadQuestionCorrectAnswer(int UserID, int AttemptID, int CourseID, int LessonID, int QuizID, int QuestionID) {
         String sql = "Select a.AnswerID, a.[Description], a.[Role] From [UserAnswer] ua"
                 + "\nJoin [Answer] a On ua.CourseID = a.CourseID and ua.LessonID = a.LessonID and ua.QuizID = a.QuizID and ua.QuestionID = a.QuestionID"
@@ -142,30 +144,31 @@ public class QuestionDAO {
         }
         return ans;
     }
-    
+
     public void ImportQuestion(int CourseID, int LessonID, int QuizID, int QuestionID, String Question, String Explaination) {
-        String sql = "Insert Into [Question] Values(?,?,?,?,?,?)";
+        String sql = "Insert Into [Question] Values(?,?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);            
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, CourseID);
             ps.setInt(2, LessonID);
-            ps.setInt(3, QuizID);            
+            ps.setInt(3, QuizID);
             ps.setInt(4, QuestionID);
             ps.setString(5, Question);
             ps.setString(6, Explaination);
+            ps.setInt(7, 1);
             ps.execute();
         } catch (Exception e) {
             status = "Error at Import Question " + e.getMessage();
         }
     }
-    
+
     public void ImportAnswer(int CourseID, int LessonID, int QuizID, int QuestionID, int AnswerID, String Description, int Role) {
         String sql = "Insert Into [Answer] Values(?,?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);            
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, CourseID);
             ps.setInt(2, LessonID);
-            ps.setInt(3, QuizID);            
+            ps.setInt(3, QuizID);
             ps.setInt(4, QuestionID);
             ps.setInt(5, AnswerID);
             ps.setString(6, Description);
@@ -176,10 +179,126 @@ public class QuestionDAO {
         }
     }
 
-    public static void main(String[] agrs) {                
-        INS.ImportAnswer(1, 1, 1, 3, 2, "3", 1);
-        INS.ImportAnswer(1, 1, 1, 3, 3, "4", 2);
-        INS.ImportAnswer(1, 1, 1, 3, 4, "5", 1);
+    public ArrayList<Question> getQuestionList(int CourseID, int LessonID, int QuizID) {
+        String sql = "Select * From [Question] Where CourseID = ? And LessonID = ? And QuizID = ?";
+        ArrayList<Question> QuestionList = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, QuizID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int QuestionID = rs.getInt("QuestionID");
+                String Question = rs.getString("Question");
+                String Explaination = rs.getString("Explaination");
+                int Status = rs.getInt("Status");
+                QuestionList.add(new Question(CourseID, LessonID, QuizID, QuestionID, Question, Explaination, Status));
+            }
+        } catch (SQLException e) {
+            status = "Error at getQuestionList " + e.getMessage();
+        }
+        return QuestionList;
+    }
+
+    public Question getQuestion(int CourseID, int LessonID, int QuizID, int QuestionID) {
+        String sql = "Select * From [Question] Where CourseID = ? And LessonID = ? And QuizID = ? And QuestionID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, QuizID);
+            ps.setInt(4, QuestionID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String Question = rs.getString("Question");
+                String Explaination = rs.getString("Explaination");
+                int Status = rs.getInt("Status");
+                return new Question(CourseID, LessonID, QuizID, QuestionID, Question, Explaination, Status);
+            }
+        } catch (SQLException e) {
+            status = "Error at getQuestion " + e.getMessage();
+        }
+        return null;
+    }
+
+    public void updateQuestion(int CourseID, int LessonID, int QuizID, int QuestionID, String Question, String Explain, int Status) {
+        String sql = "Update [Question]"
+                + "\n Set Question = ?, Explaination = ?, [Status] = ?"
+                + "\n Where CourseID = ? And LessonID = ? And QuizID = ? And QuestionID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, Question);
+            ps.setString(2, Explain);
+            ps.setInt(3, Status);
+            ps.setInt(4, CourseID);
+            ps.setInt(5, LessonID);
+            ps.setInt(6, QuizID);
+            ps.setInt(7, QuestionID);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at updateQuestion " + e.getMessage();
+        }
+    }
+
+    public void updateAnswer(int CourseID, int LessonID, int QuizID, int QuestionID, int AnswerID, String Description, int Role) {
+        String sql = "Update [Answer]"
+                + "\n Set Description = ?, Role = ?"
+                + "\n Where CourseID = ? And LessonID = ? And QuizID = ? And QuestionID = ? And AnswerID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, Description);
+            ps.setInt(2, Role);
+            ps.setInt(3, CourseID);
+            ps.setInt(4, LessonID);
+            ps.setInt(5, QuizID);
+            ps.setInt(6, QuestionID);
+            ps.setInt(7, AnswerID);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at updateAnswer " + e.getMessage();
+        }
+    }
+
+    public void addQuestion(int CourseID, int LessonID, int QuizID, int QuestionID, String Question, String Explaination, int Status) {
+        String sql = "Insert Into [Question] Values(?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, QuestionID);
+            ps.setInt(3, QuizID);
+            ps.setInt(4, QuestionID);
+            ps.setString(5, Question);
+            ps.setString(6, Explaination);
+            ps.setInt(7, Status);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at addQuestion " + e.getMessage();
+        }
+    }
+
+    public void addAnswer(int CourseID, int LessonID, int QuizID, int QuestionID, int AnswerID, String Description, int Role) {
+        String sql = "Insert Into [Answer] Values(?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, QuestionID);
+            ps.setInt(3, QuizID);
+            ps.setInt(4, QuestionID);
+            ps.setInt(5, AnswerID);
+            ps.setString(6, Description);
+            ps.setInt(7, Role);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at addAnswer " + e.getMessage();
+        }
+    }
+
+    public static void main(String[] agrs) {
+        INS.updateAnswer(1, 1, 1, 1, 1, "3", 2);
+        INS.updateAnswer(1, 1, 1, 1, 2, "4", 1);
+        INS.updateAnswer(1, 1, 1, 1, 3, "5", 1);
+        INS.updateAnswer(1, 1, 1, 1, 4, "6", 1);
         System.out.println(INS.status);
     }
 }

@@ -130,6 +130,44 @@ public class QuizDAO {
         return list;
     }
     
+    public void createNewQuiz(int CourseID, int LessonID, String QuizName, int NoQ, int TimeLimit) {
+        INS.load();
+        String sql = "Insert Into [Quiz] Values(?,?,?,?,?,?,?)";
+        java.util.Date date = new java.util.Date();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, INS.ql.size() + 1);
+            ps.setString(4, QuizName);
+            ps.setInt(5, NoQ);
+            ps.setInt(6, TimeLimit);
+            ps.setDate(7, new java.sql.Date(date.getTime()));
+            ps.execute();
+            
+        } catch (SQLException e) {
+            status = "Error at createNewQuiz " + e.getMessage();
+        }
+    }
+    
+    public void updateQuiz(int CourseID, int LessonID, int QuizID, String QuizName, int NoQ, int TimeLimit) {
+        String sql = "Update [Quiz]"
+                + "\n Set QuizName = ?, NoQ = ?, TimeLimit = ?"
+                + "\n Where CourseID = ? And LessonID = ? And QuizID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, QuizName);
+            ps.setInt(2, NoQ);
+            ps.setInt(3, TimeLimit);
+            ps.setInt(4, CourseID);
+            ps.setInt(5, LessonID);
+            ps.setInt(6, QuizID);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at updateQuiz " + e.getMessage();
+        }
+    }
+    
     public static void main(String[] agrs){
         INS.load();
         Quiz quiz = INS.getQuiz(1, 1, 1);

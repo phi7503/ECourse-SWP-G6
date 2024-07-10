@@ -133,22 +133,24 @@
 
 
         <!-- Single Product Start -->
-        <form action="QuestionImport" method="post">  
-            <div class="container-fluid py-5 col-lg-8">
-                <div class="container py-5">
-                    <div class="testimonial-header p-3">                    
+
+        <div class="container-fluid py-5 col-lg-8">
+            <div class="container py-5">
+                <div class="testimonial-header p-3">                    
+                    <form action="QuestionImport" method="post">  
                         <h1 class="display-5 mb-5 text-dark text-center">Import Question</h1>                        
                         <h3 class="fw-bold mb-3 py-2"> File: </h3>                        
                         <input type="file" class="form-control border-2 border-secondary px-4 rounded-pill" name="File" value="" placeholder="Enter File">
                         <br/>
                         <input type="submit" class="btn btn-primary border-2 border-secondary rounded-pill text-white" value="Submit">
-                        <br/>
-                        <a href=# class="btn btn-primary border-2 border-secondary rounded-pill text-white" download="DemoImport.txt">Download File Format</a>
-
-                    </div>
+                        <br/>                       
+                    </form>  
+                    <form action="Download" method="get">
+                        <input type="submit" value="Download"/>
+                    </form>
                 </div>
             </div>
-        </form>   
+        </div>    
         <!-- Single Product End -->      
 
         <!-- Copyright Start -->

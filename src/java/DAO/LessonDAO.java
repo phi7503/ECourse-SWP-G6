@@ -8,6 +8,7 @@ import java.util.*;
 import Models.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author hi2ot
@@ -104,8 +105,81 @@ public class LessonDAO {
         return list;
     }
     
+    public Lesson getLessonByID(int CourseID, int LessonID) {
+        String sql = "Select * From [Lesson] Where CourseID = ? And LessonID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String LessonName = rs.getString("LessonName");
+                String Description = rs.getString("Description");
+                return new Lesson(CourseID, LessonID, LessonName, Description);
+            }
+        } catch (SQLException e) {
+            status = "Error at getLessonByID " + e.getMessage();
+        }
+        return null;
+    }
+    
+    public void createNewDoc(int CourseID, int LessonID, String Title, String Description, String fileName) {
+        String sql = "Insert Into [LessonDoc] Values(?,?,?,?,?,?)";
+        int DocID = INS.loadLessonDoc(CourseID, LessonID).size() + 1;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, DocID);
+            ps.setString(4, Title);
+            ps.setString(5, Description);
+            ps.setString(6, fileName);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at createNewDoc " + e.getMessage();
+        }
+    }
+    
+    public void updateDoc(int CourseID, int LessonID, int DocID, String Title, String Description, String fileName) {
+        String sql = "Update [LessonDoc]"
+                + "\n Set Title = ?, Description = ?, Link = ?"
+                + "\n Where CourseID = ? And LessonID = ? And DocID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, Title);
+            ps.setString(2, Description);
+            ps.setString(3, fileName);
+            ps.setInt(4, CourseID);
+            ps.setInt(5, LessonID);
+            ps.setInt(6, DocID);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at updateDoc " + e.getMessage();
+        }
+    }
+    
+    public LessonDoc getDocByID(int CourseID, int LessonID, int DocID) {
+        String sql = "Select * From [LessonDoc] Where CourseID = ? And LessonID = ? And DocID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, LessonID);
+            ps.setInt(3, DocID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String Title = rs.getString("Title");
+                String Description = rs.getString("Description");
+                String Link = rs.getString("Link");
+                return new LessonDoc(CourseID, LessonID, DocID, Title, Description, Link);
+            }
+        } catch (SQLException e) {
+            status = "Error at getDocByID " + e.getMessage();
+        }
+        return null;
+    }
+    
     public static void main(String[] args){        
-        INS.loadLesson();
-        System.out.println(INS.getLl().size());
+        INS.updateDoc(1, 1, 1, "Math", "Math", "b.img");
+        System.out.println(INS.status);
     }
 }

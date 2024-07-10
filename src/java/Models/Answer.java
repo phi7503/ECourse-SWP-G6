@@ -85,6 +85,11 @@ public class Answer {
     public void setRole(int Role) {
         this.Role = Role;
     }
+
+    @Override
+    public String toString() {
+        return "Answer{" + "CourseID=" + CourseID + ", LessonID=" + LessonID + ", QuizID=" + QuizID + ", QuestionID=" + QuestionID + ", AnswerID=" + AnswerID + ", Description=" + Description + ", Role=" + Role + '}';
+    }
     
     
 }
