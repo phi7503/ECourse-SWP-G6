@@ -23,7 +23,7 @@ public class User {
     private int Role;
     private int Status;
 
-    public User(int UserID, String UserName, String salt, String Password, String Mail, String FullName, Date DoB, int SecurityQuestionID, String Answer, int Role) {
+    public User(int UserID, String UserName, String salt, String Password, String Mail, String FullName, Date DoB, int SecurityQuestionID, String Answer, int Role, int Status) {
         this.UserID = UserID;
         this.UserName = UserName;
         this.salt = salt;
@@ -34,7 +34,7 @@ public class User {
         this.SecurityQuestionID = SecurityQuestionID;
         this.Answer = Answer;
         this.Role = Role;        
-        this.Status = 0;
+        this.Status = Status;
     }
 
     public String getSalt() {

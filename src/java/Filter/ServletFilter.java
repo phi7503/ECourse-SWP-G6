@@ -100,29 +100,29 @@ public class ServletFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-//        HttpServletRequest req = (HttpServletRequest) request;
-//        HttpServletResponse res = (HttpServletResponse) response;
-//        HttpSession ses = req.getSession();
-//        String url = req.getRequestURI();
-//        User u = (User) ses.getAttribute("User");
-//        if (u == null) {
-//            if (url.contains("Login") || url.contains("Register")) {
-//                chain.doFilter(request, response);
-//            } else {
-//                res.sendRedirect(req.getContextPath() + "/Login");
-//            }
-//        } else {
-//            if (u.getRole() == 0) {
-//                if (url.contains("Server") || url.contains("Logout")) {
-//                    chain.doFilter(request, response);
-//                } else {
-//                    res.sendRedirect(req.getContextPath() + "/ServerRefresh");
-//                }
-//            } else {
-//                chain.doFilter(request, response);
-//            }
-//        }
-chain.doFilter(request, response);
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        HttpSession ses = req.getSession();
+        String url = req.getRequestURI();
+        User u = (User) ses.getAttribute("User");
+        if (u == null) {
+            if (url.contains("Login") || url.contains("Register")) {
+                chain.doFilter(request, response);
+            } else {
+                res.sendRedirect(req.getContextPath() + "/Login");
+            }
+        } else {
+            if (u.getRole() == 0) {
+                if (url.contains("Server") || url.contains("Logout")) {
+                    chain.doFilter(request, response);
+                } else {
+                    res.sendRedirect(req.getContextPath() + "/ServerRefresh");
+                }
+            } else {
+                chain.doFilter(request, response);
+            }
+        }
+//chain.doFilter(request, response);
     }
 
     /**

@@ -36,6 +36,13 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <script>
+            function submit() {
+                document.getElementById("manage").submit();
+            }
+            function movePage(x) {
+                document.getElementById("btn").value = x;
+                submit();
+            }
         </script>
 
         <style>
@@ -149,71 +156,133 @@
         </div>                
         <!-- Single Page Header End -->     
 
-        <div class="container-fluid py-5 row">            
+        <form action="CourseManage" id="manage">
 
-            <div class="col-lg-3 align-items-center">
-                <div class="counter bg-white rounded p-5">              
-                    <h3 style="color: grey">Feature:</h3>
-                    <button class="btn rounded-pill border border-secondary" style="margin: 10px 0px">Categories Manage</button>
-                    <button class="btn rounded-pill border border-secondary" style="margin: 10px 0px">Subjects Manage</button>
-                    <button class="btn btn-primary text-white rounded-pill border border-secondary" style="margin: 10px 0px">Courses Manage</button>
-                    <button class="btn rounded-pill border border-secondary" style="margin: 10px 0px">Users Manage</button>
+            <div class="container-fluid">
+                <div class="col-lg-12 align-items-center">
+                    <div class="counter bg-white rounded p-5">              
+                        <h3 style="color: grey">Feature</h3>
+                        <button class="btn rounded-pill border border-secondary" style="margin: 10px 50px">Categories Manage</button>
+                        <button class="btn rounded-pill border border-secondary" style="margin: 10px 50px">Subjects Manage</button>
+                        <button class="btn btn-primary text-white rounded-pill border border-secondary" style="margin: 10px 50px">Courses Manage</button>
+                        <button class="btn rounded-pill border border-secondary" style="margin: 10px 50px">Users Manage</button>
+                    </div>
                 </div>
-            </div>
+            </div>        
 
-            <div class="col-lg-9 align-items-center">
-                <div class="counter bg-white rounded p-5">                    
-                    <table style="width: 100%">
-                        <thead>
-                        <th>Course ID</th>
-                        <th>Course Name</th>
-                        <th>Subjects</th>
-                        <th>Categories</th>
-                        <th>Price</th>                        
-                        <th>NoP</th>
-                        <th>Edit</th>
-                        <th>Edit Content</th>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${CourseList}" var="x">
-                                <tr>
-                                    <td> ${x.getCourseID()} </td>
-                                    <td> ${x.getCourseName()} </td>
-                                    <td> 
-                                        <div class="navbar-collapse">
-                                            <div class="nav-item dropdown">
-                                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Subjects</a>
-                                                <div class="dropdown-menu m-0 rounded-0">
-                                                    <c:forEach items="${CourseINS.getSubjectByCourse(x.getCourseID())}" var="y">
-                                                        <p style="margin: 0px -2px" class="dropdown-item">${y.getSubjectName()}</p>   
-                                                    </c:forEach>                                                    
+            <div class="container-fluid py-2 row">            
+
+                <div class="col-lg-3 align-items-center">
+                    <div class="counter bg-white rounded p-5">              
+
+                        <h3 style="color: grey">Filter</h3>
+
+                        <div class="navbar-nav mx-auto">
+                            <div class="nav-item dropdown">
+                                <p class="nav-link dropdown-toggle text-md-start" data-bs-toggle="dropdown" style="color: grey; font-size: 20px">Categories</p> 
+                                <div class="dropdown-menu m-0 rounded-0" style="width: 250px">
+                                    <c:forEach items="${CategoryList}" var="x">    
+                                        <div class="mb-2" style="margin-left: 10px">
+                                            <input type="checkbox" class="me-2" id="category" name="Category${x.getCategoryID()}" value="${x.getCategoryID()}" 
+                                                   <c:if test="${catNum.contains(x.getCategoryID()) == true}"> checked </c:if> >
+                                            <label for="category">${x.getCategoryName()}</label>
+                                        </div>                                                                                                
+                                    </c:forEach>      
+                                </div>
+                            </div>
+                        </div>    
+
+                        <div class="navbar-nav mx-auto">
+                            <div class="nav-item dropdown">
+                                <p class="nav-link dropdown-toggle text-md-start" data-bs-toggle="dropdown" style="color: grey; font-size: 20px">Subjects</p>                                                         
+                                <div class="dropdown-menu m-0 rounded-0" style="width: 250px">
+                                    <c:forEach items="${SubjectList}" var="x">
+                                        <div class="mb-2" style="margin-left: 10px">
+                                            <input type="checkbox" class="me-2" id="Subject-1" name="Subject${x.getSubjectID()}" value="${x.getSubjectID()}"
+                                                   <c:if test="${sujNum.contains(x.getSubjectID()) == true}"> checked </c:if>> 
+                                            <label for="Subject-1"> ${x.getSubjectName()}</label>
+                                        </div>
+                                    </c:forEach>        
+                                </div>
+                            </div>
+                        </div>
+                        <button name="apply" class="btn border-secondary border-2 rounded-pill" onclick="submit()">Apply Filter</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 align-items-center">
+                    <div class="counter bg-white rounded p-5">                    
+                        <table style="width: 100%">
+                            <thead>
+                            <th>ID</th>
+                            <th>Course Name</th>
+                            <th>Subjects</th>
+                            <th>Categories</th>
+                            <th>Create Date</th>
+                            <th>Price</th>                                                
+                            <th>Edit</th>
+                            <th>Edit Content</th>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${CourseList}" var="x" begin="${paging.getBegin()}" end="${paging.getEnd() - 1}">
+                                    <tr>
+                                        <td> ${x.getCourseID()} </td>
+                                        <td> ${x.getCourseName()} </td>
+                                        <td> 
+                                            <div class="navbar-collapse">
+                                                <div class="nav-item dropdown">
+                                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Subjects</a>
+                                                    <div class="dropdown-menu m-0 rounded-0">
+                                                        <c:forEach items="${CourseINS.getSubjectByCourse(x.getCourseID())}" var="y">
+                                                            <p style="margin: 0px -2px" class="dropdown-item">${y.getSubjectName()}</p>   
+                                                        </c:forEach>                                                    
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td> 
-                                        <div class="nav-item dropdown">
-                                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
-                                            <div class="dropdown-menu m-0 rounded-0">
-                                                <c:forEach items="${CourseINS.getCategoryByCourse(x.getCourseID())}" var="y">
-                                                    <p style="margin: 0px -2px" class="dropdown-item">${y.getCategoryName()}</p>   
-                                                </c:forEach>   
+                                        </td>
+                                        <td> 
+                                            <div class="nav-item dropdown">
+                                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
+                                                <div class="dropdown-menu m-0 rounded-0">
+                                                    <c:forEach items="${CourseINS.getCategoryByCourse(x.getCourseID())}" var="y">
+                                                        <p style="margin: 0px -2px" class="dropdown-item">${y.getCategoryName()}</p>   
+                                                    </c:forEach>   
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td> ${x.getPrice()}$</td>                                    
-                                    <td> ${CourseINS.getNoP(x.getCourseID())}</td>
-                                    <td> <a href="EditCourse?CourseID=${x.getCourseID()}">Edit</a> </td>
-                                    <td> <a href="EditContent?CourseID=${x.getCourseID()}">Edit Content</a> </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>                        
-                    </table>
-                    <a href="CreateCourse" class="btn btn-primary text-white border border-secondary" style="margin: 20px">+ New Course</a>
+                                        </td>
+                                        <td>${x.getCreateDate()}</td>
+                                        <td> ${x.getPrice()}$</td>                                                                        
+                                        <td> <a href="EditCourse?CourseID=${x.getCourseID()}">Edit</a> </td>
+                                        <td> <a href="EditContent?CourseID=${x.getCourseID()}">Edit Content</a> </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>                        
+                        </table>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-center mt-5">
+                                <input type="text" name="index" value="${paging.getIndex()}" hidden>
+                                <input type="text" name="total" value="${paging.getTotalPage()}" hidden>
+                                <input type="text" name="btn" id="btn" value hidden>
+                                <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnHome" value=&Ll;>                                                
+                                <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnPre" value=&laquo;>
+                                <c:forEach var="x" begin="${paging.getPageStart()}" end="${paging.getPageEnd()}">
+                                    <c:if test="${paging.getIndex() == x}">
+                                        <button class="btn border-2 border-secondary rounded" style="margin: 0px 5px;background: greenyellow" onclick="movePage(${x})">${x + 1}</button>
+                                    </c:if>
+                                    <c:if test="${paging.getIndex() != x}">
+                                        <button class="btn border-2 border-secondary rounded" style="margin: 0px 5px" onclick="movePage(${x})">${x + 1}</button>
+                                    </c:if>
+                                </c:forEach>
+                                <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnNext" value=&raquo;>
+                                <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnEnd" value=&Gg;>
+                            </div>
+                        </div>
+                        <a href="CreateCourse" class="btn btn-primary text-white border border-secondary" style="margin: 20px">+ New Course</a>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        </form>
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">

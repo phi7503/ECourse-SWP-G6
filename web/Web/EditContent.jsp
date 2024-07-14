@@ -160,7 +160,12 @@
                     <c:forEach items="${LessonINS.loadLessonByCourseID(curCourse.getCourseID())}" var="x">
 
                         <div class="text-start">
-                            <h3 style="color: grey">${x.getLessonName()}</h3>
+                            <table>
+                                <tr>
+                                    <td><h3 style="color: grey" class="text-md-start">${x.getLessonName()} </h3></td>
+                                    <td class="text-md-end"><a href="EditLesson?CourseID=${curCourse.getCourseID()}&LessonID=${x.getLessonID()}">Edit</a> </td>
+                                </tr>
+                            </table>
                             <a href="CreateDoc?CourseID=${curCourse.getCourseID()}&LessonID=${x.getLessonID()}" class="btn border border-secondary">+ New Document</a>
                             <a href="CreateQuiz?CourseID=${curCourse.getCourseID()}&LessonID=${x.getLessonID()}" class="btn border border-secondary">+ New Quiz</a>
                             <table>                                

@@ -50,7 +50,13 @@ public class Login extends HttpServlet {
                 try {
                     if (UserDAO.INS.LoginCheck(Username, Password) == null) {
                         UserDAO.INS.load();
-                        ses.setAttribute("User", UserDAO.INS.getUserByName(Username));
+                        User u = UserDAO.INS.getUserByName(Username);
+                        if (u.getStatus() == 0){
+                            request.setAttribute("err", "Your Account Have Been Inactivated, Please Contact Admin For More Information!");
+                            doGet(request, response);
+                            return;
+                        }
+                        ses.setAttribute("User", u);
                         response.sendRedirect(request.getContextPath() + "/CourseShop");
                     } else {
                         request.setAttribute("err", UserDAO.INS.LoginCheck(Username, Password));

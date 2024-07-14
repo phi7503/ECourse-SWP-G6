@@ -43,6 +43,50 @@ public class QuestionList extends HttpServlet {
         
         List<Question> QuestionList = QuestionDAO.INS.getQuestionList(CourseID, LessonID, QuizID);
 
+        int index = -1;
+        int total = -1;
+        try {
+            index = Integer.parseInt(request.getParameter("index"));
+            total = Integer.parseInt(request.getParameter("total"));
+        } catch (NumberFormatException e) {
+            index = 0;
+            total = 0;
+        }
+        String btn = request.getParameter("btn");
+        if (btn != null) {
+            try {
+                int btnNum = Integer.parseInt(btn);
+                index = btnNum;
+            } catch (NumberFormatException e) {
+                index = 0;
+            }            
+        }
+        
+        String btnHome = request.getParameter("btnHome");
+        String btnPre = request.getParameter("btnPre");
+        String btnNext = request.getParameter("btnNext");
+        String btnEnd = request.getParameter("btnEnd");
+        
+        if (btnHome != null) {
+            index = 0;            
+        } 
+
+        if (btnPre != null) {
+            index--;
+        }
+        
+        if (btnNext != null) {
+            index++;
+        }
+        
+        if (btnEnd != null) {
+            index = total - 1;
+        }
+
+        Paging paging = new Paging(QuestionList.size(), 6, index);
+        paging.calc();
+
+        request.setAttribute("paging", paging);
         request.setAttribute("QuestionList", QuestionList);
         request.setAttribute("curCourse", curCourse);
         request.setAttribute("curLesson", curLesson);

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : QuestionList
-    Created on : Jul 5, 2024, 5:00:53 AM
+    Document   : EditLesson
+    Created on : Jul 10, 2024, 4:07:30 PM
     Author     : hi2ot
 --%>
 
@@ -11,7 +11,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Question List</title>
+        <title>Edit: ${curCourse.getCourseName()}</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -36,29 +36,19 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <script>
-            function movePage(x) {
-                document.getElementById("btn").value = x;
-                document.getElementById("QuestionList").submit();
-            }
         </script>
 
         <style>
             th, td {
-                padding: 5px
+                padding: 10px
             }
 
             th {
 
             }
 
-            tr {
-                border-bottom: 1px solid orange;
-                border-collapse: collapse;
-
-            }
-
-            p {
-                margin: -1px;
+            td {
+                width: 500px
             }
         </style>
 
@@ -166,69 +156,25 @@
             </div>
 
             <div class="col-lg-9 align-items-center">
-                <div class="counter bg-white rounded p-5">                    
-                    <a href="EditQuiz?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}" class="btn border-2 border-secondary rounded-pill" style="margin-bottom: 20px; margin-right: 150px">Quiz Info</a>
-                    <a href="QuestionList?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}" class="btn btn-primary text-white border-2 border-secondary rounded-pill" style="margin-bottom: 20px; margin-left: 150px">Question List</a>
-                    <form action="QuestionList" method="post">
-                        <input type="text" name="CourseID" value="${curCourse.getCourseID()}" hidden>
-                        <input type="text" name="LessonID" value="${curLesson.getLessonID()}" hidden>             
-                        <input type="text" name="QuizID" value="${curQuiz.getQuizID()}" hidden>
-                        <table style="width: 100%">
-                            <thead>
-                            <th>ID</th>
-                            <th>Content</th>
-                            <th>Answer</th>
-                            <th>Status</th>
-                            <th>Edit</th>
-                            </thead>                                                                
-                            <tbody>
-                                <c:forEach items="${QuestionList}" var="x" begin="${paging.getBegin()}" end="${paging.getEnd() - 1}">               
-                                    <tr>
-                                        <td>${x.getQuestionID()}</td>
-                                        <td>${x.getQuestion()}</td>
-                                        <td>
-                                            <c:forEach items="${QuestionINS.loadQuestionAnswer(curCourse.getCourseID(), curLesson.getLessonID(), curQuiz.getQuizID(), x.getQuestionID())}" var="y">
-                                                <p>${y.getAnswerID()}. ${y.getDescription()}
-                                                    <c:if test="${y.getRole() == 2}"> (C)</c:if></p>
-                                                </c:forEach>
-                                        </td>
-                                        <td>
-                                            <c:if test="${x.getStatus() == 1}">
-                                                Active
-                                            </c:if>
-                                            <c:if test="${x.getStatus() == 0}">
-                                                Inactive
-                                            </c:if>                                                
-                                        </td>
-                                        <td>
-                                            <a href="EditQuestion?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}&QuestionID=${x.getQuestionID()}">Edit</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>                     
-                            </tbody>
-                        </table>               
-                        <div class="col-12">
-                            <div class="d-flex justify-content-center mt-5">
-                                <input type="text" name="index" value="${paging.getIndex()}" hidden>
-                                <input type="text" name="total" value="${paging.getTotalPage()}" hidden>
-                                <input type="text" name="btn" id="btn" value hidden>
-                                <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnHome" value=&Ll;>                                                
-                                <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnPre" value=&laquo;>
-                                <c:forEach var="x" begin="${paging.getPageStart()}" end="${paging.getPageEnd()}">
-                                    <c:if test="${paging.getIndex() == x}">
-                                        <button class="btn border-2 border-secondary rounded" style="margin: 0px 5px;background: greenyellow" onclick="movePage(${x})">${x + 1}</button>
-                                    </c:if>
-                                    <c:if test="${paging.getIndex() != x}">
-                                        <button class="btn border-2 border-secondary rounded" style="margin: 0px 5px" onclick="movePage(${x})">${x + 1}</button>
-                                    </c:if>
-                                </c:forEach>
-                                <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnNext" value=&raquo;>
-                                <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnEnd" value=&Gg;>
-                            </div>
-                        </div>
+                <div class="counter bg-white rounded p-5">           
+                    <form action="EditLesson" method="post">
+                        <input type="text" name="CourseID" value="${CourseID}" hidden>
+                        <table style="width: 80%">
+                            <tr>
+                                <th>Lesson ID: </th>
+                                <td><input type="text" name="LessonID" value="${curLesson.getLessonID()}" readonly="true" class="form-control border-2 px-4"></td>
+                            </tr>
+                            <tr>
+                                <th>Lesson Name: </th>
+                                <td><input type="text" name="LessonName" value="${curLesson.getLessonName()}" class="form-control border-2 px-4" required="true"> </td>
+                            </tr>
+                            <tr>
+                                <th>Description: </th>
+                                <td><input type="text" name="Description" value="${curLesson.getDescription()}" class="form-control border-2 px-4" required="true"> </td>
+                            </tr>
+                        </table>
+                        <input type="submit" name="update" value="Update" class="btn border-2 border-secondary" style="margin: 20px">
                     </form>
-                    <a href="CreateQuestion?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}&QuestionID=${x.getQuestionID()}" class="btn border-2 border-secondary" style="margin: 20px">Create Question</a>
-                    <a href="ImportQuestion?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}" class="btn border-2 border-secondary" style="margin: 20px">Import Question</a>
                 </div>
             </div>
 
@@ -343,5 +289,6 @@
     </body>
 
 </html>
+
 
 

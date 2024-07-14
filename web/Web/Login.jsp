@@ -61,10 +61,8 @@
                                 <input class="form-control border-2 border-secondary px-4 rounded-pill" type="text" name="Username" placeholder="Username" required>
                                 <h2 class="display-6 text-primary px-4">Password</h2>
                                 <input class="form-control border-2 border-secondary px-4 rounded-pill" type="password" name="Password" placeholder="Password" required>
-                                <br/>
-                                <c:if test='${err != null}'>
-                                    <h4 class="mb-3 text-secondary">${err}</h4>
-                                </c:if>
+                                <br/>                                
+                                <p>${err}</p>                                
                                 <input type="submit" name="LoginSubmit" value="Login" class="btn btn-primary border-2 border-secondary rounded-pill text-white">
                             </div>                             
                         </div>                    

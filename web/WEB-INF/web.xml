@@ -98,7 +98,7 @@
     </servlet>
     <servlet>
         <servlet-name>EditContent</servlet-name>
-        <servlet-class>Controller.Course.EditContent</servlet-class>
+        <servlet-class>Controller.Lesson.EditContent</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateDoc</servlet-name>
@@ -131,6 +131,22 @@
     <servlet>
         <servlet-name>ImportQuestion</servlet-name>
         <servlet-class>Controller.TestContent.ImportQuestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateLesson</servlet-name>
+        <servlet-class>Controller.Lesson.CreateLesson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditLesson</servlet-name>
+        <servlet-class>Controller.Lesson.EditLesson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserManage</servlet-name>
+        <servlet-class>Controller.Admin.UserManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeUserStatus</servlet-name>
+        <servlet-class>Controller.Admin.ChangeUserStatus</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -255,5 +271,21 @@
     <servlet-mapping>
         <servlet-name>ImportQuestion</servlet-name>
         <url-pattern>/ImportQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateLesson</servlet-name>
+        <url-pattern>/CreateLesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditLesson</servlet-name>
+        <url-pattern>/EditLesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserManage</servlet-name>
+        <url-pattern>/UserManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeUserStatus</servlet-name>
+        <url-pattern>/ChangeUserStatus</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -156,39 +156,51 @@
                             <div class="row g-4">
                                 <div class="col-lg-3">
                                     <div class="row g-4">
-                                        
                                         <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                <h4>Categories</h4>                                            
-                                                <c:forEach items="${CategoryList}" var="x">    
-                                                    <div class="mb-2">
-                                                        <input type="checkbox" class="me-2" id="category" name="Category${x.getCategoryID()}" value="${x.getCategoryID()}" 
-                                                               <c:if test="${catNum.contains(x.getCategoryID()) == true}"> checked </c:if> >
-                                                        <label for="category">${x.getCategoryName()} (${CourseINS.loadCategoryPNumber(x.getCategoryID())})</label>
-                                                    </div>                                                                                                
-                                                </c:forEach>                                            
+                                            <div class="mb-3">                                                    
+                                                <div class="navbar-nav mx-auto">
+                                                    <div class="nav-item dropdown">
+                                                        <h4 class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="color: grey">Categories</h4>                                                           
+                                                        <div class="dropdown-menu m-0 rounded-0" style="width: 300px">
+                                                            <c:forEach items="${CategoryList}" var="x">    
+                                                                <div class="mb-2" style="margin-left: 10px">
+                                                                    <input type="checkbox" class="me-2" id="category" name="Category${x.getCategoryID()}" value="${x.getCategoryID()}" 
+                                                                           <c:if test="${catNum.contains(x.getCategoryID()) == true}"> checked </c:if> >
+                                                                    <label for="category">${x.getCategoryName()} (${CourseINS.loadCategoryPNumber(x.getCategoryID())})</label>
+                                                                </div>                                                                                                
+                                                            </c:forEach>      
+                                                        </div>
+                                                    </div>
+                                                </div>       
+
                                             </div>
                                         </div>           
-                                        
+
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                <h4>Subjects</h4>
-                                                <c:forEach items="${SubjectList}" var="x">
-                                                    <div class="mb-2">
-                                                        <input type="checkbox" class="me-2" id="Subject-1" name="Subject${x.getSubjectID()}" value="${x.getSubjectID()}"
-                                                               <c:if test="${sujNum.contains(x.getSubjectID()) == true}"> checked </c:if>> 
-                                                        <label for="Subject-1"> ${x.getSubjectName()}</label>
+                                                <div class="navbar-nav mx-auto">
+                                                    <div class="nav-item dropdown">
+                                                        <h4 class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="color: grey">Subjects</h4>                                                           
+                                                        <div class="dropdown-menu m-0 rounded-0" style="width: 300px">
+                                                            <c:forEach items="${SubjectList}" var="x">
+                                                                <div class="mb-2" style="margin-left: 10px">
+                                                                    <input type="checkbox" class="me-2" id="Subject-1" name="Subject${x.getSubjectID()}" value="${x.getSubjectID()}"
+                                                                           <c:if test="${sujNum.contains(x.getSubjectID()) == true}"> checked </c:if>> 
+                                                                    <label for="Subject-1"> ${x.getSubjectName()}</label>
+                                                                </div>
+                                                            </c:forEach>        
+                                                        </div>
                                                     </div>
-                                                </c:forEach>                                            
+                                                </div>                                                     
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-lg-12 align-items-center">
                                             <input type="submit" name="submit" value="Search" class="btn btn-primary border-2 border-secondary rounded-pill text-white px-2"/>
                                         </div>                                                                                   
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-9">
                                     <div class="row g-4">                                       
                                         <c:forEach items="${CourseList}" var="x" begin="${paging.getBegin()}" end="${paging.getEnd() - 1}">                                                  
@@ -233,7 +245,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                                
+
                             </div>
                         </div>
                     </div>

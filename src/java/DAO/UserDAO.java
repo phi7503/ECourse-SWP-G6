@@ -65,7 +65,8 @@ public class UserDAO {
                 int SecurityQuestionID = rs.getInt("SecurityQuestionID");
                 String Answer = rs.getString("Answer");
                 int Role = rs.getInt("Role");
-                ul.add(new User(UserID, UserName, salt, Password, Mail, FullName, DoB, SecurityQuestionID, Answer, Role));
+                int Status = rs.getInt("Status");
+                ul.add(new User(UserID, UserName, salt, Password, Mail, FullName, DoB, SecurityQuestionID, Answer, Role, Status));
             }
         } catch (SQLException e) {
             status = "Error at load User" + e.getMessage();
@@ -365,7 +366,7 @@ public class UserDAO {
                 ssalt = rs.getString("salt");
                 uPassword = rs.getString("Password");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error at loadSalt " + e.getMessage();
         }
 
@@ -761,9 +762,63 @@ public class UserDAO {
             status = "Error at updateQuizProgress " + e.getMessage();
         }
     }
+    
+    public ArrayList<User> getUserList() {
+        String sql = "Select * From [User]";
+        ArrayList<User> UserList = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int UserID = rs.getInt("UserID");
+                String UserName = rs.getString("UserName");
+                String salt = rs.getString("salt");
+                String Password = rs.getString("Password");
+                String Mail = rs.getString("Mail");
+                String FullName = rs.getString("FullName");
+                java.sql.Date DoB = rs.getDate("DoB");
+                int SecurityQuestionID = rs.getInt("SecurityQuestionID");
+                String Answer = rs.getString("Answer");
+                int Role = rs.getInt("Role");
+                int Status = rs.getInt("Status");
+                UserList.add(new User(UserID, UserName, salt, Password, Mail, FullName, DoB, SecurityQuestionID, Answer, Role, Status));
+            }
+        } catch (SQLException e) {
+            status = "Error at getUserList " + e.getMessage();
+        }
+        return UserList;
+    }
+    
+    
+    public void updateUserStatus(int UserID) {
+        String sql = "Select [Status] From [User] Where UserID = ?";
+        int Status  = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, UserID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Status = rs.getInt("Status");
+            }
+        } catch (SQLException e) {
+            status = "Error at updateUserStatus " + e.getMessage();
+        }
+        
+        sql = "Update [User]"
+                + "\n Set [Status] = ?"
+                + "\n Where UserID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, (Status == 1) ? 0 : 1);
+            ps.setInt(2, UserID);
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error at updateUserStatus " + e.getMessage();
+        }
+    }
 
     public static void main(String agrs[]) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        System.out.println(INS.getDocProgress(4, 1, 1, 1));
+        INS.updateUserStatus(4);
         System.out.println(INS.status);
     }
 }

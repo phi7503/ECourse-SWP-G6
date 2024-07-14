@@ -1,6 +1,6 @@
 <%-- 
-    Document   : QuestionList
-    Created on : Jul 5, 2024, 5:00:53 AM
+    Document   : UserManage
+    Created on : Jul 12, 2024, 10:30:08 PM
     Author     : hi2ot
 --%>
 
@@ -11,7 +11,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Question List</title>
+        <title>User Manage</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -36,29 +36,32 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <script>
+            function submit() {
+                document.getElementById("manage").submit();
+            }
             function movePage(x) {
                 document.getElementById("btn").value = x;
-                document.getElementById("QuestionList").submit();
+                submit();
             }
         </script>
 
         <style>
             th, td {
-                padding: 5px
+                padding: 10px
             }
 
             th {
 
             }
 
+            td {
+                width: 500px
+            }
+
             tr {
                 border-bottom: 1px solid orange;
                 border-collapse: collapse;
 
-            }
-
-            p {
-                margin: -1px;
             }
         </style>
 
@@ -153,60 +156,81 @@
         </div>                
         <!-- Single Page Header End -->     
 
-        <div class="container-fluid py-5 row">            
+        <form action="UserManage" id="manage">
 
-            <div class="col-lg-3 align-items-center">
-                <div class="counter bg-white rounded p-5">              
-                    <h3 style="color: grey">Feature:</h3>
-                    <button class="btn rounded-pill border border-secondary" style="margin: 10px 0px">Categories Manage</button>
-                    <button class="btn rounded-pill border border-secondary" style="margin: 10px 0px">Subjects Manage</button>
-                    <button class="btn btn-primary text-white rounded-pill border border-secondary" style="margin: 10px 0px">Courses Manage</button>
-                    <button class="btn rounded-pill border border-secondary" style="margin: 10px 0px">Users Manage</button>
+            <div class="container-fluid">
+                <div class="col-lg-12 align-items-center">
+                    <div class="counter bg-white rounded p-5">              
+                        <h3 style="color: grey">Feature</h3>
+                        <button class="btn rounded-pill border border-secondary" style="margin: 10px 50px">Categories Manage</button>
+                        <button class="btn rounded-pill border border-secondary" style="margin: 10px 50px">Subjects Manage</button>
+                        <button class="btn btn-primary text-white rounded-pill border border-secondary" style="margin: 10px 50px">Courses Manage</button>
+                        <button class="btn rounded-pill border border-secondary" style="margin: 10px 50px">Users Manage</button>
+                    </div>
                 </div>
-            </div>
+            </div>        
 
-            <div class="col-lg-9 align-items-center">
-                <div class="counter bg-white rounded p-5">                    
-                    <a href="EditQuiz?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}" class="btn border-2 border-secondary rounded-pill" style="margin-bottom: 20px; margin-right: 150px">Quiz Info</a>
-                    <a href="QuestionList?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}" class="btn btn-primary text-white border-2 border-secondary rounded-pill" style="margin-bottom: 20px; margin-left: 150px">Question List</a>
-                    <form action="QuestionList" method="post">
-                        <input type="text" name="CourseID" value="${curCourse.getCourseID()}" hidden>
-                        <input type="text" name="LessonID" value="${curLesson.getLessonID()}" hidden>             
-                        <input type="text" name="QuizID" value="${curQuiz.getQuizID()}" hidden>
+            <div class="container-fluid py-2 row">            
+
+                <div class="col-lg-3 align-items-center">
+                    <div class="counter bg-white rounded p-5">              
+
+                        <h3 style="color: grey">Filter</h3>
+
+                        <h5 class="text-md-start">Status</h5>
+                        <div class="text-md-start">
+                            <input type="checkbox" name="statusa" value="${statusa}"
+                                   <c:if test="${statusa != null}">checked</c:if> > Active <br/>
+                            <input type="checkbox" name="statusi" value="${statusi}"
+                                   <c:if test="${statusi != null}">checked</c:if> > Inactive <br/>
+                        </div>
+
+                        <div class="text-md-start">
+                            <h5 class="text-md-start">Sort By</h5>
+                            <input type="radio" name="sort" value="ID"
+                                   <c:if test="${sort == 'ID'}"> checked </c:if> > Id <br/>
+                            <input type="radio" name="sort" value="UserName"
+                                   <c:if test="${sort == 'UserName'}"> checked </c:if> > User Name  <br/>
+                            <input type="radio" name="sort" value="DoB"
+                                   <c:if test="${sort == 'DoB'}"> checked </c:if> > Date of Birth <br/>
+                        </div>
+
+                        <button name="apply" class="btn border-secondary border-2 rounded-pill" onclick="submit()">Apply Filter</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 align-items-center">
+                    <div class="counter bg-white rounded p-5">                    
                         <table style="width: 100%">
                             <thead>
                             <th>ID</th>
-                            <th>Content</th>
-                            <th>Answer</th>
-                            <th>Status</th>
+                            <th>User Name</th>
+                            <th>Mail</th>
+                            <th>Date of Birth</th>
+                            <th>Full Name</th>
+                            <th>Role</th>                                                
+                            <th>Status</th>                            
                             <th>Edit</th>
-                            </thead>                                                                
+                            </thead>
                             <tbody>
-                                <c:forEach items="${QuestionList}" var="x" begin="${paging.getBegin()}" end="${paging.getEnd() - 1}">               
+                                <c:forEach items="${UserList}" var="x" begin="${paging.getBegin()}" end="${paging.getEnd() - 1}">
                                     <tr>
-                                        <td>${x.getQuestionID()}</td>
-                                        <td>${x.getQuestion()}</td>
-                                        <td>
-                                            <c:forEach items="${QuestionINS.loadQuestionAnswer(curCourse.getCourseID(), curLesson.getLessonID(), curQuiz.getQuizID(), x.getQuestionID())}" var="y">
-                                                <p>${y.getAnswerID()}. ${y.getDescription()}
-                                                    <c:if test="${y.getRole() == 2}"> (C)</c:if></p>
-                                                </c:forEach>
-                                        </td>
-                                        <td>
-                                            <c:if test="${x.getStatus() == 1}">
-                                                Active
-                                            </c:if>
-                                            <c:if test="${x.getStatus() == 0}">
-                                                Inactive
-                                            </c:if>                                                
-                                        </td>
-                                        <td>
-                                            <a href="EditQuestion?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}&QuestionID=${x.getQuestionID()}">Edit</a>
+                                        <td> ${x.getUserID()} </td>
+                                        <td> ${x.getUserName()} </td>
+                                        <td> ${x.getMail()} </td>
+                                        <td> ${x.getDoB()} </td>
+                                        <td> ${x.getFullName()}</td>
+                                        <td> ${x.getRole()}</td>                                                                        
+                                        <td> <c:if test="${x.getStatus() == 1}">Active</c:if>
+                                            <c:if test="${x.getStatus() == 0}">Inactive</c:if></td>
+                                        <td> <a href="ChangeUserStatus?UserID=${x.getUserID()}">
+                                                Change Status
+                                            </a>
                                         </td>
                                     </tr>
-                                </c:forEach>                     
-                            </tbody>
-                        </table>               
+                                </c:forEach>
+                            </tbody>                        
+                        </table>
                         <div class="col-12">
                             <div class="d-flex justify-content-center mt-5">
                                 <input type="text" name="index" value="${paging.getIndex()}" hidden>
@@ -225,14 +249,12 @@
                                 <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnNext" value=&raquo;>
                                 <input type="submit" class="btn border-2 border-secondary rounded" style="margin: 0px 5px" name="btnEnd" value=&Gg;>
                             </div>
-                        </div>
-                    </form>
-                    <a href="CreateQuestion?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}&QuestionID=${x.getQuestionID()}" class="btn border-2 border-secondary" style="margin: 20px">Create Question</a>
-                    <a href="ImportQuestion?CourseID=${curCourse.getCourseID()}&LessonID=${curLesson.getLessonID()}&QuizID=${curQuiz.getQuizID()}" class="btn border-2 border-secondary" style="margin: 20px">Import Question</a>
+                        </div>                        
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        </form>
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
@@ -343,5 +365,3 @@
     </body>
 
 </html>
-
-
